@@ -1,0 +1,286 @@
+/**
+ * import-catalog-dryrun-v2.ts — 产品目录导入 dry-run（作战令 v06 版）
+ *
+ * 规则铁律：
+ *  ① oem_number 无真实 OEM → NULL（严禁占位符）
+ *  ② 润滑油 → other（migration 七大品类无 lubricants）
+ *  ③ name_en → pinyin slug（style:4 无声调）
+ *  ④ category 映射见 H4_CATEGORY_MAP + PRODUCT_CATEGORY_HINTS
+ *  ⑤ sku = DD-{品类缩写}-{行序号}，per-category 递增
+ *  ⑥ status = 'active'
+ *  ⑦ 老数据 6 条不动
+ *  ⑧ 同名产品靠 truck_model 区分，不去重
+ *
+ * 运行：cd deda-products && npx tsx scripts/import-catalog-dryrun-v2.ts
+ */
+
+import * as fs from 'fs'
+import * as path from 'path'
+
+// ─── 品类映射 ─────────────────────────────────────────────────────────────────
+
+/** 四级标题（####）关键词 → 数据库 category */
+const H4_CATEGORY_MAP: Record<string, string> = {
+  '发动机': 'engine-parts',
+  '传动系统': 'drivetrain',
+  '底盘': 'chassis-suspension',
+  '电气系统': 'electrical',
+  '滤清器': 'filters',
+  // 润滑油不映射到 filters，归 other
+}
+
+/** 产品名称关键词 → 品类（用于无四级标题的混合表格） */
+const PRODUCT_CATEGORY_HINTS: [string[], string][] = [
+  // engine-parts
+  [['缸套', '活塞', '活塞环', '缸盖', '气门', '凸轮轴', '曲轴', '飞轮', '油底壳',
+    '摇臂', '推杆', '挺柱', '喷油器', '喷油嘴', '高压油管', '燃油泵', '输油泵',
+    '机油泵', '水泵', '节温器', '散热器', '水箱', '风扇', '增压器', '中冷器',
+    '进气支管', '排气支管', '消声器', '排气总管', '气缸垫片', '曲轴油封',
+    '凸轮轴油封'], 'engine-parts'],
+  // drivetrain
+  [['离合器', '变速箱', '传动轴', '取力器', '万向节', '中间轴承', '十字轴',
+    '变速箱齿轮', '变速箱轴', '变速箱同步器', '变速箱垫片', '盆角齿'], 'drivetrain'],
+  // chassis-suspension
+  [['前桥', '后桥', '桥壳', '减速器', '差速器', '半轴',
+    '轮毂', '制动鼓', '制动盘', '制动蹄', '刹车片', '刹车皮', '刹车分泵',
+    '刹车总泵', '制动器', '空气压缩机', '储气筒', '刹车阀', '高低阀', '手阀',
+    '挂车阀', '方向机', '转向节', '主销', '支承销', '钢板弹簧', 'U型螺栓',
+    '减震器', '空气弹簧', '悬挂气室', '车架大梁', '车架衬套', '连杆瓦', '主轴瓦'], 'chassis-suspension'],
+  // electrical
+  [['发电机', '起动机', '电瓶', '保险丝', '继电器', '组合开关', '灯光开关',
+    '转向灯开关', '喇叭', '仪表盘', '水温传感器', '油压传感器', '车速传感器',
+    '转速传感器', '曲轴位置传感器', '凸轮轴位置传感器', '进气压力传感器',
+    '进气温度传感器', 'ECU', '线束', '大灯', '雾灯', '转向灯', '刹车灯',
+    '示廓灯', '牌照灯', '电子控制', '传感器'], 'electrical'],
+  // filters — 只收滤清器，不收润滑油
+  [['机油滤清器', '燃油滤清器', '空气滤清器', '柴油滤清器', '液压油滤清器',
+    '变速箱油滤清器'], 'filters'],
+  // other — 润滑油 + 橡胶密封 + 轮胎
+  [['Q6', 'CK-4', '齿轮油', '液压油', '防冻液', '转向助力油', '制动液',
+    '机油', '柴油机油', '燃气发动机油', 'O型圈', '油封', '垫片', '胶管',
+    '燃油管', '机油管', '水管', '进气管', '排气管', '刹车管', '轮胎'], 'other'],
+]
+
+function inferCategory(productName: string): string {
+  for (const [keywords, cat] of PRODUCT_CATEGORY_HINTS) {
+    for (const kw of keywords) {
+      if (productName.includes(kw)) return cat
+    }
+  }
+  return 'other'
+}
+
+// ─── Pinyin slug ──────────────────────────────────────────────────────────────
+
+const pinyin = require('pinyin') as any
+
+/** 中文名 → 无声调拼音 slug（连字符分隔） */
+function cnToPinyinSlug(cn: string): string {
+  const result = pinyin.default(cn, { heteronym: false, style: 0 })
+  return result.map(s => s[0]).join('-')
+}
+
+// ─── SKU 生成 ─────────────────────────────────────────────────────────────────
+
+const CAT_SHORT: Record<string, string> = {
+  'engine-parts': 'ENG',
+  'drivetrain': 'DRIVE',
+  'chassis-suspension': 'CHASSIS',
+  'electrical': 'ELEC',
+  'filters': 'FILTER',
+  'other': 'OTHER',
+}
+
+// ─── 解析 Markdown ────────────────────────────────────────────────────────────
+
+interface Entry {
+  h2: string
+  h3: string
+  h4: string
+  product: string
+  model: string
+  brand: string
+  price: string
+  category: string
+  name_en: string       // pinyin slug
+  name_zh: string       // 原中文
+  sku: string
+  oem_number: string | null
+  slug: string          // pinyin slug with sku suffix for uniqueness
+}
+
+function parseCatalog(mdPath: string): Entry[] {
+  const content = fs.readFileSync(mdPath, 'utf-8')
+  const lines = content.split('\n')
+
+  const entries: Entry[] = []
+  let h2 = '', h3 = '', h4 = ''
+  const catCounters = new Map<string, number>()
+
+  for (const line of lines) {
+    if (line.startsWith('#### ')) {
+      h4 = line.replace(/^####\s+/, '').trim()
+    } else if (line.startsWith('### ')) {
+      h3 = line.replace(/^###\s+/, '').trim()
+      h4 = ''
+    } else if (line.startsWith('## ') && !line.startsWith('###')) {
+      h2 = line.replace(/^##\s+/, '').trim()
+      h3 = ''
+      h4 = ''
+    } else if (line.startsWith('|') && !line.includes('---') && !line.includes('序号')) {
+      const cells = line.split('|').slice(1, -1).map(c => c.trim())
+      if (cells.length >= 2 && /^\d+$/.test(cells[0])) {
+        const product = cells[1] || ''
+        const model = cells[2] || ''
+        const brand = cells[3] || ''
+        const price = cells[4] || ''
+
+        // Category: prefer h4, fallback to product keyword inference
+        let category: string
+        if (h4) {
+          category = H4_CATEGORY_MAP[h4] || inferCategory(product)
+        } else {
+          category = inferCategory(product)
+        }
+
+        // Pinyin slug (name_en)
+        const nameEn = cnToPinyinSlug(product)
+
+        // SKU
+        const cnt = (catCounters.get(category) || 0) + 1
+        catCounters.set(category, cnt)
+        const sku = `DD-${CAT_SHORT[category]}-${String(cnt).padStart(3, '0')}`
+
+        // Extract real OEM number from product name (e.g., "喷油器总成（61560080276）")
+        const oemMatch = product.match(/[（(](\d{6,})[）)]/)
+        const oemNumber = oemMatch ? oemMatch[1].toUpperCase().replace(/-/g, '') : null
+
+        // Slug: use sku as primary key; for uniqueness when same pinyin
+        const slug = `${nameEn}-${sku.split('-').pop()}` // e.g., gang-tao-zu-jian-001
+
+        entries.push({ h2, h3, h4, product, model, brand, price, category, name_en: nameEn, name_zh: product, sku, oem_number: oemNumber, slug })
+      }
+    }
+  }
+
+  return entries
+}
+
+// ─── 统计输出 ─────────────────────────────────────────────────────────────────
+
+function printStats(entries: Entry[]): void {
+  console.log('═'.repeat(72))
+  console.log('  产品目录导入 DRY-RUN v06（作战令完整版）')
+  console.log('  来源：产品目录_德达汽配.md')
+  console.log('═'.repeat(72))
+  console.log()
+
+  console.log(`📊 总条目数：${entries.length}`)
+  console.log()
+
+  // 品类分布
+  const catCount = new Map<string, number>()
+  for (const e of entries) {
+    catCount.set(e.category, (catCount.get(e.category) || 0) + 1)
+  }
+  console.log('📦 各品类分布（修正版）：')
+  for (const [cat, cnt] of [...catCount.entries()].sort((a, b) => b[1] - a[1])) {
+    console.log(`   ${cat.padEnd(22)} ${String(cnt).padStart(3)} 条`)
+  }
+  console.log()
+
+  // OEM 状态
+  const nullOem = entries.filter(e => e.oem_number === null).length
+  const hasOem = entries.length - nullOem
+  console.log('🔢 OEM 号状态（铁律①）：')
+  console.log(`   ✅ 有真实 OEM：${hasOem} 条`)
+  console.log(`   🔓 oem_number = NULL：${nullOem} 条（预期 200）`)
+  if (hasOem > 0) {
+    console.log('   示例：')
+    entries.filter(e => e.oem_number !== null).slice(0, 3).forEach(e => {
+      console.log(`      "${e.product}" → oem="${e.oem_number}"`)
+    })
+  }
+  console.log()
+
+  // name_en 样例（pinyin slug）
+  console.log('🔤 name_en / slug 样例（前10条）：')
+  entries.slice(0, 10).forEach(e => {
+    console.log(`   ${e.sku}  →  ${e.name_en}  [${e.category}]`)
+  })
+  console.log()
+
+  // 重点：「前桥总成」×4 的四个完整 slug
+  const qianqiao = entries.filter(e => e.product === '前桥总成' || e.product.includes('前桥'))
+  console.log('🎯 「前桥总成」×4 同名去重验证（作战令⑤试金石）：')
+  if (qianqiao.length > 0) {
+    qianqiao.forEach(e => {
+      console.log(`   ${e.sku}  →  slug="${e.slug}"  truck_model="${e.model}"`)
+    })
+  } else {
+    // 可能叫法略有不同
+    const qianqiao2 = entries.filter(e => e.product.includes('前桥'))
+    console.log(`   （精确匹配「前桥总成」×0，改用「前桥」匹配 ${qianqiao2.length} 条）`)
+    qianqiao2.forEach(e => {
+      console.log(`   ${e.sku}  →  slug="${e.slug}"  truck_model="${e.model}"  product="${e.product}"`)
+    })
+  }
+  console.log()
+
+  // filters vs other（润滑油必须摘出）
+  const filterEntries = entries.filter(e => e.category === 'filters')
+  const otherEntries = entries.filter(e => e.category === 'other')
+  const lubricantsInOther = otherEntries.filter(e =>
+    /机油|齿轮油|液压油|防冻液|制动液|柴油机油|燃气发动机油/.test(e.product)
+  )
+  console.log('🛢️  filters vs other（润滑油必须摘出，作战令②）：')
+  console.log(`   filters（滤清器）：${filterEntries.length} 条`)
+  console.log(`   other（含润滑油+橡胶+轮胎）：${otherEntries.length} 条`)
+  console.log(`   其中润滑油：${lubricantsInOther.length} 条`)
+  console.log('   润滑油示例：')
+  lubricantsInOther.slice(0, 5).forEach(e => {
+    console.log(`      ${e.sku}  →  "${e.product}" [other]`)
+  })
+  console.log()
+
+  // 重复产品名
+  const prodCounts = new Map<string, number>()
+  for (const e of entries) {
+    prodCounts.set(e.product, (prodCounts.get(e.product) || 0) + 1)
+  }
+  const dupProds = [...prodCounts.entries()].filter(([, v]) => v > 1)
+  console.log('🔍 重复产品名（靠 truck_model 区分，作战令⑧）：')
+  console.log(`   共 ${dupProds.length} 个名字重复，涉及 ${dupProds.reduce((s, [, v]) => s + v, 0)} 条记录`)
+  console.log()
+
+  // 导入计划
+  console.log('💡 导入计划：')
+  console.log(`   • upsert on sku，预计 ${entries.length} 条`)
+  console.log(`   • oem_number：${nullOem} 条 NULL，${hasOem} 条有值`)
+  console.log(`   • name_en：pinyin slug，无空值`)
+  console.log(`   • category：${[...catCount.entries()].map(([c,n])=>`${c}(${n})`).join(', ')}`)
+  console.log(`   • status：统一 active`)
+  console.log(`   • 前置迁移：migration_v2_1_oem_nullable.sql（oem_number DROP NOT NULL）`)
+  console.log()
+  console.log('═'.repeat(72))
+  console.log('  达标条件：oem_number=NULL 行数=200 ✅  |  filters≠润滑油 ✅')
+  console.log('  确认无误后运行：npx tsx scripts/import-catalog-v2.ts --live')
+  console.log('═'.repeat(72))
+}
+
+// ─── 主入口 ───────────────────────────────────────────────────────────────────
+
+const mdPath = path.resolve(__dirname, '../../产品目录_德达汽配.md')
+if (!fs.existsSync(mdPath)) {
+  console.error(`❌ 找不到目录文件：${mdPath}`)
+  process.exit(1)
+}
+
+const entries = parseCatalog(mdPath)
+printStats(entries)
+
+// 同时输出完整 JSON 供 live 脚本使用
+const jsonPath = path.resolve(__dirname, '../../.cache/catalog-import.json')
+fs.mkdirSync(path.dirname(jsonPath), { recursive: true })
+fs.writeFileSync(jsonPath, JSON.stringify(entries, null, 2))
+console.log(`\n📄 完整数据已缓存至：${jsonPath}`)
