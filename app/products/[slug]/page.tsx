@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { supabase } from '@/lib/supabase'
+import { tryGetSupabase } from '@/lib/supabase'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -8,12 +8,15 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const { data } = await supabase
-    .from('products')
-    .select('name_en, name_zh, brand, oem_number')
-    .eq('slug', slug)
-    .in('status', ['published', 'active'])
-    .maybeSingle()
+  const supabase = tryGetSupabase()
+  const { data } = supabase
+    ? await supabase
+        .from('products')
+        .select('name_en, name_zh, brand, oem_number')
+        .eq('slug', slug)
+        .in('status', ['published', 'active'])
+        .maybeSingle()
+    : { data: null }
 
   if (!data) return { title: '产品不存在 - DEDA Auto Parts' }
 
@@ -27,12 +30,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params
 
-  const { data, error } = await supabase
-    .from('products')
-    .select('*')
-    .eq('slug', slug)
-    .in('status', ['published', 'active'])
-    .maybeSingle()
+  const supabase = tryGetSupabase()
+  const { data, error } = supabase
+    ? await supabase
+        .from('products')
+        .select('*')
+        .eq('slug', slug)
+        .in('status', ['published', 'active'])
+        .maybeSingle()
+    : { data: null, error: null }
 
   if (error || !data) {
     notFound()

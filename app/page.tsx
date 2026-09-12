@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase'
+import { tryGetSupabase } from '@/lib/supabase'
 import OemSearchBox from '@/components/OemSearchBox'
 import ProductResults from '@/components/ProductResults'
 import Link from 'next/link'
@@ -18,13 +18,18 @@ interface FeaturedProduct {
   category: string
 }
 
+export const revalidate = 300
+
 export default async function HomePage() {
-  const { data: products, error } = await supabase
-    .from('products')
-    .select('slug, name_en, name_zh, oem_number, brand, category')
-    .in('status', ['published', 'active'])
-    .order('created_at', { ascending: false })
-    .limit(5)
+  const supabase = tryGetSupabase()
+  const { data: products, error } = supabase
+    ? await supabase
+        .from('products')
+        .select('slug, name_en, name_zh, oem_number, brand, category')
+        .in('status', ['published', 'active'])
+        .order('created_at', { ascending: false })
+        .limit(5)
+    : { data: null, error: null }
 
   return (
     <main className="min-h-screen bg-gray-50">

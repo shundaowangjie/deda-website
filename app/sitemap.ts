@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase'
+import { tryGetSupabase } from '@/lib/supabase'
 import type { MetadataRoute } from 'next'
 
 export const revalidate = 3600
@@ -6,11 +6,14 @@ export const revalidate = 3600
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://dedaautoparts.com'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const { data } = await supabase
-    .from('products')
-    .select('slug, updated_at')
-    .in('status', ['published', 'active'])
-    .order('updated_at', { ascending: false })
+  const supabase = tryGetSupabase()
+  const { data } = supabase
+    ? await supabase
+        .from('products')
+        .select('slug, updated_at')
+        .in('status', ['published', 'active'])
+        .order('updated_at', { ascending: false })
+    : { data: null }
 
   return [
     {

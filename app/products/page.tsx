@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase'
+import { tryGetSupabase } from '@/lib/supabase'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 
@@ -18,13 +18,18 @@ interface Product {
   status: string
 }
 
+export const revalidate = 300
+
 export default async function ProductsPage() {
-  const { data: products } = await supabase
-    .from('products')
-    .select('slug, sku, name_en, name_zh, brand, category, oem_number, status')
-    .in('status', ['published', 'active'])
-    .order('category', { ascending: true })
-    .order('name_en', { ascending: true })
+  const supabase = tryGetSupabase()
+  const { data: products } = supabase
+    ? await supabase
+        .from('products')
+        .select('slug, sku, name_en, name_zh, brand, category, oem_number, status')
+        .in('status', ['published', 'active'])
+        .order('category', { ascending: true })
+        .order('name_en', { ascending: true })
+    : { data: null }
 
   const grouped = products?.reduce((acc, product) => {
     const cat = product.category || '未分类'
