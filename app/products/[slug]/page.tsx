@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { tryGetSupabase } from '@/lib/supabase'
+import InquiryButton from '@/components/InquiryButton'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -65,11 +66,24 @@ export default async function ProductPage({ params }: Props) {
     <main className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-3xl mx-auto">
         {/* 标题区 */}
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">{name_en}</h1>
-          {name_zh && (
-            <p className="mt-1 text-lg text-gray-500">{name_zh}</p>
-          )}
+        <header className="mb-8 flex items-start justify-between gap-4">
+          <div className="min-w-0">
+            <h1 className="text-3xl font-bold text-gray-900">{name_en}</h1>
+            {name_zh && (
+              <p className="mt-1 text-lg text-gray-500">{name_zh}</p>
+            )}
+          </div>
+          <div className="shrink-0 mt-2">
+            <InquiryButton
+              item={{
+                slug,
+                name_en,
+                name_zh: name_zh || undefined,
+                oem_number: oem_number || undefined,
+                sku,
+              }}
+            />
+          </div>
         </header>
 
         {/* 核心信息卡片 */}

@@ -13,7 +13,7 @@ export default function Navbar() {
           <a
             href={MAIN_SITE}
             title="返回公司形象官网"
-            className="text-gray-600 hover:text-blue-700 transition px-3 py-1.5 rounded-lg hover:bg-gray-50"
+            className="hidden sm:inline text-gray-600 hover:text-blue-700 transition px-3 py-1.5 rounded-lg hover:bg-gray-50"
           >
             公司首页
           </a>
@@ -24,8 +24,14 @@ export default function Navbar() {
             产品目录
           </Link>
           <Link
+            href="/inquiry"
+            className="text-blue-700 font-medium hover:text-blue-800 transition px-3 py-1.5 rounded-lg hover:bg-blue-50"
+          >
+            询价单
+          </Link>
+          <Link
             href="/search-test"
-            className="text-gray-600 hover:text-blue-700 transition px-3 py-1.5 rounded-lg hover:bg-gray-50"
+            className="hidden sm:inline text-gray-600 hover:text-blue-700 transition px-3 py-1.5 rounded-lg hover:bg-gray-50"
           >
             OEM 搜索
           </Link>
