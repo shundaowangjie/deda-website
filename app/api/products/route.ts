@@ -74,7 +74,28 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(directResults)
     }
 
-    // 未命中则查 product_cross_references.ref_oem
+    // 模糊兑底：客户常只记得部分号码（如只输 WG9000360601 没有后缀）
+    const fuzzyPattern =
+      '%' + normalizedOem.replace(/%/g, '\\%').replace(/_/g, '\\_') + '%'
+    const fuzzyResult = await queryWithRetry(async () => {
+      const { data } = await supabase
+        .from('products')
+        .select('slug, name_en, brand, oem_number, category')
+        .ilike('oem_number', fuzzyPattern)
+        .in('status', ['published', 'active'])
+        .limit(20)
+      return data
+    })
+
+    if (fuzzyResult.error) {
+      return errRes(fuzzyResult.error, 'FUZZY_QUERY_FAILED')
+    }
+
+    if (fuzzyResult.data && fuzzyResult.data.length > 0) {
+      return NextResponse.json(fuzzyResult.data)
+    }
+
+    // 仍未命中则查 product_cross_references.ref_oem
     const crossResult = await queryWithRetry(async () => {
       const { data } = await supabase
         .from('product_cross_references')
