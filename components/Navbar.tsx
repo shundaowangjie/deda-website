@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import AuthButton from './AuthButton'
 
 const MAIN_SITE = 'https://dedaautoparts.com'
 
@@ -35,6 +36,7 @@ export default function Navbar() {
           >
             OEM 搜索
           </Link>
+          <AuthButton />
         </div>
       </div>
     </nav>
