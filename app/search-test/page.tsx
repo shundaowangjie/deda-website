@@ -9,20 +9,23 @@ import ProductResults from '@/components/ProductResults'
 interface Product {
   slug: string
   name_en: string
+  name_zh?: string
   brand: string
   oem_number: string
   category: string
+  sku?: string
 }
 
 function SearchParamsContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const initialOem = searchParams.get('oem') || ''
+  const initialOem = searchParams.get('q') || searchParams.get('oem') || ''
 
   const [oemInput, setOemInput] = useState(initialOem)
   const [results, setResults] = useState<Product[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [expanded, setExpanded] = useState<string[]>([])
 
   useEffect(() => {
     if (initialOem) setOemInput(initialOem)
@@ -36,11 +39,12 @@ function SearchParamsContent() {
     setResults([])
 
     try {
-      const res = await fetch(`/api/products?oem=${encodeURIComponent(oem.trim())}`)
+      const res = await fetch(`/api/search?q=${encodeURIComponent(oem.trim())}`)
       const data = await res.json()
 
-      if (res.ok && Array.isArray(data)) {
-        setResults(data)
+      if (res.ok && data.ok && Array.isArray(data.results)) {
+        setResults(data.results)
+        setExpanded(Array.isArray(data.expanded) ? data.expanded : [])
       } else {
         setError(typeof data?.error === 'string' ? data.error : '查询失败')
       }
@@ -53,7 +57,7 @@ function SearchParamsContent() {
 
   useEffect(() => {
     if (initialOem) performSearch(initialOem)
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }) // eslint-disable-line react-hooks/exhaustive-deps
 
   function handleSearchSubmit(oem: string) {
     performSearch(oem)
@@ -75,6 +79,12 @@ function SearchParamsContent() {
           onSelect={handleProductSelect}
         />
       </div>
+
+      {expanded.length > 0 && (
+        <p className="mt-4 text-xs text-gray-400 text-center">
+          已自动扩展相关词：{[...new Set(expanded)].join(' · ')}
+        </p>
+      )}
     </div>
   )
 }
@@ -85,9 +95,7 @@ export default function SearchTestPage() {
       <div className="max-w-2xl mx-auto">
         <h1 className="text-2xl font-bold text-gray-900 mb-6">OEM 搜索</h1>
 
-        <Suspense fallback={
-          <div className="p-12 text-center text-gray-400">加载中...</div>
-        }>
+        <Suspense fallback={<div className="p-12 text-center text-gray-400">加载中...</div>}>
           <SearchParamsContent />
         </Suspense>
 

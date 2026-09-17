@@ -7,11 +7,14 @@ cd /home/fan/.openclaw/workspace/deda-products
 
 echo "📦 正在推送到 GitHub..."
 
-# 清除代理，避免干扰
-export HTTPS_PROXY=
-export HTTP_PROXY=
-export https_proxy=
-export http_proxy=
+# 清除全部代理变量（含 ALL_PROXY，避免 GnuTLS handshake failed）
+unset HTTPS_PROXY HTTP_PROXY https_proxy http_proxy ALL_PROXY all_proxy FTP_PROXY ftp_proxy NO_PROXY no_proxy 2>/dev/null
+
+echo "🌐 连通性自检..."
+if ! git ls-remote --heads origin >/dev/null 2>&1; then
+  echo "⚠️  直连 GitHub 失败，请把下面这行输出发给助手："
+  echo "   env | grep -i proxy"
+fi
 
 git push -u origin main
 
