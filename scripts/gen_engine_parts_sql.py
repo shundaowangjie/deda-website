@@ -50,6 +50,7 @@ def main() -> None:
     ]
     seen = set()
     n = 0
+    sku_num = 101  # DD-ENG-101 起，避开现有 001-067 段
     for brand_en, brand_zh, models in BRANDS:
         models_str = " / ".join(models)
         models_zh = f"{brand_zh} {'/'.join(models)}"
@@ -80,14 +81,15 @@ def main() -> None:
             truck_model = f"{brand_zh} {models_str}"
             lines.append(
                 "INSERT INTO products "
-                "(slug, name_en, name_zh, brand, truck_model, category, "
+                "(slug, sku, name_en, name_zh, brand, truck_model, category, "
                 "description_en, description_zh, specs, status) "
                 "SELECT " + ", ".join([
-                    q(slug), q(name_en), q(name_zh), q(brand_en), q(truck_model),
+                    q(slug), q(f"DD-ENG-{sku_num}"), q(name_en), q(name_zh), q(brand_en), q(truck_model),
                     q("engine-parts"), q(desc_en), q(desc_zh),
                     q(specs_json) + "::jsonb", q("published"),
                 ]) + f" WHERE NOT EXISTS (SELECT 1 FROM products WHERE slug = {q(slug)});"
             )
+            sku_num += 1
             n += 1
     lines.append("")
     out = "\n".join(lines)
