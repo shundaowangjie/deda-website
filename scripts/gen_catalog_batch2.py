@@ -478,14 +478,14 @@ def parse_wiper(ser, pat):
 # ---------- 主流程 ----------
 def main():
     S = {
-        "oil": Series("oil", "oil-seal", "OIL"),
-        "bearing": Series("bearing", "bearing", "BRG"),
-        "fastener": Series("fastener", "fastener", "FST"),
-        "brake": Series("brake", "brake-system", "BRR"),
-        "chassis": Series("chassis", "chassis-suspension", "STG"),
-        "drivetrain": Series("drivetrain", "drivetrain", "DRV"),
-        "wiper": Series("wiper", "wiper", "WIP"),
-        "filters": Series("filters", "filters", "FLT"),
+        "oil": Series("oil", "oil-seal", "OIL", brand="中配"),
+        "bearing": Series("bearing", "bearing", "BRG", brand="中配"),
+        "fastener": Series("fastener", "fastener", "FST", brand="中配"),
+        "brake": Series("brake", "brake-system", "BRR", brand="中配"),
+        "chassis": Series("chassis", "chassis-suspension", "STG", brand="中配"),
+        "drivetrain": Series("drivetrain", "drivetrain", "DRV", brand="中配"),
+        "wiper": Series("wiper", "wiper", "WIP", brand="中配"),
+        "filters": Series("filters", "filters", "FLT", brand="中配"),
     }
     parse_oil_pipe(S["oil"], "半轴油封系列")
     parse_oil_pipe(S["oil"], "前轮盆角齿油封系列")
@@ -508,6 +508,9 @@ def main():
     parse_fuel_ws(S["filters"], "柴油滤清器系列2")
     parse_wiper(S["wiper"], "雨刮片系列")
 
+    for key, ser in S.items():
+        for r in ser.rows:
+            assert r["brand"], f"brand 为空: {r['slug']}"
     total = 0
     for key, ser in S.items():
         seen, uniq = set(), []
