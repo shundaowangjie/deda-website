@@ -24,8 +24,8 @@ export default function ProductsBrowser({ products }: { products: CatalogProduct
   const router = useRouter()
   const sp = useSearchParams()
 
-  // 兼容旧 ?oem= 参数 → 视为关键词搜索
-  const q = sp.get('q') || sp.get('oem') || ''
+  // 兼容旧 ?oem= 参数 → 视为关键词搜索；+ 归一为空格（URL 加号陷阱）
+  const q = (sp.get('q') || sp.get('oem') || '').replace(/\+/g, ' ')
   const category = sp.get('category') || ''
   const model = sp.get('model') || ''
 

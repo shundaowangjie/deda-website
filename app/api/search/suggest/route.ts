@@ -11,7 +11,7 @@ interface SuggestRow {
 }
 
 export async function GET(req: NextRequest) {
-  const q = (req.nextUrl.searchParams.get('q') || '').trim()
+  const q = (req.nextUrl.searchParams.get('q') || '').replace(/\+/g, ' ').trim()
   if (q.length < 1) {
     return NextResponse.json({ ok: true, suggestions: [] })
   }

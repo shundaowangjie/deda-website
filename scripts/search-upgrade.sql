@@ -1,12 +1,15 @@
 -- ============================================================
--- 站内搜索升级 Phase 1 —— 唯一脚本（幂等，可重复执行）
+-- 站内搜索升级 Phase 1+2 —— 唯一脚本（幂等，可重复执行）
 -- 内容：pg_trgm 扩展 + trigram 索引 + 中英同义词表
---       + 加权搜索函数 search_products + 自动补全 suggest_products
+--       + 互换号表 product_cross_references
+--       + 加权搜索函数 search_products（含互换号命中）
+--       + 自动补全 suggest_products
 -- 执行位置：Supabase Dashboard → SQL Editor → 全选运行
 -- 验证：
 --   SELECT * FROM search_products('brake chamber', 5);  -- 应命中制动室
 --   SELECT * FROM search_products('0360601', 5);
 --   SELECT * FROM suggest_products('制动', 5);
+--   SELECT count(*) FROM product_cross_references;       -- 互换号行数（导入前为 0）
 -- ============================================================
 
 -- 1) trigram 扩展（模糊匹配 + ILIKE 加速）
@@ -75,10 +78,31 @@ INSERT INTO search_synonyms (term, synonym) VALUES
   ('引擎', 'engine'), ('engine', '引擎')
 ON CONFLICT (term, synonym) DO NOTHING;
 
--- 4) 主搜索函数：多字段加权打分 + 同义词自动扩展
---    权重：OEM 精确 100 > OEM 含 80 / SKU 含 70 / OEM 规范含 70
---         > 同义词 OEM 含 65 > 中英名含 60 > 同义词名含 50
+-- 4) 互换号表（一款产品对应多个等效 OEM 号；表已存在时自动跳过）
+--    喂数据用 scripts/cross-refs-import-template.sql
+CREATE TABLE IF NOT EXISTS product_cross_references (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  product_id uuid NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+  ref_oem text NOT NULL,
+  source text,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+
+ALTER TABLE product_cross_references ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "anon_read_cross_refs" ON product_cross_references;
+CREATE POLICY "anon_read_cross_refs" ON product_cross_references
+  FOR SELECT TO anon USING (true);
+
+CREATE INDEX IF NOT EXISTS idx_pcr_ref_oem      ON product_cross_references (ref_oem);
+CREATE INDEX IF NOT EXISTS idx_pcr_ref_oem_trgm ON product_cross_references USING gin (ref_oem gin_trgm_ops);
+CREATE INDEX IF NOT EXISTS idx_pcr_product_id   ON product_cross_references (product_id);
+
+-- 5) 主搜索函数：多字段加权打分 + 同义词自动扩展 + 互换号命中
+--    权重：OEM 精确 100 > 互换号精确 90 > OEM 含 80 / SKU 含 70 / OEM 规范含 70
+--         > 同义词 OEM 含 65 > 中英名含 60 > 同义词名含 50 > 互换号含 45
 --         > 机型含 40 / 同义词机型 35 > 品牌含 30 / 同义词品牌 25
+--    （互换号表为空时与 Phase 1 行为完全一致）
 CREATE OR REPLACE FUNCTION search_products(q text, max_rows int DEFAULT 24)
 RETURNS TABLE (
   slug text, sku text, name_en text, name_zh text, brand text,
@@ -100,6 +124,11 @@ RETURNS TABLE (
            CASE WHEN (SELECT n_q FROM norm) <> ''
                  AND upper(regexp_replace(p.oem_number, '[\s\-]+', '', 'g')) = (SELECT n_q FROM norm)
                 THEN 100 ELSE 0 END,
+           CASE WHEN EXISTS (
+                  SELECT 1 FROM product_cross_references cr
+                  WHERE cr.product_id = p.id
+                    AND upper(regexp_replace(cr.ref_oem, '[\s\-]+', '', 'g')) = (SELECT n_q FROM norm)
+                ) THEN 90 ELSE 0 END,
            CASE WHEN p.oem_number ILIKE '%' || q || '%' THEN 80 ELSE 0 END,
            CASE WHEN length((SELECT n_q FROM norm)) >= 4
                  AND p.oem_number ILIKE '%' || (SELECT n_q FROM norm) || '%'
@@ -114,6 +143,10 @@ RETURNS TABLE (
                 THEN 50 ELSE 0 END,
            CASE WHEN EXISTS (SELECT 1 FROM terms t WHERE p.name_zh ILIKE '%' || t.t || '%')
                 THEN 50 ELSE 0 END,
+           CASE WHEN EXISTS (
+                  SELECT 1 FROM product_cross_references cr
+                  WHERE cr.product_id = p.id AND cr.ref_oem ILIKE '%' || q || '%'
+                ) THEN 45 ELSE 0 END,
            CASE WHEN p.truck_model ILIKE '%' || q || '%' THEN 40 ELSE 0 END,
            CASE WHEN EXISTS (SELECT 1 FROM terms t WHERE p.truck_model ILIKE '%' || t.t || '%')
                 THEN 35 ELSE 0 END,
@@ -140,12 +173,19 @@ RETURNS TABLE (
            OR p.truck_model ILIKE '%' || t.t || '%'
            OR p.brand     ILIKE '%' || t.t || '%'
       )
+      OR EXISTS (
+        SELECT 1 FROM product_cross_references cr
+        WHERE cr.product_id = p.id
+          AND (cr.ref_oem ILIKE '%' || q || '%'
+               OR (length((SELECT n_q FROM norm)) >= 4
+                   AND cr.ref_oem ILIKE '%' || (SELECT n_q FROM norm) || '%'))
+      )
     )
   ORDER BY score DESC, p.name_en ASC
   LIMIT max_rows
 $$;
 
--- 5) 自动补全函数（输入框实时建议：产品名 + OEM）
+-- 6) 自动补全函数（输入框实时建议：产品名 + OEM）
 CREATE OR REPLACE FUNCTION suggest_products(q text, max_rows int DEFAULT 8)
 RETURNS TABLE (slug text, label text, oem text, kind text)
 LANGUAGE sql STABLE AS $$

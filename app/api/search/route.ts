@@ -19,7 +19,8 @@ interface SearchRow {
  *  优先走 search_products RPC（加权 + 同义词扩展），未安装时 ilike 兜底 */
 export async function GET(req: NextRequest) {
   const sp = req.nextUrl.searchParams
-  const q = (sp.get('q') || sp.get('oem') || '').trim()
+  // URL 加号陷阱：?q=brake+chamber 里的 + 在 query 解码后仍是字面加号（仅表单编码才当空格），统一归一为空格
+  const q = (sp.get('q') || sp.get('oem') || '').replace(/\+/g, ' ').trim()
   if (!q) {
     return NextResponse.json({ ok: false, error: '缺少搜索词 ?q=' }, { status: 400 })
   }

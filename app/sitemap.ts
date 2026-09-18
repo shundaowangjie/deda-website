@@ -3,7 +3,7 @@ import type { MetadataRoute } from 'next'
 
 export const revalidate = 3600
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://dedaautoparts.com'
+const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://products.dedaautoparts.com'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = tryGetSupabase()

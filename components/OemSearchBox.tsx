@@ -74,7 +74,7 @@ export default function OemSearchBox({ onSubmit, initialOem = '', placeholder }:
       onSubmit(oem)
     } else {
       const encoded = encodeURIComponent(oem)
-      router.push(`/search-test?q=${encoded}`)
+      router.push(`/products?q=${encoded}`)
     }
   }
 

@@ -62,8 +62,37 @@ export default async function ProductPage({ params }: Props) {
     ? Object.entries(specs).map(([k, v]) => [k, String(v)])
     : []
 
+  // schema.org/Product 结构化数据（Google 富结果；询价模式无公开价格，不声明 offers）
+  const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://products.dedaautoparts.com'
+  const productLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: name_en,
+    ...(name_zh ? { alternateName: name_zh } : {}),
+    ...(sku ? { sku } : {}),
+    ...(oem_number ? { mpn: oem_number } : {}),
+    ...(brand ? { brand: { '@type': 'Brand', name: brand } } : {}),
+    ...(category ? { category } : {}),
+    description:
+      description_en ||
+      description_zh ||
+      `${brand ? brand + ' ' : ''}${name_en}${truck_model ? ` for ${truck_model}` : ''} — heavy truck spare parts, OEM ${oem_number ?? 'N/A'}`,
+    url: `${SITE}/products/${slug}`,
+    ...(truck_model
+      ? {
+          additionalProperty: [
+            { '@type': 'PropertyValue', name: 'Fits truck model', value: truck_model },
+          ],
+        }
+      : {}),
+  }
+
   return (
     <main className="min-h-screen bg-gray-50 py-12 px-4">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productLd) }}
+      />
       <div className="max-w-3xl mx-auto">
         {/* 标题区 */}
         <header className="mb-8 flex items-start justify-between gap-4">
