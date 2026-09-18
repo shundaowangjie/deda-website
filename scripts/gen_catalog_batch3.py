@@ -1,0 +1,207 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""第三批：卡片类产品 24 款（胶粘剂 16 + 化工 8），来源：中配目录 4 个卡片文件。
+
+价格不入库（询价模式）；OCR 疑点照录并在交付报告披露；幂等：按 slug 去重。
+SKU 段：DD-ADH-108~123（第一批占用 101~107）、DD-CHM-101~108。
+"""
+
+PRODUCTS = [
+    # ============ 胶粘剂系列_续（回天，厌氧平面密封 + AB 胶） ============
+    ("huitian-anaerobic-flange-sealant-0515", "DD-ADH-108",
+     "Anaerobic Flange Sealant 0515", "厌氧型密封胶 0515", "回天", "adhesive",
+     {"类型": "厌氧型平面密封胶", "颜色": "紫色", "特点": "固化后柔软、抗压强度高", "最大填充间隙": "0.25mm",
+      "初固时间": "≥60min", "全固时间": "24h", "工作温度": "-60~150℃", "包装规格": "50g/支 25支/箱"},
+     "厌氧型平面密封胶（紫色，柔软型）：隔绝空气固化，固化后为柔软胶层，用于发动机曲轴箱盖、轮盖、刚性法兰面、水泵盖、缸体端盖、油底壳等结合面密封，取代垫片。单组分、无溶剂、耐化学品及有机溶剂。",
+     "Purple anaerobic flange sealant (soft-curing): cures when confined between metal surfaces, forms a flexible gasket. For crankcase covers, rigid flanges, water pumps, cylinder end plates and oil pans — replaces pre-cut gaskets. One-component, solvent-free, chemical resistant. 50 g/tube, 25/box."),
+    ("huitian-anaerobic-flange-sealant-0510", "DD-ADH-109",
+     "Anaerobic Flange Sealant 0510", "厌氧型平面密封胶 0510", "回天", "adhesive",
+     {"类型": "厌氧型平面密封胶", "颜色": "粉红色", "特点": "高强度、固化后刚性胶层", "最大填充间隙": "0.25mm",
+      "初固时间": "≤60min", "全固时间": "24h", "工作温度": "-50~150℃（产品卡标注-60~210℃）", "包装规格": "50g/支 25支/箱"},
+     "厌氧型平面密封胶（粉红色，刚性型）：通用型高粘度，固化后为刚性胶层无流动性，用于发动机缸体、高温部件等各种铁质结合面密封。耐化学介质性能好。注：原资料卡片与参数表温度标注不一致（-50~150℃ / -60~210℃），按参数表录入。",
+     "Pink anaerobic flange sealant (rigid-curing): general-purpose high-viscosity, cures to a rigid non-flowing layer for engine blocks and high-temperature ferrous flanges. Good chemical resistance. Note: supplier card and spec table list different temp ranges (-50~150 / -60~210 ℃); spec table value recorded. 50 g/tube, 25/box."),
+    ("xindadang-ab-adhesive", "DD-ADH-110",
+     "Xindadang AB Adhesive", "新搭档 AB胶", "回天", "adhesive",
+     {"类型": "丙烯酸酯双组分结构胶", "配比": "A:B = 1:1", "特点": "韧性好、常温快速固化", "固化速度": "夏季3-5分钟固定，冬季5-10分钟；60分钟达使用强度，8-10小时可组装",
+      "包装规格": "20g/板×100板/箱；20g/盒×300盒/箱；50g/板×60板/箱"},
+     "新搭档 AB 胶（丙烯酸酯结构胶）：双组分 1:1 调匀，5 分钟左右固定，60 分钟达使用强度，韧性好。广泛用于汽车、摩托车、机械、家具、玩具、皮具、电子元件、合成材料等的粘接、固定与密封。注：原资料一处包装规格缺克数（照录）。",
+     "Xindadang acrylic AB structural adhesive: mix A:B at 1:1, sets in ~5 min, working strength in 60 min, good toughness. For bonding and fixing automotive, motorcycle, machinery, furniture, toy, leather and electronic parts. One pack size illegible in source. 20 g or 50 g sets."),
+    ("toughened-ab-adhesive", "DD-ADH-111",
+     "Toughened AB Adhesive", "增韧型 AB胶", "回天", "adhesive",
+     {"类型": "丙烯酸酯双组分结构胶（增韧型）", "特点": "软性耐震、立面涂胶不滴洒", "粘接强度": "比普通通用型提高50%以上",
+      "适用间隙": "≤5mm 大间隙粘接", "包装规格": "20g/板 240板/箱"},
+     "增韧型 AB 胶：软性耐震，粘接强度比普通通用型提高 50% 以上；立面涂胶不滴洒，可用于非水平面大间隙（≤5mm）粘接。适用于汽车、摩托车、电动车器械车架等件的粘接、加固、补裂及日常用品修补。",
+     "Toughened acrylic AB adhesive: flexible and shock-resistant, 50%+ stronger bond than general type; non-dripping on vertical surfaces, fills gaps up to 5 mm. For frames, reinforcement and crack repair on vehicles and general items. 20 g/set, 240/box."),
+
+    # ============ ADHESIVE_SERIES（回天，RTV 硅酮 + 螺纹锁固） ============
+    ("rtv-instant-seal", "DD-ADH-112",
+     "RTV Instant Seal Silicone", "RTV硅酮免垫密封胶·即时封", "回天", "adhesive",
+     {"类型": "RTV 硅酮免垫密封胶", "颜色": "银色", "特点": "固化速度比普通硅胶快30%以上", "最大填充间隙": "6mm",
+      "拉伸伸长率": "≥300%", "表干时间": "10min", "全固时间": "20h", "耐温": "-60~300℃（产品卡标注-60~200℃）",
+      "包装规格": "90g/板 80板/箱；55g/盒 100盒/箱"},
+     "RTV 硅酮免垫密封胶·即时封（银色）：湿气固化，固化速度比普通硅胶快 30% 以上，带压耐温、耐油耐水。广泛用于汽车、工程机械、农机、电子电气设备的生产装配与维修平面密封，从根本上取代垫片。注：卡片与参数表温度标注不一致，按参数表录入。",
+     "RTV instant-cure silicone gasket maker (silver): moisture curing, 30%+ faster cure than standard silicone, oil and water resistant. For flange sealing in vehicles, construction machinery and electronics — replaces pre-cut gaskets. Note: temp range differs between card and spec table; table recorded. 90 g or 55 g."),
+    ("rtv-blue-heavy-duty-seal", "DD-ADH-113",
+     "RTV Blue Heavy-Duty Seal", "RTV硅酮免垫密封胶·蓝威封", "回天", "adhesive",
+     {"类型": "RTV 硅酮免垫密封胶", "颜色": "蓝色", "特点": "耐位移、抗重载", "最大填充间隙": "6mm",
+      "拉伸伸长率": "≥400%", "表干时间": "15min", "全固时间": "24h", "耐温": "-60~300℃（180℃不脱落）",
+      "包装规格": "90g/板 80板/箱"},
+     "RTV 硅酮免垫密封胶·蓝威封（蓝色）：韧性强、耐位移、抗重载，伸长率≥400%，可在 -60~250℃ 长期使用、180℃ 不脱落。用于发动机、变速箱、液压罩、电子仪器设备等平面密封，适合振动、位移场合。",
+     "RTV blue heavy-duty silicone gasket maker: high toughness, displacement and heavy-load resistant, ≥400% elongation, long-term -60~250 ℃ (no peel-off at 180 ℃). For engines, gearboxes, hydraulic covers and instruments subject to vibration. 90 g/board, 80/box."),
+    ("rtv-red-high-temp-seal", "DD-ADH-114",
+     "RTV Red High-Temp Seal 320℃", "RTV硅酮免垫密封胶·红威封", "回天", "adhesive",
+     {"类型": "RTV 硅酮免垫密封胶（高温型）", "颜色": "红色", "特点": "超耐温 320℃、耐老化、耐热腐蚀",
+      "最大填充间隙": "6mm", "拉伸伸长率": "≥300%", "表干时间": "20min", "全固时间": "24h",
+      "耐温": "-60~320℃", "包装规格": "90g/板 80板/箱"},
+     "RTV 硅酮免垫密封胶·红威封（红色，高温型）：超耐温 320℃，耐老化、耐热腐蚀、不渗漏。用于发动机缸体、缸盖、高温管道、变速箱壳体等部位的高温平面密封，冷热交替环境性能优良。",
+     "RTV red high-temperature silicone gasket maker: withstands up to 320 ℃, anti-aging and heat-corrosion resistant. For cylinder blocks, heads, exhaust-adjacent flanges and gearbox housings under thermal cycling. 90 g/board, 80/box."),
+    ("rtv-black-oil-resistant-seal", "DD-ADH-115",
+     "RTV Black Oil-Resistant Seal", "RTV硅酮免垫密封胶·黑威封", "回天", "adhesive",
+     {"类型": "RTV 硅酮免垫密封胶（耐油型）", "颜色": "黑色", "特点": "超强耐油、耐溶剂、干燥快",
+      "最大填充间隙": "6mm", "拉伸伸长率": "≥300%", "表干时间": "20min", "全固时间": "24h",
+      "耐温": "-60~280℃", "包装规格": "55g/盒 100盒/箱"},
+     "RTV 硅酮免垫密封胶·黑威封（黑色，耐油型）：超强耐油、耐溶剂，适合燃油、变速箱油等油环境下施工密封；干燥快，也可用于排气管等高温部位。",
+     "RTV black oil-resistant silicone gasket maker: superior oil and solvent resistance, fast drying. For fuel systems, gearboxes and high-temperature areas such as exhaust connections. 55 g/tube, 100/box."),
+    ("huitian-threadlocker-0242", "DD-ADH-116",
+     "Anaerobic Threadlocker 0242", "厌氧型螺纹锁固胶 0242", "回天", "adhesive",
+     {"类型": "厌氧型螺纹锁固胶", "颜色": "蓝色", "强度": "中强度、易拆卸", "适用螺纹": "M4~M20",
+      "最大填充间隙": "0.13mm", "粘度": "1.00 Pa·s", "破坏扭矩": "12 N·m", "平均拆卸扭矩": "5 N·m",
+      "初固时间": "20min", "全固时间": "24h", "工作温度": "-50~150℃",
+      "包装规格": "50g/瓶 100瓶/箱；10g/板 120板/箱"},
+     "厌氧型螺纹锁固胶 0242（蓝色，中强度）：中粘度、易拆卸，适用于 M4~M20 螺纹锁固与密封，替代弹簧垫、开口销等机械锁固方式，防松、防漏、耐冲击振动耐锈蚀。",
+     "Anaerobic threadlocker 0242 (blue, medium strength): medium viscosity, removable; for M4-M20 fasteners. Replaces spring washers and cotter pins — anti-loosening, sealing, shock and vibration resistant. 50 g/bottle or 10 g/card."),
+    ("huitian-threadlocker-0271", "DD-ADH-117",
+     "Anaerobic Threadlocker 0271", "厌氧型螺纹锁固胶 0271", "回天", "adhesive",
+     {"类型": "厌氧型螺纹锁固胶", "颜色": "红色", "强度": "高强度", "适用螺纹": "大规格紧固件",
+      "最大填充间隙": "0.13mm", "粘度": "1.00 Pa·s", "破坏扭矩": "25 N·m", "平均拆卸扭矩": "29 N·m",
+      "初固时间": "20min", "全固时间": "24h", "工作温度": "-50~150℃（耐温至150℃）", "包装规格": "50g/瓶 100瓶/箱"},
+     "厌氧型螺纹锁固胶 0271（红色，高强度）：低粘度易涂布，用于高强度、持久锁固与密封场合，耐温至 150℃。",
+     "Anaerobic threadlocker 0271 (red, high strength): low viscosity for easy application; permanent locking and sealing for high-strength fasteners, heat resistant to 150 ℃. 50 g/bottle, 100/box."),
+    ("huitian-threadlocker-0262", "DD-ADH-118",
+     "Anaerobic Threadlocker 0262", "厌氧型螺纹锁固胶 0262", "回天", "adhesive",
+     {"类型": "厌氧型螺纹锁固胶", "颜色": "红色", "强度": "高强度、高粘度", "适用螺纹": "大规格紧固件",
+      "最大填充间隙": "0.13mm", "粘度": "1.00 Pa·s", "破坏扭矩": "22 N·m", "平均拆卸扭矩": "32 N·m",
+      "初固时间": "20min", "全固时间": "24h", "工作温度": "-50~150℃（耐温至150℃）", "包装规格": "50g/瓶 100瓶/箱"},
+     "厌氧型螺纹锁固胶 0262（红色，高强度高粘度）：耐温厚涂型，用于大规格紧固件的持久锁固与密封。",
+     "Anaerobic threadlocker 0262 (red, high strength, high viscosity): thick-film heat-resistant grade for permanent locking of large fasteners. 50 g/bottle, 100/box."),
+
+    # ============ 密封胶系列（中配） ============
+    ("zhongpei-zp-271-threadlocker", "DD-ADH-119",
+     "ZP-271 Threadlocker Sealant", "ZP-271 螺纹锁固密封胶", "中配", "adhesive",
+     {"类型": "厌氧型螺纹锁固密封胶", "强度": "高强度、中低粘度", "特点": "慢拆卸（需加热至150℃）、耐冲击疲劳",
+      "耐介质": "燃油、润滑油、海水、盐水、冷冻液", "包装规格": "50g/支 10只/盒 120只/箱"},
+     "中配 ZP-271 螺纹锁固密封胶：高强度、中低粘度，拆卸需加热至 150℃；耐化学介质（燃油、润滑油、海水、盐水、冷冻液），防锈耐高温，防止振动松动，实现永久紧固。用于发动机、变速箱、车桥、底盘、制动系统所有螺纹的锁固与密封。",
+     "Zhongpei ZP-271 anaerobic threadlocker: high strength, medium-low viscosity, heat-assisted removal (150 ℃); resistant to fuel, lube oil, sea water and coolant; permanent vibration-proof locking for engine, gearbox, axle, chassis and brake threads. 50 g/tube."),
+    ("zhongpei-zp-515-flange-sealant", "DD-ADH-120",
+     "ZP-515 Anaerobic Flange Sealant", "ZP-515 厌氧平面密封胶", "中配", "adhesive",
+     {"类型": "厌氧型平面密封胶（柔性）", "工作温度": "-50~150℃", "最大填充间隙": "0.38mm",
+      "特点": "柔性丙烯酸酯、适用铝合金表面", "包装规格": "50g/支 10只/盒 120只/箱"},
+     "中配 ZP-515 厌氧平面密封胶：柔性通用型，工作温度 -50~150℃，最大填充间隙 0.38mm；柔性丙烯酸酯配方，适用于铝合金表面及因振动、温度变化造成位移的结合面。用于齿轮箱壳体、水泵、发动机体中间板等。",
+     "Zhongpei ZP-515 flexible anaerobic flange sealant: -50~150 ℃, fills gaps to 0.38 mm; flexible acrylic formula for aluminum alloy surfaces and flanges subject to vibration and thermal movement. For gearbox housings, water pumps and engine mid-plates. 50 g/tube."),
+    ("zhongpei-red-rtv-silicone", "DD-ADH-121",
+     "Zhongpei Red RTV Silicone", "中配红胶 RTV硅橡胶密封胶", "中配", "adhesive",
+     {"类型": "RTV 硅橡胶免垫密封胶", "颜色": "红色", "耐温": "-60~120℃", "耐压": "10MPa",
+      "特点": "环保、可与垫片共用", "包装规格": "85g/支 20只/盒 120只/箱"},
+     "中配红胶：红色汽车环保型 RTV 免垫密封胶，可与垫片共用；无毒、耐油、耐苯、耐水、耐候性优良，耐温 -60~120℃、耐压 10MPa。用于发动机、变速箱、车桥、底盘等法兰面及气缸头盖的平面密封。",
+     "Zhongpei red RTV silicone gasket maker: eco-friendly, usable with gaskets; non-toxic, oil/water/weather resistant, -60~120 ℃, 10 MPa. For flange sealing of engines, gearboxes, axles and chassis. 85 g/tube."),
+    ("zhongpei-silver-rtv-silicone", "DD-ADH-122",
+     "Zhongpei Silver RTV Silicone", "中配银胶 RTV硅橡胶密封胶", "中配", "adhesive",
+     {"类型": "RTV 硅橡胶免垫密封胶", "颜色": "银色", "耐温": "-60~120℃", "耐压": "10MPa",
+      "特点": "环保、可与垫片共用", "包装规格": "85g/支 20只/盒 120只/箱"},
+     "中配银胶：银色汽车环保型 RTV 免垫密封胶，性能同红胶（耐温 -60~120℃、耐压 10MPa），可与垫片共用；用于各类汽车、工程机械、船舰的法兰面平面密封。",
+     "Zhongpei silver RTV silicone gasket maker: same eco-friendly formula as red (-60~120 ℃, 10 MPa), usable with gaskets; for flange sealing across vehicles, machinery and marine applications. 85 g/tube."),
+    ("zhongpei-blue-rtv-silicone", "DD-ADH-123",
+     "Zhongpei Blue RTV Silicone", "中配蓝胶 RTV硅橡胶密封胶", "中配", "adhesive",
+     {"类型": "RTV 硅橡胶免垫密封胶", "颜色": "蓝色", "耐温": "-60~120℃", "耐压": "10MPa",
+      "特点": "环保、可与垫片共用", "包装规格": "85g/支 20只/盒 120只/箱"},
+     "中配蓝胶：蓝色汽车环保型 RTV 免垫密封胶，性能同红胶（耐温 -60~120℃、耐压 10MPa），可与垫片共用；用于各类汽车、工程机械、船舰的法兰面平面密封。",
+     "Zhongpei blue RTV silicone gasket maker: same eco-friendly formula as red (-60~120 ℃, 10 MPa), usable with gaskets; for flange sealing across vehicles, machinery and marine applications. 85 g/tube."),
+
+    # ============ 化工系列（中配，chemical 新分类） ============
+    ("dot3-brake-fluid", "DD-CHM-101",
+     "DOT3 Brake Fluid", "车用制动液 DOT3", "中配", "chemical",
+     {"类型": "合成制动液", "标准": "DOT3", "平衡回流沸点": ">205℃", "湿平衡回流沸点": ">130℃",
+      "适用": "所有汽车液压制动及离合液压系统", "包装规格": "800g/罐 12罐/箱"},
+     "中配车用制动液 DOT3：平衡回流沸点 >205℃、湿沸点 >130℃；高温抗气化性能好，高低温流动性优良，低温不凝固；相容性好，不损伤橡胶件，不腐蚀制动系统。适用于所有汽车液压制动及离合液压系统。",
+     "Zhongpei DOT3 synthetic brake fluid: ERBP >205 ℃, wet ERBP >130 ℃; excellent high-temperature anti-vapor performance and cold fluidity; compatible with rubber seals, non-corrosive. For all hydraulic brake and clutch systems. 800 g/can, 12/box."),
+    ("dot4-brake-fluid", "DD-CHM-102",
+     "DOT4 Brake Fluid", "车用制动液 DOT4", "中配", "chemical",
+     {"类型": "合成制动液", "标准": "DOT4", "平衡回流沸点": ">230℃", "湿平衡回流沸点": ">155℃",
+      "适用": "所有汽车液压制动及离合液压系统", "包装规格": "800g/罐 12罐/箱"},
+     "中配车用制动液 DOT4：平衡回流沸点 >230℃、湿沸点 >155℃，比 DOT3 更耐高温气阻；高低温流动性优良，不损伤橡胶件，不腐蚀制动系统。适用于所有汽车液压制动及离合液压系统。",
+     "Zhongpei DOT4 synthetic brake fluid: ERBP >230 ℃, wet ERBP >155 ℃ — higher vapor resistance than DOT3; stable cold fluidity, rubber-safe and non-corrosive. For all hydraulic brake and clutch systems. 800 g/can, 12/box."),
+    ("multipurpose-rust-remover", "DD-CHM-103",
+     "Multi-purpose Rust Remover", "多功能除锈剂", "中配", "chemical",
+     {"类型": "渗透松锈润滑剂", "特点": "快速渗透松解锈蚀、长效防锈润滑", "适用": "机械、车辆、船舶、五金工具等金属件",
+      "包装规格": "450ml/支 24支/箱"},
+     "中配多功能除锈剂：快速渗透金属表面铁锈、污垢及胶粘物，迅速松解锈蚀件；润滑螺栓螺帽、管路接头使其易于拆装；含高效润滑剂，渗入金属毛细孔形成保护膜，长期防锈、防化学腐蚀。适用于机械设备、车辆、船舶、五金工具、建筑模板等钢材表面除锈。",
+     "Zhongpei multi-purpose rust remover: fast-penetrating release agent that dissolves rust, dirt and adhesives; lubricates bolts and fittings for easy disassembly; forms a long-lasting anti-rust film in metal pores. For machinery, vehicles, vessels and tools. 450 ml/can, 24/box."),
+    ("carburetor-cleaner", "DD-CHM-104",
+     "Carburetor Cleaner", "化油器清洗剂", "中配", "chemical",
+     {"类型": "零部件清洗剂", "特点": "超强溶解、快速渗透、无氟配方", "适用": "化油器、节气门、喷油嘴、活塞等",
+      "包装规格": "450ml/支 24支/箱"},
+     "中配化油器清洗剂：超强溶解性和快速渗透力，快速清除化油器部件及金属件表面的胶质、油泥、污垢及氧化沉积物，恢复最佳状态和效率，延长零部件寿命；无氟配方。适用于化油器、阻风门、节气门、电喷系统喷油嘴、活塞等的清洗。",
+     "Zhongpei carburetor cleaner: strong solvent action removes gum, sludge and oxide deposits from carburetors and metal parts, restoring performance; CFC-free. For carburetors, chokes, throttle bodies, injectors and pistons. 450 ml/can, 24/box."),
+    ("r134a-ac-refrigerant", "DD-CHM-105",
+     "R-134a AC Refrigerant", "车用空调冷媒 R-134a", "中配", "chemical",
+     {"类型": "环保制冷剂", "纯度": "≥99.5%", "特点": "无毒、无色、不燃、不爆，热/化学稳定性好",
+      "适用": "各种车型 R134a 空调系统", "包装规格": "200g/300g 24支/箱"},
+     "中配车用空调冷媒 R-134a：新型环保制冷剂，无毒无色不燃不爆，热稳定性和化学稳定性好，纯度高达 99.5% 以上，制冷效果好。适用于各种车型的 R134a 空调系统。",
+     "Zhongpei R-134a automotive AC refrigerant: eco-friendly, non-toxic, non-flammable, thermally and chemically stable, ≥99.5% purity. For all vehicle A/C systems using R134a. 200 g or 300 g, 24/box."),
+    ("engine-coolant", "DD-CHM-106",
+     "Engine Coolant (Red/Green)", "发动机冷却液", "中配", "chemical",
+     {"类型": "防冻冷却液", "冰点": "红色-25℃；绿色0/-8/-25/-35/-45℃", "特点": "防腐防沸防锈防垢，金属表面成保护膜",
+      "包装规格": "红色2kg/4kg；绿色2kg/4kg/9kg/10kg/18kg"},
+     "中配发动机冷却液：优质防腐、防沸、防锈、防水垢配方，高温行驶不过热、极寒地区防冻裂；长期使用在金属表面形成保护膜，防止氧化腐蚀与沉淀物。红色冰点 -25℃，绿色冰点 0/-8/-25/-35/-45℃ 多档可选。",
+     "Zhongpei engine coolant: anti-corrosion, anti-boil, anti-rust and anti-scale formula; forms a protective film on metal surfaces. Red: -25 ℃ freeze point; Green: 0/-8/-25/-35/-45 ℃ options. Multiple pack sizes from 2 to 18 kg."),
+    ("aus32-diesel-exhaust-fluid", "DD-CHM-107",
+     "AUS32 Diesel Exhaust Fluid", "车用高纯尿素水溶液 AUS32", "中配", "chemical",
+     {"类型": "SCR 还原剂（车用尿素）", "浓度": "32.5%", "特点": "高纯度、低杂质与金属元素含量",
+      "适用": "国IV/国VI 柴油机 SCR 系统", "包装规格": "10kg/20kg（原文包装描述模糊，照录：10kg 2桶/桶 20kg 1T方桶）"},
+     "中配车用尿素水溶液 AUS32：32.5% 高纯度还原剂，杂质与金属元素含量极低；通过 SCR 催化还原将氮氧化物还原为氮气和水，降低排放。适用于国IV/国VI 排放标准的工程机械、商用车、客车、特种车 SCR 系统。注：原资料包装规格描述模糊，按原文照录。",
+     "Zhongpei AUS32 diesel exhaust fluid (AdBlue): 32.5% high-purity urea solution with extremely low impurity and metal content; converts NOx to nitrogen and water via SCR. For GB-IV/VI diesel SCR systems. Note: pack wording garbled in source, recorded verbatim. 10/20 kg packs."),
+    ("engine-exterior-cleaner", "DD-CHM-108",
+     "Engine Exterior Cleaner", "发动机外表清洁剂", "中配", "chemical",
+     {"类型": "机头水（外表清洁剂）", "特点": "超强除油、快速去污、安全环保，不伤引擎",
+      "适用": "汽油车、摩托车及机械表面油污油泥", "包装规格": "480ml/18KG（原文如此，照录）"},
+     "中配发动机外表清洁剂（机头水）：超强除油、快速去污、安全环保，对引擎无伤害。用于汽油车、摩托车及其它机械表面的油污、油泥、油渍等污垢清洗。注：原资料包装规格标注（480ml/18KG）含义不明，照录待确认。",
+     "Zhongpei engine exterior cleaner (degreaser): strong oil-cutting, fast-acting and engine-safe. For grease and sludge on gasoline vehicles, motorcycles and machinery surfaces. Note: source pack size (480 ml/18 kg) ambiguous, recorded verbatim."),
+]
+
+
+def q(v):
+    return "'" + str(v).replace("'", "''") + "'"
+
+
+def main():
+    assert len(PRODUCTS) == 24, len(PRODUCTS)
+    seen = set()
+    lines = [
+        "-- 第三批：卡片类产品 24 款（胶粘剂 16 + 化工 8）",
+        "-- 来源：中配目录 4 个卡片文件（胶粘剂系列_续 / ADHESIVE_SERIES / 密封胶系列 / 化工系列）",
+        "-- 价格不入库（询价模式）；OCR 疑点照录并在交付说明中披露；幂等：按 slug 去重",
+        "",
+    ]
+    for slug, sku, name_en, name_zh, brand, cat, specs, dz, de in PRODUCTS:
+        assert slug not in seen, slug
+        seen.add(slug)
+        sj = __import__("json").dumps(specs, ensure_ascii=False)
+        lines.append(
+            "INSERT INTO products (slug, sku, name_en, name_zh, brand, truck_model, category, "
+            "description_en, description_zh, specs, status) SELECT "
+            + ", ".join([q(slug), q(sku), q(name_en), q(name_zh), q(brand), "NULL", q(cat),
+                         q(de), q(dz), q(sj) + "::jsonb", q("published")])
+            + f" WHERE NOT EXISTS (SELECT 1 FROM products WHERE slug = {q(slug)});")
+    lines.append("")
+    out = "\n".join(lines)
+    path = "/home/fan/.openclaw/workspace/deda-products/scripts/catalog-batch3-cards.sql"
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(out)
+    adh = sum(1 for p in PRODUCTS if p[5] == "adhesive")
+    chm = sum(1 for p in PRODUCTS if p[5] == "chemical")
+    print(f"rows={len(PRODUCTS)} (adhesive={adh}, chemical={chm}) -> {path}")
+    print("断言通过：INSERT 数 =", out.count("INSERT INTO products"))
+
+
+if __name__ == "__main__":
+    main()
