@@ -49,6 +49,13 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body className="min-h-screen bg-gray-50 antialiased flex flex-col" style={{ fontFamily: '"Microsoft YaHei", "Segoe UI", Arial, sans-serif' }}>
+        {/* 嵌入模式：?embed=1 时隐藏站点导航/页脚（供形象站 iframe 内嵌），置于 body 首部避免闪烁 */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(new URLSearchParams(location.search).get('embed')==='1'){document.documentElement.classList.add('embed');}}catch(e){}",
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }}

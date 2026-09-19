@@ -24,3 +24,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* 嵌入模式：被形象站 iframe 内嵌（URL 带 ?embed=1）时隐藏站点级导航/页脚，避免“站中站” */
+html.embed [data-chrome] {
+  display: none !important;
+}
+html.embed body {
+  padding-top: 0;
+}
