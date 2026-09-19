@@ -13,6 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         .select('slug, updated_at')
         .in('status', ['published', 'active'])
         .order('updated_at', { ascending: false })
+        .limit(5000) // 同 /products：避免默认 1000 行截断
     : { data: null }
 
   return [

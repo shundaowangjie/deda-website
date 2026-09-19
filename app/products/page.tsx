@@ -21,6 +21,7 @@ export default async function ProductsPage() {
         .in('status', ['published', 'active'])
         .order('category', { ascending: true })
         .order('name_en', { ascending: true })
+        .limit(5000) // 库内 1700+，必须显式 limit，否则默认截断 1000 行
     : { data: null }
 
   return (
