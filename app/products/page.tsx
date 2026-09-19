@@ -10,19 +10,33 @@ export const metadata: Metadata = {
 
 export const revalidate = 300
 
-export default async function ProductsPage() {
+// Supabase 服务端单请求硬上限 1000 行（PostgREST max-rows），
+// 客户端显式 .limit(5000) 也会被削到 1000 —— 必须分页取全量
+const PAGE_SIZE = 1000
+
+async function fetchCatalog(): Promise<CatalogProduct[]> {
   const supabase = tryGetSupabase()
-  const { data: products } = supabase
-    ? await supabase
-        .from('products')
-        .select(
-          'slug, sku, name_en, name_zh, brand, category, oem_number, truck_model, status',
-        )
-        .in('status', ['published', 'active'])
-        .order('category', { ascending: true })
-        .order('name_en', { ascending: true })
-        .limit(5000) // 库内 1700+，必须显式 limit，否则默认截断 1000 行
-    : { data: null }
+  if (!supabase) return []
+  const all: CatalogProduct[] = []
+  for (let from = 0; ; from += PAGE_SIZE) {
+    const { data } = await supabase
+      .from('products')
+      .select(
+        'slug, sku, name_en, name_zh, brand, category, oem_number, truck_model, status',
+      )
+      .in('status', ['published', 'active'])
+      .order('category', { ascending: true })
+      .order('name_en', { ascending: true })
+      .range(from, from + PAGE_SIZE - 1)
+    const rows = (data as CatalogProduct[]) || []
+    all.push(...rows)
+    if (rows.length < PAGE_SIZE) break
+  }
+  return all
+}
+
+export default async function ProductsPage() {
+  const products = await fetchCatalog()
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -31,7 +45,7 @@ export default async function ProductsPage() {
           <div className="p-12 text-center text-gray-400">加载产品目录...</div>
         }
       >
-        <ProductsBrowser products={(products as CatalogProduct[]) || []} />
+        <ProductsBrowser products={products} />
       </Suspense>
     </main>
   )
