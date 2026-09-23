@@ -82,6 +82,9 @@ export async function POST(req: NextRequest) {
     cache.set(cacheKey, { at: Date.now(), data })
     return NextResponse.json({ ok: true, frequency, data })
   } catch (e) {
-    return NextResponse.json({ ok: false, error: '上游请求失败: ' + (e as Error).message }, { status: 502 })
+    const hint = process.env.VERCEL
+      ? '公网版暂无法直连国内数据源(51macc 仅境内可达)。请在办公室电脑上使用内网版:http://localhost:3000/vin'
+      : '上游请求失败: ' + (e as Error).message
+    return NextResponse.json({ ok: false, error: hint }, { status: 502 })
   }
 }
