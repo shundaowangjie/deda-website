@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { categoryLabel } from '@/lib/categories'
+import { useTranslations } from 'next-intl'
+import { categoryLabelFor } from '@/lib/categories'
 
 interface FacetOption {
   name: string
@@ -15,6 +16,7 @@ interface Props {
   selectedCategory: string
   selectedModel: string
   q: string
+  locale: string
   onCategoryChange: (category: string) => void
   onModelChange: (model: string) => void
   onReset: () => void
@@ -27,13 +29,16 @@ export default function FilterBar({
   selectedCategory,
   selectedModel,
   q,
+  locale,
   onCategoryChange,
   onModelChange,
   onReset,
 }: Props) {
+  const t = useTranslations('filter')
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
   const panelRef = useRef<HTMLDivElement>(null)
+  const catLabel = (slug: string) => categoryLabelFor(slug, locale)
 
   useEffect(() => {
     if (!open) return
@@ -48,6 +53,8 @@ export default function FilterBar({
   const filteredModels = kw ? models.filter((m) => m.name.toLowerCase().includes(kw)) : models
   const totalAll = categories.reduce((s, c) => s + c.count, 0)
   const hasFilter = Boolean(selectedCategory || selectedModel || q)
+  const quickModels = models.slice(0, 10)
+  const quickActive = quickModels.some((m) => m.name === selectedModel)
 
   const chipCls = (active: boolean) =>
     `shrink-0 inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border transition-colors whitespace-nowrap ${
@@ -62,7 +69,7 @@ export default function FilterBar({
         {/* 分类:横向滚动标签条 */}
         <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <button onClick={() => onCategoryChange('')} className={chipCls(!selectedCategory)}>
-            全部
+            {t('all')}
             <span className={`text-xs ${selectedCategory ? 'text-gray-400' : 'text-blue-200'}`}>
               {totalAll}
             </span>
@@ -73,7 +80,7 @@ export default function FilterBar({
               onClick={() => onCategoryChange(c.name)}
               className={chipCls(selectedCategory === c.name)}
             >
-              {categoryLabel(c.name)}
+              {catLabel(c.name)}
               <span className={`text-xs ${selectedCategory === c.name ? 'text-blue-200' : 'text-gray-400'}`}>
                 {c.count}
               </span>
@@ -83,13 +90,13 @@ export default function FilterBar({
 
         {/* 机型:高频快捷 + 可搜索下拉 */}
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-xs text-gray-400 shrink-0 w-8">机型</span>
-          {models.slice(0, 10).map((m) => (
+          <span className="text-xs text-gray-400 shrink-0 w-8">{t('model')}</span>
+          {quickModels.map((m) => (
             <button
               key={m.name}
               onClick={() => onModelChange(selectedModel === m.name ? '' : m.name)}
               className={chipCls(selectedModel === m.name)}
-              title={`${m.name} (${m.count} 款)`}
+              title={`${m.name} · ${t('modelCount', { count: m.count })}`}
             >
               {m.name.length > 10 ? m.name.slice(0, 10) + '…' : m.name}
               <span className={`text-xs ${selectedModel === m.name ? 'text-blue-200' : 'text-gray-400'}`}>
@@ -101,14 +108,16 @@ export default function FilterBar({
             <button
               onClick={() => setOpen((v) => !v)}
               className={`shrink-0 inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border ${
-                selectedModel && !models.slice(0, 10).some((m) => m.name === selectedModel)
+                selectedModel && !quickActive
                   ? 'bg-blue-600 text-white border-blue-600'
                   : 'bg-gray-50 text-gray-700 border-gray-300 hover:border-blue-400'
               }`}
             >
-              {selectedModel && !models.slice(0, 10).some((m) => m.name === selectedModel)
-                ? `机型: ${selectedModel.length > 8 ? selectedModel.slice(0, 8) + '…' : selectedModel}`
-                : '更多机型'}
+              {selectedModel && !quickActive
+                ? t('modelSelected', {
+                    model: selectedModel.length > 8 ? selectedModel.slice(0, 8) + '…' : selectedModel,
+                  })
+                : t('moreModels')}
               <span className="text-xs">▾</span>
             </button>
             {open && (
@@ -117,7 +126,7 @@ export default function FilterBar({
                   <input
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    placeholder="输入机型搜索，如：豪沃 / WP10 / J6"
+                    placeholder={t('searchPlaceholder')}
                     className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-blue-400"
                     autoFocus
                   />
@@ -132,7 +141,7 @@ export default function FilterBar({
                       !selectedModel ? 'text-blue-700 font-medium' : 'text-gray-700'
                     }`}
                   >
-                    全部机型
+                    {t('allModels')}
                     <span className="float-right text-xs text-gray-400">{total}</span>
                   </button>
                   {filteredModels.slice(0, 150).map((m) => (
@@ -152,9 +161,7 @@ export default function FilterBar({
                     </button>
                   ))}
                   {filteredModels.length === 0 && (
-                    <p className="px-3 py-6 text-center text-sm text-gray-400">
-                      没有匹配的机型，可换个关键词或直接用顶部搜索
-                    </p>
+                    <p className="px-3 py-6 text-center text-sm text-gray-400">{t('noModelMatch')}</p>
                   )}
                 </div>
               </div>
@@ -165,10 +172,10 @@ export default function FilterBar({
         {/* 已选条件 */}
         {hasFilter && (
           <div className="flex items-center gap-2 flex-wrap text-sm">
-            <span className="text-xs text-gray-400">已选</span>
+            <span className="text-xs text-gray-400">{t('selected')}</span>
             {q && (
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-                搜索: {q.length > 12 ? q.slice(0, 12) + '…' : q}
+                {t('searchChip', { q: q.length > 12 ? q.slice(0, 12) + '…' : q })}
                 <button onClick={() => onReset()} className="text-blue-400 hover:text-blue-700">
                   ×
                 </button>
@@ -176,7 +183,7 @@ export default function FilterBar({
             )}
             {selectedCategory && (
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-                分类: {categoryLabel(selectedCategory)}
+                {t('categoryChip', { cat: catLabel(selectedCategory) })}
                 <button
                   onClick={() => onCategoryChange('')}
                   className="text-blue-400 hover:text-blue-700"
@@ -187,14 +194,16 @@ export default function FilterBar({
             )}
             {selectedModel && (
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-                机型: {selectedModel.length > 12 ? selectedModel.slice(0, 12) + '…' : selectedModel}
+                {t('modelChip', {
+                  model: selectedModel.length > 12 ? selectedModel.slice(0, 12) + '…' : selectedModel,
+                })}
                 <button onClick={() => onModelChange('')} className="text-blue-400 hover:text-blue-700">
                   ×
                 </button>
               </span>
             )}
             <button onClick={onReset} className="text-xs text-gray-400 hover:text-blue-600 underline">
-              重置全部
+              {t('resetAll')}
             </button>
           </div>
         )}

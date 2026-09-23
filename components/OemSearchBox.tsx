@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect, useRef, FormEvent } from 'react'
-import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
+import { useRouter } from '@/i18n/navigation'
 
 interface Props {
   onSubmit?: (oem: string) => void
@@ -18,6 +19,7 @@ interface Suggestion {
 
 export default function OemSearchBox({ onSubmit, initialOem = '', placeholder }: Props) {
   const router = useRouter()
+  const t = useTranslations('searchbox')
   const [value, setValue] = useState(initialOem)
   const [loading, setLoading] = useState(false)
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
@@ -115,7 +117,7 @@ export default function OemSearchBox({ onSubmit, initialOem = '', placeholder }:
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={onKeyDown}
-          placeholder={placeholder || '输入 OEM 号 / 型号 / 名称，如 WG1560118229'}
+          placeholder={placeholder || t('placeholder')}
           autoComplete="off"
           className="flex-1 px-4 py-3 border border-gray-300 rounded-lg
                      focus:outline-none focus:ring-2 focus:ring-blue-500
@@ -128,7 +130,7 @@ export default function OemSearchBox({ onSubmit, initialOem = '', placeholder }:
                      hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed
                      font-medium transition"
         >
-          {loading ? '查询中...' : '查询'}
+          {loading ? t('searching') : t('search')}
         </button>
       </form>
 
@@ -163,7 +165,7 @@ export default function OemSearchBox({ onSubmit, initialOem = '', placeholder }:
               }}
               className="text-xs text-blue-600 hover:text-blue-800"
             >
-              查看“{value.trim()}”的完整搜索结果 →
+              {t('fullResults', { q: value.trim() })}
             </button>
           </li>
         </ul>

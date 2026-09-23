@@ -1,12 +1,13 @@
 'use client'
 
 import { useMemo } from 'react'
-import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
+import { useSearchParams } from 'next/navigation'
+import { Link, useRouter } from '@/i18n/navigation'
 import InquiryButton from '@/components/InquiryButton'
 import OemSearchBox from '@/components/OemSearchBox'
 import FilterBar from '@/components/FilterBar'
-import { categoryLabel, categorySortIndex } from '@/lib/categories'
+import { categoryLabelFor, categorySortIndex } from '@/lib/categories'
 
 export interface CatalogProduct {
   slug: string
@@ -34,6 +35,7 @@ interface Props {
   q: string
   category: string
   model: string
+  locale: string
 }
 
 export default function ProductsBrowser({
@@ -45,9 +47,12 @@ export default function ProductsBrowser({
   q,
   category,
   model,
+  locale,
 }: Props) {
   const router = useRouter()
   const sp = useSearchParams() // 保留 embed=1 等未知参数
+  const t = useTranslations('catalog')
+  const catLabel = (slug: string) => categoryLabelFor(slug, locale)
 
   function setParams(updates: Record<string, string | null>) {
     const params = new URLSearchParams(sp.toString())
@@ -104,20 +109,20 @@ export default function ProductsBrowser({
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div>
               <Link href="/" className="text-sm text-gray-500 hover:text-gray-700">
-                ← 返回首页
+                {t('backHome')}
               </Link>
-              <h1 className="text-3xl font-bold text-gray-900 mt-2">产品目录</h1>
+              <h1 className="text-3xl font-bold text-gray-900 mt-2">{t('title')}</h1>
               <p className="text-gray-600 mt-1">
-                共 {total.toLocaleString()} 款产品
-                {q && ` - 搜索: “${q}”`}
-                {category && ` - 分类: ${categoryLabel(category)}`}
-                {model && ` - 机型: ${model}`}
+                {t('total', { total: total.toLocaleString() })}
+                {q && t('searchSuffix', { q })}
+                {category && t('categorySuffix', { cat: catLabel(category) })}
+                {model && t('modelSuffix', { model })}
               </p>
             </div>
             <div className="w-full lg:w-[28rem]">
               <OemSearchBox
                 initialOem={q}
-                placeholder="搜索产品名称 / OEM 号 / 品牌 / 机型..."
+                placeholder={t('searchPlaceholder')}
                 onSubmit={(query) =>
                   setParams(
                     query.trim()
@@ -139,6 +144,7 @@ export default function ProductsBrowser({
         selectedCategory={category}
         selectedModel={model}
         q={q}
+        locale={locale}
         onCategoryChange={(c) => setParams(c ? { category: c, page: null } : { category: null, page: null })}
         onModelChange={(m) => setParams(m ? { model: m, page: null } : { model: null, page: null })}
         onReset={() => setParams({ category: null, model: null, q: null, page: null })}
@@ -149,14 +155,14 @@ export default function ProductsBrowser({
         {products.length === 0 ? (
           <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
             <p className="text-gray-400">
-              {hasFilter ? '没有找到匹配的产品' : '产品目录整理中...'}
+              {hasFilter ? t('noMatch') : t('organizing')}
             </p>
             {hasFilter && (
               <button
                 onClick={() => setParams({ q: null, category: null, model: null, page: null })}
                 className="mt-4 text-blue-600 hover:text-blue-700"
               >
-                清除全部筛选条件
+                {t('clearAll')}
               </button>
             )}
           </div>
@@ -164,8 +170,8 @@ export default function ProductsBrowser({
           grouped.map(([cat, items]) => (
             <section key={cat} className="mb-8">
               <h2 className="text-xl font-semibold text-gray-800 mb-4">
-                {categoryLabel(cat)}
-                <span className="text-sm text-gray-500 ml-2">({items.length} 款)</span>
+                {catLabel(cat)}
+                <span className="text-sm text-gray-500 ml-2">{t('sectionCount', { count: items.length })}</span>
               </h2>
               <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                 {items.map((product) => (
@@ -181,7 +187,7 @@ export default function ProductsBrowser({
                           {product.name_zh || product.name_en}
                         </h3>
                         <span className="shrink-0 text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded">
-                          {categoryLabel(product.category)}
+                          {catLabel(product.category)}
                         </span>
                       </div>
                       {product.name_zh && product.name_en && (
@@ -200,7 +206,7 @@ export default function ProductsBrowser({
                       </div>
                       {product.truck_model && (
                         <div className="mt-2 text-xs text-gray-400 bg-gray-50 px-2 py-1 rounded truncate">
-                          适用: {product.truck_model}
+                          {t('fitsPrefix')}{product.truck_model}
                         </div>
                       )}
                       <div className="mt-2 text-xs text-gray-400">SKU: {product.sku}</div>
@@ -233,7 +239,7 @@ export default function ProductsBrowser({
                 onClick={() => setParams({ page: String(page - 1) })}
                 className={`${pageBtn(false)} px-3 ${page <= 1 ? 'opacity-40 cursor-not-allowed' : ''}`}
               >
-                上一页
+                {t('prev')}
               </button>
               {pageWindow.map((n, i) =>
                 n === '…' ? (
@@ -255,11 +261,16 @@ export default function ProductsBrowser({
                 onClick={() => setParams({ page: String(page + 1) })}
                 className={`${pageBtn(false)} px-3 ${page >= totalPages ? 'opacity-40 cursor-not-allowed' : ''}`}
               >
-                下一页
+                {t('next')}
               </button>
             </div>
             <p className="text-xs text-gray-400">
-              共 {total.toLocaleString()} 款 · 第 {page}/{totalPages} 页 · 每页 {pageSize} 款
+              {t('pageInfo', {
+                total: total.toLocaleString(),
+                page,
+                pages: totalPages,
+                size: pageSize,
+              })}
             </p>
           </nav>
         )}

@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/navigation'
 import { addInquiryItem, type InquiryItem } from '@/lib/inquiryStore'
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export default function InquiryButton({ item, compact = false }: Props) {
+  const t = useTranslations('product')
   const [state, setState] = useState<'idle' | 'added'>('idle')
 
   function handleAdd() {
@@ -26,7 +28,7 @@ export default function InquiryButton({ item, compact = false }: Props) {
         href="/inquiry"
         className={`${compact ? 'text-xs px-2 py-1' : 'text-sm px-3 py-1.5'} inline-flex items-center gap-1 rounded-lg bg-green-50 text-green-700 border border-green-200 hover:bg-green-100 transition`}
       >
-        ✓ 已加入 · 去提交
+        {t('added')}
       </Link>
     )
   }
@@ -37,7 +39,7 @@ export default function InquiryButton({ item, compact = false }: Props) {
       onClick={handleAdd}
       className={`${compact ? 'text-xs px-2 py-1' : 'text-sm px-3 py-1.5'} inline-flex items-center gap-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 active:scale-95 transition`}
     >
-      + 询价
+      {t('addInquiry')}
     </button>
   )
 }

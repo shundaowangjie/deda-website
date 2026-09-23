@@ -41,8 +41,56 @@ export const CATEGORY_ZH: Record<string, string> = {
   other: '其他配件',
 }
 
+export const CATEGORY_RU: Record<string, string> = {
+  'engine-parts': 'Детали двигателя',
+  'brake-system': 'Тормозная система',
+  'chassis-suspension': 'Шасси и подвеска',
+  drivetrain: 'Трансмиссия',
+  transmission: 'КПП',
+  filters: 'Фильтры',
+  adhesive: 'Клеи и герметики',
+  'oil-seal': 'Сальники',
+  bearing: 'Подшипники',
+  fastener: 'Крепёж',
+  wiper: 'Щётки стеклоочистителя',
+  oil: 'Масла',
+  chemical: 'Автохимия',
+  'fuel-system': 'Топливная система',
+  'cooling-system': 'Система охлаждения',
+  electrical: 'Электрооборудование',
+  suspension: 'Подвеска',
+  other: 'Прочие запчасти',
+}
+
+export const CATEGORY_EN: Record<string, string> = {
+  'engine-parts': 'Engine Parts',
+  'brake-system': 'Brake System',
+  'chassis-suspension': 'Chassis & Suspension',
+  drivetrain: 'Drivetrain',
+  transmission: 'Transmission',
+  filters: 'Filters',
+  adhesive: 'Adhesives',
+  'oil-seal': 'Oil Seals',
+  bearing: 'Bearings',
+  fastener: 'Fasteners',
+  wiper: 'Wiper Blades',
+  oil: 'Lubricants',
+  chemical: 'Chemicals',
+  'fuel-system': 'Fuel System',
+  'cooling-system': 'Cooling System',
+  electrical: 'Electrical',
+  suspension: 'Suspension',
+  other: 'Other Parts',
+}
+
 export function categoryLabel(slug: string): string {
   return CATEGORY_ZH[slug] || slug.replace(/-/g, ' ')
+}
+
+export function categoryLabelFor(slug: string, locale: string): string {
+  if (locale === 'en') return CATEGORY_EN[slug] || slug.replace(/-/g, ' ')
+  if (locale === 'ru') return CATEGORY_RU[slug] || slug.replace(/-/g, ' ')
+  return categoryLabel(slug)
 }
 
 export function categorySortIndex(slug: string): number {

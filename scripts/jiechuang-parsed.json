@@ -1,0 +1,3285 @@
+[
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-501",
+  "teeth": "14齿",
+  "fit": "华菱前左",
+  "params": "齿数14 / 孔高80 / 中心孔150 / 孔径14",
+  "model": "华菱"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-502",
+  "teeth": "14齿",
+  "fit": "华菱前右",
+  "params": "齿数14 / 孔高80 / 中心孔150 孔径14",
+  "model": "华菱"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-503",
+  "teeth": "10齿",
+  "fit": "华菱中桥",
+  "params": "数10 / 孔高78 / 中心孔150.5 / 孔径14",
+  "model": "华菱"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-504",
+  "teeth": "10",
+  "fit": "华菱后左",
+  "params": "齿数10 / 孔高140 / 中心孔155 /孔径14",
+  "model": "华菱"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-505",
+  "teeth": "10齿",
+  "fit": "华菱后右",
+  "params": "齿10 / 孔高140 / 中心孔152.5 / 孔径14",
+  "model": "华菱"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-506",
+  "teeth": "10齿",
+  "fit": "格尔发前左",
+  "params": "齿数10 / 孔高80 / 中心孔145 / 孔径12",
+  "model": "格尔发"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-507",
+  "teeth": "10齿",
+  "fit": "格尔发前右",
+  "params": "齿10 /孔高80 / 中心孔145 / 孔径12",
+  "model": "格尔发"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整",
+  "code": "JC-508",
+  "teeth": "10",
+  "fit": "格尔发后左",
+  "params": "齿数10 / 孔高110 / 中心孔155 / 孔径14",
+  "model": "格尔发"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-509",
+  "teeth": "10齿",
+  "fit": "格尔发后右",
+  "params": "齿数10 / 孔高110 / 中心孔155 / 孔径",
+  "model": "格尔发"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-510",
+  "teeth": "19齿",
+  "fit": "斯太尔后左",
+  "params": "齿数19 /孔高56 / 中心孔145 / 孔径14",
+  "model": "斯太尔"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-511",
+  "teeth": "19齿",
+  "fit": "斯太尔后右",
+  "params": "齿数19 / 孔高56 / 中心孔145 / 孔径14",
+  "model": "太尔",
+  "notes": [
+   "Road fine",
+   "路丰"
+  ]
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-513",
+  "teeth": "26齿",
+  "fit": "奔驰后左",
+  "params": "齿数26 / 孔高56 / 中心孔145 / 孔径14",
+  "model": "奔驰"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-514",
+  "teeth": "26齿",
+  "fit": "奔驰后右",
+  "params": "齿数26 / 孔高56 / 中心孔145 / 孔径14",
+  "model": "奔驰"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-525",
+  "teeth": "14齿",
+  "fit": "2408天锦前右/153双桥斯太尔右/福田欧曼前左",
+  "params": "齿数14 / 孔高65 / 中心孔150 / 孔径14",
+  "model": "2408斯太尔153双桥斯太尔福田"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-526",
+  "teeth": "14齿",
+  "fit": "240马力后天龙后",
+  "params": "齿数14 / 孔高135 / 中心孔135 / 孔径12",
+  "model": "240马力/后天龙后"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-515",
+  "teeth": "26齿",
+  "fit": "奔驰前",
+  "params": "齿数26 / 孔高58 / 中心孔145 / 孔径14",
+  "model": "奔驰"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-516",
+  "teeth": "19齿/26齿/28齿",
+  "fit": "豪沃左",
+  "params": "齿数18/26/28 / 孔高33 / 中心孔140 / 孔径14",
+  "model": "豪沃"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-527",
+  "teeth": "10齿",
+  "fit": "140后",
+  "params": "齿数10 / 孔高22 / 中心孔125 / 孔径12",
+  "model": "140"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-528",
+  "teeth": "10齿",
+  "fit": "140前",
+  "params": "齿数10 / 孔高22 / 中心孔110 / 孔径12",
+  "model": "140"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-517",
+  "teeth": "19齿/26齿",
+  "fit": "豪沃右",
+  "params": "齿数19齿/26齿 / 孔高33 / 中心孔140 / 孔径14",
+  "model": "豪沃"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-518",
+  "teeth": "26齿",
+  "fit": "奔驰重卡前",
+  "params": "齿数26 / 孔高58 / 中心孔145 / 孔径14",
+  "model": "奔驰重卡"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-529",
+  "teeth": "6齿",
+  "fit": "1061后",
+  "params": "齿数6 / 孔高22 / 中心孔125 / 孔径12",
+  "model": "1061"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-530",
+  "teeth": "6齿",
+  "fit": "1061前",
+  "params": "齿数6 / 孔高22 / 中心孔110 / 孔径12",
+  "model": "1061"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-519",
+  "teeth": "26齿",
+  "fit": "奔驰重卡后左",
+  "params": "齿数26 / 孔高56/58 / 中心孔165 / 孔径14",
+  "model": "奔驰重卡"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-520",
+  "teeth": "26齿",
+  "fit": "奔驰重卡后右",
+  "params": "齿数26 / 孔高56/58 / 中心孔165 / 孔径14",
+  "model": "奔驰重卡"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-531",
+  "teeth": "10齿",
+  "fit": "140—2后弯左",
+  "params": "齿数10 / 孔高22 / 中心孔125 / 孔径12",
+  "model": "140—2后"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-532",
+  "teeth": "10齿",
+  "fit": "140—2后弯右",
+  "params": "齿数10 / 孔高22 / 中心孔125 / 孔径12",
+  "model": "140—2后"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-521",
+  "teeth": "14齿",
+  "fit": "153前左",
+  "params": "齿数14 / 孔高65 / 中心孔135 / 孔径12",
+  "model": "153"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-522",
+  "teeth": "14齿",
+  "fit": "153前右",
+  "params": "齿数14 / 孔高65 / 中心孔135 / 孔径12",
+  "model": "153"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-534",
+  "teeth": "10齿",
+  "fit": "140-45前右/五十铃",
+  "params": "齿数10 / 孔高45 / 中心孔110 / 孔径12",
+  "model": "140-45前/五十铃"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-523",
+  "teeth": "14齿",
+  "fit": "153后",
+  "params": "齿数14 / 孔高65 / 中心孔120 / 孔径12",
+  "model": "153"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-524",
+  "teeth": "14齿",
+  "fit": "240前左/天龙前左/153双桥前左/福田欧曼前右",
+  "params": "齿数14 / 孔高68 / 中心孔150 / 孔径14",
+  "model": "2408.153双桥153前天锦前车桥右"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-535",
+  "teeth": "10齿",
+  "fit": "1080后左",
+  "params": "齿数10 / 孔高22 / 中心孔125 / 孔径12",
+  "model": "1080"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-536",
+  "teeth": "10齿",
+  "fit": "1080后右",
+  "params": "齿数10 / 孔高22 / 中心孔125 / 孔径12",
+  "model": "1080",
+  "notes": [
+   "05 / 06",
+   "Road fine",
+   "路丰"
+  ]
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-537",
+  "teeth": "10齿",
+  "fit": "金刚王后左",
+  "params": "齿数10 / 孔高40 / 中心孔125 / 孔径12",
+  "model": "金刚王"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-538",
+  "teeth": "10齿",
+  "fit": "金刚王后右",
+  "params": "齿数10 / 孔高40 / 中心孔125 / 孔径12",
+  "model": "金刚王"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-549",
+  "teeth": "10齿",
+  "fit": "一汽四大左",
+  "params": "齿数10 / 孔高120 / 中心孔140 / 孔径14",
+  "model": "一汽四大"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-550",
+  "teeth": "10齿",
+  "fit": "一汽四大右",
+  "params": "齿数10 / 孔高120 / 中心孔140 / 孔径14",
+  "model": "一汽四大"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-539",
+  "teeth": "14齿",
+  "fit": "新欧曼前",
+  "params": "齿数14 / 孔高65 / 中心孔120 / 孔径14",
+  "model": "新欧曼"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-540",
+  "teeth": "14齿",
+  "fit": "新欧曼后左",
+  "params": "齿数14 / 孔高65 / 中心孔135 / 孔径14",
+  "model": "新欧曼"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-551",
+  "teeth": "10齿",
+  "fit": "九平柴后左",
+  "params": "齿数10 / 孔高20 / 中心孔135 / 孔径14",
+  "model": "九平柴"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-552",
+  "teeth": "10齿",
+  "fit": "九平柴后右",
+  "params": "齿数10 / 孔高20 / 中心孔135 / 孔径14",
+  "model": "九平柴"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-541",
+  "teeth": "14齿",
+  "fit": "新欧曼后右",
+  "params": "齿数14 / 孔高65 / 中心孔135 / 孔径14",
+  "model": "新欧曼"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-542",
+  "teeth": "10齿",
+  "fit": "五吨王前左",
+  "params": "齿数10 / 孔高45 / 中心孔",
+  "model": "五吨王"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-553",
+  "teeth": "10齿",
+  "fit": "九平柴前左",
+  "params": "齿数10 / 孔高10 / 中心孔110 / 孔径14",
+  "model": "九平柴"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-554",
+  "teeth": "10齿",
+  "fit": "九平柴前右",
+  "params": "齿数10 / 孔高10 / 中心孔110 / 孔径14",
+  "model": "九平柴"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-543",
+  "teeth": "10齿",
+  "fit": "五吨王前右",
+  "params": "齿数10 / 孔高45 / 中心孔110 / 孔径12",
+  "model": "五吨王"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-544",
+  "teeth": "10齿",
+  "fit": "五吨王后左",
+  "params": "齿数10 / 孔高50 / 中心孔137 / 孔径14",
+  "model": "五吨王后"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-555",
+  "teeth": "10齿",
+  "fit": "151前左",
+  "params": "齿数10 / 孔高10 / 中心孔117 / 孔径12",
+  "model": "151"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-556",
+  "teeth": "10齿",
+  "fit": "151前右",
+  "params": "齿数10 / 孔高10 / 中心孔117 / 孔径12",
+  "model": "151"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-545",
+  "teeth": "10齿",
+  "fit": "五吨王后右",
+  "params": "齿数10 / 孔高50 / 中心孔137 / 孔径14",
+  "model": "五吨王后"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-546",
+  "teeth": "14齿",
+  "fit": "南骏后左",
+  "params": "齿数14 / 孔高65 / 中心孔135 / 孔径14",
+  "model": "南骏"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-557",
+  "teeth": "10齿",
+  "fit": "151后",
+  "params": "齿数10 / 孔高10 / 中心孔125 / 孔径12",
+  "model": "151"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-558",
+  "teeth": "10齿",
+  "fit": "小奥威",
+  "params": "齿数10 / 孔高10 / 中心孔145 / 孔径14",
+  "model": "小奥威"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-547",
+  "teeth": "14齿",
+  "fit": "南骏后右",
+  "params": "齿数14 / 孔高65 / 中心孔135 / 孔径14",
+  "model": "南骏"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-548",
+  "teeth": "14齿",
+  "fit": "南骏前",
+  "params": "齿数10 / 孔高65 / 中心孔125 / 孔径14",
+  "model": "南骏"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-559",
+  "teeth": "25齿",
+  "fit": "小奥威",
+  "params": "齿数25 / 孔高20 / 中心孔150 / 孔径14",
+  "model": "小奥威"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-560",
+  "teeth": "10齿",
+  "fit": "大奥威",
+  "params": "齿数10 / 孔高10 / 中心孔140/150 / 孔径14",
+  "model": "大奥威",
+  "notes": [
+   "07 / 08"
+  ]
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "notes": [
+   "产品：JC-512",
+   "03 / 04",
+   "Road fine",
+   "路丰"
+  ],
+  "teeth": "19齿",
+  "fit": "斯太尔前",
+  "params": "齿数19 / 孔高56 / 中心孔126 / 孔径14",
+  "model": "斯太尔"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-561产品齿数10齿",
+  "fit": "奥威前左",
+  "params": "齿数10 / 厚10 / 中心孔145 / 孔径14",
+  "model": "奥威"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-562",
+  "teeth": "10齿",
+  "fit": "奥威前右",
+  "params": "齿数10 / 厚10 / 中心孔145 / 孔径14",
+  "model": "奥威"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-563",
+  "teeth": "25齿",
+  "fit": "奥威前左",
+  "params": "齿数25 / 厚20 / 中心孔135 / 孔径14",
+  "model": "奥威"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-564",
+  "teeth": "25齿",
+  "fit": "奥威前右",
+  "params": "齿数25 / 厚20 / 中心孔135 / 孔径14",
+  "model": "奥威"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-565",
+  "teeth": "10齿",
+  "fit": "柳特王左",
+  "params": "齿数10 / 厚100 / 中心孔145 / 孔径14",
+  "model": "柳特王"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-566",
+  "teeth": "10齿",
+  "fit": "柳特王右",
+  "params": "齿数10 / 厚100 / 中心孔145 / 孔径14",
+  "model": "柳特王"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-567",
+  "teeth": "19齿",
+  "fit": "斯太尔王左",
+  "params": "齿数19 / 厚60 / 中心孔145 / 孔径14",
+  "model": "斯太尔王 / 新大尔王"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-568",
+  "teeth": "19齿",
+  "fit": "斯太尔王右",
+  "params": "齿数19 / 厚60 / 中心孔145 / 孔径14",
+  "model": "斯太尔王 / 斯太尔王"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-569",
+  "teeth": "10齿",
+  "fit": "欧曼高左",
+  "params": "齿数10 / 厚80 / 中心孔125 / 孔径14",
+  "model": "欧曼"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-570",
+  "teeth": "10齿",
+  "fit": "欧曼高右",
+  "params": "齿数10 / 厚80 / 中心孔125 / 孔径14",
+  "model": "欧曼"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-571",
+  "teeth": "10",
+  "fit": "欧曼低左",
+  "params": "齿10 / 厚80 / 中心孔135 / 孔径14",
+  "model": "欧曼"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-572",
+  "teeth": "10齿",
+  "model": "曼",
+  "params": "齿数10 / 厚80 / 中心孔135 / 孔径"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-573",
+  "teeth": "10齿",
+  "fit": "柳特435左",
+  "params": "齿数10 / 厚80 / 中心孔135 / 孔径14",
+  "model": "柳特435"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-574",
+  "teeth": "10齿",
+  "fit": "柳特435右",
+  "params": "齿数10 / 厚80 / 中心孔135 / 孔径14",
+  "model": "柳特435"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-576",
+  "teeth": "25齿",
+  "fit": "宜悍威",
+  "params": "齿数25 / 厚25 / 中心孔165 / 孔径14",
+  "model": "宜悍威"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-577",
+  "teeth": "25齿",
+  "fit": "CA300桥后左",
+  "params": "齿数25 / 厚80 / 中心孔150 / 孔径14",
+  "model": "CA300桥后左"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-578",
+  "teeth": "25齿",
+  "fit": "CA300桥后右",
+  "params": "齿数25 / 厚80 / 中心孔150 / 孔径14",
+  "model": "CA300桥后右"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-579",
+  "teeth": "19齿",
+  "fit": "奥威中桥左",
+  "params": "齿数 / 厚65 / 中心孔165 / 孔径14",
+  "model": "奥威中桥左"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-580",
+  "teeth": "19齿",
+  "fit": "奥威中桥右",
+  "params": "齿数19 / 厚65 / 中心孔165 / 孔径14",
+  "model": "奥威中桥右"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-581",
+  "teeth": "10齿",
+  "fit": "1094前左",
+  "params": "齿数10 / 厚65 / 中心孔125 / 孔径12",
+  "model": "1094"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-582",
+  "teeth": "10齿",
+  "fit": "1094前右",
+  "params": "齿数10 / 厚65 / 中心孔125 / 孔径12",
+  "model": "1094"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-583",
+  "teeth": "37齿",
+  "fit": "富华桥三孔",
+  "params": "数37 / 厚22 / 中心孔131*5 / 孔13",
+  "model": "富桥"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-584",
+  "teeth": "28齿",
+  "fit": "富华桥三孔",
+  "params": "齿数28 / 厚21 / 中心孔131*5 / 孔13",
+  "model": "富华桥",
+  "notes": [
+   "09 / 10",
+   "Road fine",
+   "路丰"
+  ]
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-585",
+  "teeth": "19齿",
+  "fit": "富华桥三孔",
+  "params": "齿数19 / 厚21 / 中心孔131*5 / 孔13",
+  "model": "富华桥"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-586",
+  "teeth": "14齿",
+  "fit": "富华桥三孔",
+  "params": "齿数14 / 厚21 / 中心孔131*5 / 孔13",
+  "model": "富华桥"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-587",
+  "teeth": "10齿",
+  "fit": "富华桥三孔",
+  "params": "齿数10 / 厚21 / 中心孔131*5 / 孔13",
+  "model": "富华桥"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-588",
+  "teeth": "8齿",
+  "fit": "富华桥三孔",
+  "params": "齿数8 / 厚21 / 中心孔131*5 / 孔13",
+  "model": "富华桥"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-589",
+  "teeth": "26齿",
+  "fit": "美驰桥前左",
+  "params": "齿数26 / 厚22 / 中心孔175 / 孔16",
+  "model": "美驰桥"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-590",
+  "teeth": "26齿",
+  "fit": "美驰桥前右",
+  "params": "齿数26 / 厚22 / 中心孔175 / 孔16",
+  "model": "美驰桥"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-591",
+  "teeth": "26齿",
+  "fit": "美驰桥中左",
+  "params": "齿数26 / 厚22 / 中心孔175/215 / 孔16",
+  "model": "美驰桥"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-592",
+  "teeth": "26齿",
+  "fit": "美驰桥中右",
+  "params": "齿数26 / 厚22 / 中心孔175/215 / 孔16",
+  "model": "美驰桥"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-593",
+  "teeth": "26齿",
+  "fit": "美驰桥后左",
+  "params": "齿数26 / 厚68 / 中心孔175 / 孔16",
+  "model": "美驰桥"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-594",
+  "teeth": "26齿",
+  "fit": "美驰桥后右",
+  "params": "齿数26 / 厚68 / 中心孔175 / 孔16",
+  "model": "美驰桥"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-595",
+  "teeth": "26齿",
+  "fit": "鹏翔桥前左",
+  "params": "齿数26 / 厚68 / 中心孔175 / 孔16",
+  "model": "鹏翔桥"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-596",
+  "teeth": "26齿",
+  "fit": "鹏翔桥前右",
+  "params": "齿数26 / 厚68 / 中心孔175 / 孔16",
+  "model": "鹏翔桥"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-597",
+  "teeth": "26齿",
+  "fit": "鹏翔桥后",
+  "params": "齿数26 / 厚55 / 中心孔175 / 孔16",
+  "model": "鹏翔桥"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-598",
+  "teeth": "10齿",
+  "fit": "宜悍威一孔",
+  "params": "齿数10 / 厚65 / 中心孔157.4 / 孔13",
+  "model": "宜悍威"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-599",
+  "teeth": "10齿",
+  "fit": "二孔",
+  "params": "齿数10 / 厚22 / 中心孔182.4 / 孔13",
+  "model": "二孔"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-600",
+  "teeth": "14齿",
+  "fit": "二孔双桥后",
+  "params": "齿数14 / 厚22 / 中心孔135/178 / 孔12",
+  "model": "三孔桥"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-601",
+  "teeth": "10齿",
+  "fit": "BPW 六孔",
+  "params": "齿数49 / 厚22 / 中心孔150 / 孔14",
+  "model": "BPW"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-602",
+  "teeth": "10齿",
+  "fit": "BPW 七孔",
+  "params": "齿数49 / 厚22 / 中心孔150 / 孔14",
+  "model": "BPW"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-603",
+  "teeth": "26齿",
+  "fit": "70矿后",
+  "params": "齿数26 / 厚145 / 中心孔165.5 / 孔18",
+  "model": "70矿"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-604",
+  "teeth": "28齿",
+  "fit": "70矿前左",
+  "params": "齿数28 / 厚10 / 中心孔164.5 / 孔18",
+  "model": "70矿"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-605",
+  "teeth": "28齿",
+  "fit": "70矿前右",
+  "params": "齿数28 / 厚10 / 中心孔164.5 / 孔18",
+  "model": "70矿"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-606",
+  "teeth": "19齿",
+  "fit": "红岩杰狮后左",
+  "params": "齿数19 / 厚26 / 中心孔162 / 孔",
+  "model": "红岩杰狮"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-607",
+  "teeth": "19齿",
+  "fit": "红岩杰狮后右",
+  "params": "齿数19 / 厚26 / 中心孔162 / 孔",
+  "model": "红岩杰狮"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-608",
+  "teeth": "14齿",
+  "fit": "华菱前薄型左",
+  "params": "齿数14 / 厚22 / 中心孔152 / 孔",
+  "model": "华菱前薄型",
+  "notes": [
+   "11 / 12",
+   "Road fine",
+   "路丰"
+  ]
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-609",
+  "teeth": "14齿",
+  "fit": "华菱前薄型右",
+  "params": "齿数14 / 厚22 / 中心孔155 / 孔",
+  "model": "华菱前薄型"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-610",
+  "teeth": "10齿",
+  "fit": "江淮后左",
+  "params": "齿数10 / 厚22 / 中心孔130 / 孔",
+  "model": "江淮后"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-611",
+  "teeth": "10齿",
+  "fit": "江淮后右",
+  "params": "齿数10 / 厚22 / 中心孔130 / 孔",
+  "model": "江淮后"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-612",
+  "teeth": "19齿",
+  "fit": "乘龙H7前左",
+  "params": "齿数19 / 厚65 / 中心孔155 / 孔",
+  "model": "乘龙H7前"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-613",
+  "teeth": "19齿",
+  "fit": "乘龙H7前右",
+  "params": "齿数19 / 厚65 / 中心孔155 / 孔",
+  "model": "乘龙H7前"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-614",
+  "teeth": "26齿",
+  "fit": "豪沃T7",
+  "params": "齿数26 / 厚55 / 中心孔135 / 孔",
+  "model": "豪沃T7"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-615",
+  "teeth": "28齿",
+  "fit": "大运前/小飞龙后",
+  "params": "齿数28 / 厚50 / 中心孔140 / 孔",
+  "model": "大运前/小飞龙后"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-616",
+  "teeth": "25齿",
+  "fit": "AA2Q前左",
+  "params": "齿数25 / 厚65 / 中心孔155 / 孔",
+  "model": "AA2Q前"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-617",
+  "teeth": "25齿",
+  "fit": "AA2Q前右",
+  "params": "齿数25 / 厚65 / 中心孔155 / 孔",
+  "model": "AA2Q前"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-618",
+  "teeth": "24齿",
+  "fit": "格尔发K7",
+  "params": "齿数24 / 厚22 / 中心孔145 / 孔",
+  "model": "格尔发K7"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-619",
+  "teeth": "25齿",
+  "fit": "JH6",
+  "params": "齿数25 / 厚85 / 中心孔135 / 孔",
+  "model": "JH6"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-620",
+  "teeth": "26齿",
+  "fit": "德龙曼桥前",
+  "params": "齿数26 / 厚22 / 中心孔145 / 孔",
+  "model": "德龙曼桥前"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-621",
+  "teeth": "26齿",
+  "fit": "欧曼奇特桥",
+  "params": "齿数26 / 厚45 / 中心孔140 / 孔",
+  "model": "欧曼奇特桥"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-622",
+  "teeth": "19齿",
+  "fit": "青特桥",
+  "notes": [
+   "（青特自卸车型）"
+  ],
+  "params": "齿数19 / 厚55 / 中心孔155 / 孔",
+  "model": "青特桥"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-623",
+  "teeth": "37齿",
+  "fit": "三桥六轴左",
+  "params": "齿数37 / 厚 / 中心孔 / 孔",
+  "model": "三桥六轴"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-624",
+  "teeth": "37齿",
+  "fit": "三桥六轴右",
+  "params": "齿数37 / 厚 / 中心孔 / 孔",
+  "model": "三桥六轴"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-625",
+  "teeth": "10齿",
+  "fit": "三桥六轴左",
+  "params": "齿数10 / 厚 / 中心孔 / 孔",
+  "model": "三桥六轴"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-626",
+  "teeth": "10齿",
+  "fit": "三桥六轴右",
+  "params": "齿数10 / 厚 / 中心孔 / 孔",
+  "model": "三桥六轴"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-627",
+  "teeth": "25齿",
+  "fit": "三一重工前左",
+  "params": "齿数25 / 厚55 / 中心孔150 / 孔14",
+  "model": "三一重工 Sany"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-628",
+  "teeth": "25齿",
+  "fit": "三一重工前右",
+  "params": "齿数25 / 厚55 / 中心孔150 / 孔14",
+  "model": "三一重工 Sany"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-629",
+  "teeth": "14齿",
+  "fit": "广汽日野前左",
+  "params": "齿数14 / 厚80 / 中心孔155 / 孔14",
+  "model": "广汽日野 Guangqi Hino"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-630",
+  "teeth": "14齿",
+  "fit": "广汽日野前右",
+  "params": "齿数14 / 厚80 / 中心孔155 / 孔14",
+  "model": "广汽日野 Guangqi Hino"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-631",
+  "teeth": "10齿",
+  "fit": "五十铃后左",
+  "params": "齿数10 / 厚85 / 中心孔135 / 孔14",
+  "model": "五十铃 Isuzu"
+ },
+ {
+  "section": "Anti-reverse Manual Adjustment Arm Series",
+  "name": "手动调整臂",
+  "code": "JC-632",
+  "teeth": "10齿",
+  "fit": "五十铃后右",
+  "params": "齿数10 / 厚85 / 中心孔135 / 孔14",
+  "model": "五十铃 Isuzu",
+  "notes": [
+   "13 / 14",
+   "fine",
+   "路丰",
+   "Locking Plate Manual Adjusting Arm Series"
+  ]
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-201",
+  "teeth": "14齿",
+  "fit": "华菱前左",
+  "params": "齿数14 / 厚80 / 中心孔150 / 孔14",
+  "model": "华菱"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-202",
+  "teeth": "14齿",
+  "fit": "华菱前右",
+  "params": "齿数14 / 厚80 / 中心孔150 / 孔14",
+  "model": "华菱"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-213",
+  "teeth": "19齿",
+  "notes": [
+   "适用车型斯太尔王右"
+  ],
+  "params": "齿数19 / 厚56/58 / 中心孔145 / 孔14",
+  "model": "斯太尔王"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-214",
+  "teeth": "19齿",
+  "fit": "斯太尔前",
+  "params": "齿数19 / 厚 / 中心孔125 / 孔14",
+  "model": "斯太"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-203",
+  "teeth": "10齿",
+  "fit": "华菱中桥",
+  "params": "齿10 / 厚 / 中心孔140/150 / 孔14",
+  "model": "华菱中桥"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-204产品齿数：10齿",
+  "fit": "华菱后左",
+  "params": "齿数10 / 厚140 / 中心孔155 / 孔14",
+  "model": "华菱"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-215",
+  "teeth": "26齿",
+  "fit": "奔驰后左",
+  "params": "齿数26 / 厚58 / 中心孔145 / 孔14",
+  "model": "格尔发"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-216",
+  "teeth": "26齿",
+  "fit": "奔驰后右",
+  "params": "齿数26 / 厚58 / 中心孔145 / 孔14",
+  "model": "格尔发"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-205",
+  "teeth": "10齿",
+  "fit": "华菱后右",
+  "params": "齿数10 / 厚/150 / 中心孔 / 孔14",
+  "model": "华菱"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-206",
+  "teeth": "10齿",
+  "fit": "格尔发前左",
+  "params": "齿数10 / 厚80 / 中心孔145 / 孔12",
+  "model": "格尔发"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-217",
+  "teeth": "26齿",
+  "fit": "奔驰二桥左",
+  "params": "齿数26 / 厚58 / 中心孔26孔14（58/145/14）",
+  "model": "奔驰二桥"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-218",
+  "teeth": "26齿",
+  "fit": "奔驰二桥右",
+  "params": "齿数26 / 厚58 / 中心孔26孔14（58/145/14）",
+  "model": "奔驰二桥"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-207",
+  "teeth": "10齿",
+  "fit": "格尔发前右",
+  "params": "齿数 / 厚80 / 中心孔145 / 孔12",
+  "model": "格尔发"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-208",
+  "teeth": "10齿",
+  "fit": "格尔发后左",
+  "params": "齿数10 / 厚110 / 中心孔155 / 孔14",
+  "model": "格尔发"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-219",
+  "teeth": "26齿",
+  "fit": "奔驰前桥",
+  "params": "齿数26 / 厚75 / 中心孔75/125/14（75/125/14）",
+  "model": "奔驰桥"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-220",
+  "teeth": "26齿",
+  "fit": "德龙F3000左",
+  "params": "齿数26 / 厚56/58 / 中心孔145 / 孔14",
+  "model": "德龙F3000"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-209",
+  "teeth": "10齿",
+  "fit": "格尔发后右",
+  "params": "齿数10 / 厚110 / 中心孔155 / 孔14",
+  "model": "格尔发"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-210",
+  "teeth": "10齿",
+  "fit": "斯太尔后左",
+  "params": "齿数10 / 厚56 / 中心孔145 / 孔14",
+  "model": "斯太尔"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-221",
+  "teeth": "26齿",
+  "fit": "德龙F3000右",
+  "params": "齿数26 / 厚56/58 / 中心孔145 / 孔14",
+  "model": "德龙F3000"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-222",
+  "teeth": "19齿",
+  "fit": "德龙F2000左",
+  "params": "齿数19 / 厚56/58 / 中心孔145 / 孔14",
+  "model": "德龙F2000"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-211",
+  "teeth": "19齿",
+  "fit": "斯太尔后右",
+  "params": "齿数19 / 厚56/58 / 中心孔145 / 孔14",
+  "model": "斯太尔王"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-212",
+  "teeth": "19齿",
+  "fit": "斯太尔王左",
+  "params": "齿数19 / 厚56/58 / 中心孔145 / 孔14",
+  "model": "斯太尔王"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-223",
+  "teeth": "19齿",
+  "fit": "德龙F2000右",
+  "params": "齿数19 / 厚56/58 / 中心孔145 / 孔14",
+  "model": "德龙F2000"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-224",
+  "teeth": "26齿",
+  "fit": "德龙F3000中桥",
+  "params": "齿数26 / 厚140 / 中心孔140/145 / 孔14",
+  "model": "德龙F3000桥",
+  "notes": [
+   "15 / 16",
+   "Road fine",
+   "路丰",
+   "Locking Plate Manual Adjusting Arm Series"
+  ]
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-225",
+  "teeth": "14齿",
+  "fit": "153前左",
+  "params": "齿数14 / 厚65 / 中心孔135 / 孔12",
+  "model": "153"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-226",
+  "teeth": "14齿",
+  "fit": "153前右",
+  "params": "齿数14 / 厚65 / 中心孔135 / 孔12",
+  "model": "153"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-237",
+  "teeth": "10齿",
+  "fit": "一汽四大左",
+  "params": "齿数10 / 厚120 / 中心孔140 / 孔14",
+  "model": "一汽四大"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-238",
+  "teeth": "10齿",
+  "fit": "一汽四大右",
+  "params": "齿数10 / 厚120 / 中心孔140 / 孔14",
+  "model": "一汽四大"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-227",
+  "teeth": "14齿",
+  "fit": "153后",
+  "params": "齿数14 / 厚65 / 中心孔120 / 孔12",
+  "model": "153"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-228",
+  "teeth": "14齿",
+  "fit": "240前左",
+  "params": "齿数14 / 厚65 / 中心孔165 / 孔12",
+  "model": "240前"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-239",
+  "teeth": "10齿",
+  "fit": "九平柴后左",
+  "params": "齿数10 / 厚20 / 中心孔135 / 孔14",
+  "model": "九平柴"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-240",
+  "teeth": "10齿",
+  "fit": "九平柴后右",
+  "params": "齿数10 / 厚20 / 中心孔135 / 孔14",
+  "model": "九平柴"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-229",
+  "teeth": "14齿",
+  "fit": "240前右",
+  "params": "齿数14 / 厚65 / 中心孔135 / 孔12",
+  "model": "240前"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-230",
+  "teeth": "14齿",
+  "fit": "240后",
+  "params": "齿数 / 厚 / 中心孔85 / 孔12",
+  "model": "240"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-241",
+  "teeth": "10齿",
+  "fit": "九平柴前左",
+  "params": "齿数10 / 厚10 / 中心孔110 / 孔14",
+  "model": "九平柴"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-242",
+  "teeth": "10齿",
+  "fit": "九平柴前右",
+  "params": "齿数10 / 厚10 / 中心孔110 / 孔14",
+  "model": "九平柴"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-231",
+  "teeth": "10齿",
+  "fit": "140后",
+  "params": "齿数10 / 厚40 / 中心孔125 / 孔12",
+  "model": "140"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-232",
+  "teeth": "10齿",
+  "fit": "140前",
+  "params": "齿数10 / 厚40 / 中心孔110 / 孔12",
+  "model": "140"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-243",
+  "teeth": "10齿",
+  "fit": "151前左",
+  "params": "齿数10 / 厚10 / 中心孔117 / 孔12",
+  "model": "151"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-244",
+  "teeth": "10齿",
+  "fit": "150右",
+  "params": "齿数10 / 厚10 / 中心孔117 / 孔12",
+  "model": "151"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-233",
+  "teeth": "10齿",
+  "fit": "金刚王后左",
+  "params": "齿数10 / 厚40 / 中心孔135 / 孔12",
+  "model": "金刚王"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-234",
+  "teeth": "10齿",
+  "fit": "金刚王后右",
+  "params": "齿数10 / 厚40 / 中心孔135 / 孔12",
+  "model": "金刚王"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-245",
+  "teeth": "10齿",
+  "fit": "151后",
+  "params": "齿数10 / 厚 / 中心孔125 / 孔12",
+  "model": "151"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-246",
+  "teeth": "10齿",
+  "fit": "江淮威铃左",
+  "params": "齿数10 / 厚75 / 中心孔130 / 孔14",
+  "model": "江淮威铃"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-235",
+  "teeth": "10齿",
+  "fit": "金刚王前左",
+  "params": "齿数10 / 厚20 / 中心孔110 / 孔12",
+  "model": "金刚王"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-236",
+  "teeth": "10齿",
+  "fit": "金刚王前右",
+  "params": "齿数10 / 厚20 / 中心孔110 / 孔12",
+  "model": "金刚王"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-247",
+  "teeth": "10齿",
+  "fit": "江淮威铃右",
+  "params": "齿数10 / 厚75 / 中心孔130 / 孔14",
+  "model": "江淮威铃"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-248",
+  "teeth": "14齿",
+  "fit": "新欧曼前左",
+  "params": "齿数14 / 厚65 / 中心孔135 / 孔14",
+  "model": "新欧曼",
+  "notes": [
+   "17 / 18",
+   "Road fine",
+   "路丰",
+   "Locking Plate Manual Adjusting Arm Series"
+  ]
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-249",
+  "teeth": "14齿",
+  "fit": "新欧曼前右",
+  "params": "齿数14 / 厚65 / 中心孔135 / 孔14",
+  "model": "新欧曼"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-250",
+  "teeth": "14齿",
+  "fit": "新欧曼后",
+  "params": "齿数14 / 厚 / 中心孔120 / 孔14",
+  "model": "新欧曼"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-261",
+  "teeth": "10齿",
+  "fit": "柳特王左",
+  "params": "齿数10 / 厚100 / 中心孔145 / 孔14",
+  "model": "柳特王"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-262",
+  "teeth": "10齿",
+  "fit": "柳特王右",
+  "params": "齿数10 / 厚100 / 中心孔145 / 孔14",
+  "model": "柳特王"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-251",
+  "teeth": "10齿",
+  "fit": "五吨王后左",
+  "params": "齿数10 / 厚50 / 中心孔137 / 孔14",
+  "model": "五吨王后"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-252",
+  "teeth": "10齿",
+  "fit": "五吨王后右",
+  "params": "齿数10 / 厚50 / 中心孔137 / 孔14",
+  "model": "五吨王后"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-263",
+  "teeth": "10齿",
+  "fit": "乘龙王前左",
+  "params": "齿数10 / 厚80 / 中心孔125 / 孔14",
+  "model": "乘龙王"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-264",
+  "teeth": "10齿",
+  "fit": "乘龙王前右",
+  "params": "齿数10 / 厚80 / 中心孔125 / 孔14",
+  "model": "乘龙王"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-253",
+  "teeth": "10齿",
+  "fit": "五吨王前左",
+  "params": "齿数10 / 厚45 / 中心孔110 / 孔12",
+  "model": "五吨王前"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-254",
+  "teeth": "10齿",
+  "fit": "五吨王前右",
+  "params": "齿数10 / 厚45 / 中心孔110 / 孔12",
+  "model": "五吨王前"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂产品编号：JC-265",
+  "teeth": "10齿",
+  "fit": "欧曼高左",
+  "params": "齿数10 / 厚80 / 中心孔125 / 孔14",
+  "model": "欧曼高"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-266",
+  "teeth": "10齿",
+  "fit": "欧曼高右",
+  "params": "齿数10 / 厚80 / 中心孔125 / 孔14",
+  "model": "欧曼高"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC255",
+  "teeth": "10齿",
+  "fit": "奥威小弯",
+  "params": "齿数10 / 厚 / 中心孔150 / 孔14",
+  "model": "小奥威"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-256",
+  "teeth": "25齿",
+  "fit": "小奥威",
+  "notes": [
+   "参数齿数25 / 厚 / 中心孔150 / 孔14"
+  ],
+  "model": "小奥威"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-267",
+  "teeth": "10齿",
+  "fit": "欧曼低左",
+  "params": "齿数10 / 厚60 / 中心孔135 / 孔14",
+  "notes": [
+   "车型欧曼"
+  ]
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-268",
+  "teeth": "10齿",
+  "fit": "欧曼低右",
+  "params": "齿数10 / 厚60 / 中心孔135 / 孔14",
+  "model": "欧曼"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-257",
+  "teeth": "10齿",
+  "fit": "大奥威",
+  "params": "齿数10 / 厚 / 中心孔140/150 / 孔14",
+  "model": "大奥威"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-258",
+  "teeth": "10齿",
+  "fit": "宜悍威",
+  "params": "齿数10 / 厚 / 中心孔155 / 孔14",
+  "model": "宜悍威"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-269",
+  "teeth": "10齿",
+  "fit": "欧曼五左",
+  "params": "齿数10 / 厚85 / 中心孔135 / 孔14",
+  "model": "欧曼五"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-270",
+  "teeth": "10齿",
+  "fit": "欧曼五右",
+  "params": "齿数10 / 厚85 / 中心孔135 / 孔14",
+  "model": "欧曼五"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-259",
+  "teeth": "25齿",
+  "fit": "宜悍威",
+  "params": "齿数25 / 厚 / 中心孔155 / 孔14",
+  "model": "宜悍威"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-260",
+  "teeth": "26齿",
+  "fit": "德龙曼桥前",
+  "params": "齿数26 / 厚 / 中心孔110 / 孔",
+  "model": "德龙曼桥"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-271",
+  "teeth": "10齿",
+  "fit": "柳特435左",
+  "params": "齿数10 / 厚80 / 中心孔135 / 孔14",
+  "model": "柳特435"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-272",
+  "teeth": "10齿",
+  "fit": "柳特435右",
+  "params": "齿数 / 厚80 / 中心孔135 / 孔14",
+  "model": "柳特435",
+  "notes": [
+   "19 / 20",
+   "Road fine",
+   "路丰",
+   "Locking Plate Manual Adjusting Arm Series"
+  ]
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-273",
+  "teeth": "14齿",
+  "fit": "一汽435左",
+  "params": "齿数14 / 厚60 / 中心孔120 / 孔14",
+  "model": "一汽435"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-274",
+  "teeth": "14齿",
+  "fit": "一汽435右",
+  "params": "齿数14 / 厚60 / 中心孔120 / 孔14",
+  "model": "一汽435"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-285",
+  "teeth": "25齿",
+  "fit": "1094前左",
+  "params": "齿数25 / 厚46 / 中心孔150 / 孔14",
+  "model": "1094前"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-286",
+  "teeth": "10齿",
+  "fit": "1094前右",
+  "params": "齿数10 / 厚65 / 中心孔125 / 孔12",
+  "model": "1094前"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-275",
+  "teeth": "28齿",
+  "fit": "小飞龙前左",
+  "params": "齿数28 / 厚95 / 中心孔140 / 孔14",
+  "model": "小飞龙"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-276",
+  "teeth": "28齿",
+  "fit": "小飞龙前右",
+  "params": "齿数28 / 厚95 / 中心孔140 / 孔14",
+  "model": "小飞龙"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-287",
+  "teeth": "10齿",
+  "fit": "杭六平前左",
+  "params": "齿数10 / 厚60 / 中心孔125 / 孔12",
+  "model": "杭六平"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-288",
+  "teeth": "10齿",
+  "fit": "杭六平前右",
+  "params": "齿数10 / 厚60 / 中心孔125 / 孔12",
+  "model": "杭六平"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-277",
+  "teeth": "26齿",
+  "fit": "新大成左",
+  "params": "齿数26 / 厚65 / 中心孔135 / 孔14",
+  "model": "新大成"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-278",
+  "teeth": "26齿",
+  "fit": "新大成右",
+  "params": "齿数26 / 厚65 / 中心孔135 / 孔14",
+  "model": "新大成"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-289",
+  "teeth": "10齿",
+  "fit": "杭六平后",
+  "params": "齿数10 / 厚60 / 中心孔125 / 孔12",
+  "model": "杭六平"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-290",
+  "teeth": "26齿",
+  "fit": "大江桥左",
+  "params": "齿数26 / 厚10 / 中心孔163 / 孔17",
+  "model": "大江桥"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-279",
+  "teeth": "25齿",
+  "fit": "新大成左",
+  "params": "齿数25 / 厚65 / 中心孔165 / 孔14",
+  "model": "新大成"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-280",
+  "teeth": "25齿",
+  "fit": "新大成右",
+  "params": "齿数25 / 厚65 / 中心孔165 / 孔14",
+  "model": "新大成"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-291",
+  "teeth": "26齿",
+  "fit": "大江桥右",
+  "params": "齿数26 / 厚10 / 中心孔165 / 孔17",
+  "model": "大江桥"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-292",
+  "teeth": "28齿",
+  "fit": "豪沃一孔",
+  "params": "齿数28 / 厚 / 中心孔140 / 孔13",
+  "model": "豪沃"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-281",
+  "teeth": "19齿",
+  "fit": "新大成左",
+  "params": "齿数19 / 厚65 / 中心孔165 / 孔14",
+  "model": "新大成"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-282",
+  "teeth": "19齿",
+  "fit": "新大成右",
+  "params": "齿数19 / 厚65 / 中心孔165 / 孔14",
+  "model": "新大成"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-293",
+  "teeth": "26齿",
+  "fit": "大成左",
+  "params": "齿数26 / 厚30 / 中心孔140 / 孔14",
+  "model": "大成"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-294",
+  "teeth": "26齿",
+  "fit": "大成右",
+  "params": "齿数26 / 厚30 / 中心孔140 / 孔14",
+  "model": "大成"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-283",
+  "teeth": "14齿",
+  "fit": "天龙中桥左",
+  "params": "齿数14 / 厚20 / 中心孔135/125 / 孔14",
+  "model": "天龙中桥"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-284",
+  "teeth": "14齿",
+  "fit": "天龙中桥右",
+  "params": "齿数14 / 厚20 / 中心孔135/125 / 孔14",
+  "model": "天龙中桥"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-295",
+  "teeth": "26齿",
+  "fit": "红岩左",
+  "params": "齿数26 / 厚55 / 中心孔180/210 / 孔14",
+  "model": "红岩"
+ },
+ {
+  "section": "锁片式手动调整臂系列",
+  "name": "手动调整臂",
+  "code": "JC-296",
+  "teeth": "26齿",
+  "fit": "红岩右",
+  "params": "齿数26 / 厚55 / 中心孔180/210 / 孔14",
+  "model": "红岩",
+  "notes": [
+   "21 / 22",
+   "# 纯文本提取",
+   "---",
+   "## 第23页",
+   "**Road fine 路丰**",
+   "Locking Plate Manual Adjusting Arm Series",
+   "**产品名称：** 手动调整臂",
+   "**产品编号：** JC-297",
+   "**产品齿数：** 10齿",
+   "**适用车型：** 江淮前左",
+   "| 齿数 | 厚 | 中心距 | 孔 |",
+   "| 10 | | 40 | 135 | 12 |",
+   "| 车型：江淮 |",
+   "**产品名称：** 手动调整臂",
+   "**产品编号：** JC-298",
+   "**产品齿数：** 10齿",
+   "**适用车型：** 江淮前右",
+   "| 齿数 | 厚 | 中心距 | 孔 |",
+   "| 10 | | 40 | 135 | 12 |",
+   "| 车型：江淮 |",
+   "**产品名称：** 手动调整臂",
+   "**产品编号：** JC-299",
+   "**产品齿数：** 10齿",
+   "**适用车型：** 江淮后左",
+   "| 齿数 | 厚 | 中心距 | 孔 |",
+   "| 10 | | 130 |",
+   "| 车型：江淮后 |",
+   "**产品名称：** 手动调整臂",
+   "**产品编号：** JC-300",
+   "**产品齿数：** 10齿",
+   "**适用车型：** 江淮后右",
+   "| 齿数 | 厚 | 中心距 | 孔 |",
+   "| 10 | | 130 |",
+   "| 车型：江淮后 |",
+   "**产品名称：** 手动调整臂",
+   "**产品编号：** JC-301",
+   "**产品齿数：** 10齿",
+   "**适用车型：** BPW五孔",
+   "| 齿数 | 厚 | 中心距 | 孔 |",
+   "| 10 | | 30/40 | 12 |",
+   "| 车型：BPW |",
+   "**产品名称：** 手动调整臂",
+   "**产品编号：** JC-302",
+   "**产品齿数：** 10齿",
+   "**适用车型：** BPW六孔",
+   "| 齿数 | 厚 | 中心距 | 孔 |",
+   "| 10 | | 40 | 135 | 12 |",
+   "| 车型：BPW |",
+   "**产品名称：** 手动调整臂",
+   "**产品编号：** JC-303",
+   "**产品齿数：** 10齿",
+   "**适用车型：** BPW七孔",
+   "| 齿数 | 厚 | 中心距 | 孔 |",
+   "| 10 | | 40 | 250 | 14 |",
+   "| 车型：BPW |",
+   "**产品名称：** 手动调整臂",
+   "**产品编号：** JC-304",
+   "**产品齿数：** 37齿",
+   "**适用车型：** 富华侨三孔",
+   "| 齿数 | 厚 | 中心距 | 孔 |",
+   "| 37 | | 40 | 141/177 | 13 |",
+   "| 车型：富华侨 |",
+   "**产品名称：** 手动调整臂",
+   "**产品编号：** JC-305",
+   "**产品齿数：** 28齿",
+   "**适用车型：** 富华侨三孔",
+   "| 齿数 | 厚 | 中心距 | 孔 |",
+   "| 28 | | 40 | 141/177 | 13 |",
+   "| 车型：富华侨 |",
+   "**产品名称：** 手动调整臂",
+   "**产品编号：** JC-306",
+   "**产品齿数：** 14齿",
+   "**适用车型：** 富华侨三孔",
+   "| 齿数 | 厚 | 中心距 | 孔 |",
+   "| 14 | | 40 | 141/177 | 13 |",
+   "| 车型：富华侨 |",
+   "**产品名称：** 手动调整臂",
+   "**产品编号：** JC-307",
+   "**产品齿数：** 10齿",
+   "**适用车型：** 富华侨三孔",
+   "| 齿数 | 厚 | 中心距 | 孔 |",
+   "| 10 | | 40 | 141/177 | 13 |",
+   "| 车型：富华侨 |",
+   "**产品名称：** 手动调整臂",
+   "**产品编号：** JC-308",
+   "**产品齿数：** 37齿",
+   "**适用车型：** 富华侨四孔",
+   "| 齿数 | 厚 | 中心距 | 孔 |",
+   "| 37 | | 40 | 141/177 | 13 |",
+   "| 车型：富华侨 |",
+   "**23**",
+   "---",
+   "## 第24页",
+   "**Road fine 路丰**",
+   "### 美系手动调整臂",
+   "American Manual Adjustment Arm",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** KN55001",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** CS44064",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** KN47001",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 283411",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 286955N",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 278323N",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 18-Q48",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 278389N",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM No：** 37 TEEHT",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM No：** 8 TEETH",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** KN51000",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM No：** 288539N",
+   "**24**",
+   "# 纯文本提取",
+   "---",
+   "## 第25页",
+   "**Road fine 路丰**",
+   "### 俄系手动调整臂",
+   "Russian Manual Adjustment Arm",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 5320-3501136",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 53201362237",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 5511-35021362237",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 53229-35021362237",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 500-3501136",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 64221-3501236",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 64221-35011351136",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 5434-35011351136",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM No：** 25- TEETH",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 120-35011362136",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 120-3502336",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 700.23.00.020",
+   "**25**",
+   "---",
+   "## 第26页",
+   "**Road fine 路丰**",
+   "### 印度/巴西手动调整臂",
+   "Indian/brazilian Manual Adjustment Arm",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 264142110117",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 2573421101",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 257342110177/257342110178",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 264142110160/264142110118",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 264142110117",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 257342110157",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 257342110177/257342110178",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** F6366000",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 405141",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 401317",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 401508",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 401509",
+   "**26**",
+   "# 纯文本提取",
+   "---",
+   "## 第27页",
+   "**Road fine 路丰**",
+   "### 欧系手动调整臂",
+   "European Manual Adjustment Arm",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 384.420.75.38 / 384.420.76.38",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 345.420.17.38 / 345.420.18.38(ACK ADJUSTER**",
+   "**OEM NO：** 345.420.17.38 / 345.420.18.38(New)",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 345.420.72.38 / 345.420.73.38",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 000.420.04.38",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 05.174.52.10.0",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 05.174.65.11.0",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 05.174.52.61.0",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 05.174.65.13.0",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 05.174.65.13.0",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 31561",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM No：** 36 TEETH",
+   "**27**",
+   "---",
+   "## 第28页",
+   "**Road fine 路丰**",
+   "### 欧系/其它手动调整臂",
+   "European/other Manual Adjustable Arms",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 0351.951/52",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 0351.950",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 0351.949",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 1505324/1505325",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 194.778",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 278734",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 078735/278736",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 276517/276518",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 47480-1580 / 47490-1100",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM NO：** 1-48270043-0",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM No：** 8 TEETH",
+   "**MANUAL SLACK ADJUSTER**",
+   "**OEM No：** 10 TEETH",
+   "**28**",
+   "# 纯文本提取",
+   "---",
+   "## 第29页",
+   "**Road fine 路丰**",
+   "### 自动调整臂分解图",
+   "Exploded View Of Automatic Adjustment Arm",
+   "（分解图：零件标注 1–30）",
+   "### 配件名称",
+   "Accessory name",
+   "1. 螺钉",
+   "2. 端盖",
+   "3. 平面滚针轴承",
+   "4. O型圈(Ⅱ)",
+   "5. 隔套",
+   "6. 大斜齿轮",
+   "7. 离合器弹簧",
+   "8. 离合器",
+   "9. 弹针",
+   "10. 泪塞",
+   "11. 壳体",
+   "12. 加强圈",
+   "13. 调节螺钉",
+   "14. 问盖",
+   "15. 止推垫片",
+   "16. 止推轴承",
+   "17. 调整防尘盖",
+   "18. O型圈（Ⅱ）",
+   "19. 蜗轮",
+   "20. 密封垫",
+   "21. 控制臂盖",
+   "22. 控制臂",
+   "23. 螺钉",
+   "24. 连接环",
+   "25. 齿环",
+   "26. O型圈（Ⅲ）",
+   "27. 弹钳",
+   "28. 小齿轮",
+   "29. 弹簧",
+   "30. 小斜齿轮",
+   "### 自动调整臂(二代)特点",
+   "Features of automatic adjustment arm (second generation)",
+   "一、规格型号通用性强",
+   "自动调整臂（二代）的一个型号可代替自动调整臂（一代）的多个型号从而有效降低库存的管理。",
+   "二、安装便利，降低对操作人员的要求",
+   "自动调整臂（二代）安装方便、简单，不需要刻意将控制臂推到底，可以减少因装配调整错误而造成间隙调整不当问题，避免了自动调整臂（一代）安装错误导致的间隙过调问题。",
+   "三、调节速率适中，调整功能更稳定",
+   "自动调整臂（二代）调节速率为5.7%，对比一代调整臂调节速率更低，间隙稳定可靠。",
+   "**29**",
+   "---",
+   "## 第30页",
+   "**Road fine 路丰**",
+   "FAW Jiefang Automatic Adjusting Arm Series"
+  ]
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001000",
+  "fit": "一汽奥威后10齿"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001001",
+  "fit": "一汽解放J6后"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001002",
+  "fit": "一汽解放J6后"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001003",
+  "fit": "一汽解放新大威前桥 3501205/10 F382"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001004",
+  "fit": "一汽解放、天威390"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001005",
+  "fit": "一汽解放悍威"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001006",
+  "fit": "一汽解放"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001007",
+  "fit": "一汽解放"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001008",
+  "fit": "一汽解放"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001009",
+  "fit": "一汽解放"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001010",
+  "fit": "一汽解放、483前左"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001011",
+  "fit": "一汽解放、483前右"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001012",
+  "fit": "解放AOE CA300桥后左"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001013",
+  "fit": "解放AOE CA300桥后右",
+  "notes": [
+   "**30**",
+   "# 纯文本提取",
+   "---",
+   "## 第31页",
+   "**Road fine 路丰**",
+   "FAW Jiefang Automatic Adjusting Arm Series"
+  ]
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001014",
+  "fit": "一汽解放赛龙 通用格尔发"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001015",
+  "fit": "一汽解放赛龙 通用格尔发"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001016",
+  "fit": "一汽解放 483前左 奥威前左"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001017",
+  "fit": "一汽解放 483前右 奥威前右"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "21001018",
+  "fit": "青特"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "21001019",
+  "fit": "青特"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001020",
+  "fit": "一汽解放"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001021",
+  "fit": "一汽解放"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "J22001022",
+  "fit": "一汽"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001023",
+  "fit": "一汽"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001024",
+  "fit": "一汽海通车桥 3502205-DD051ZB"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001025",
+  "fit": "一汽海通车桥 3501205/10-02Z"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001026",
+  "fit": "一汽海通车桥 3502205/10-1HZB"
+ },
+ {
+  "section": "### 一汽解放自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001027",
+  "fit": "一汽海通车桥 3502210-1HZB",
+  "notes": [
+   "**31**",
+   "---",
+   "## 第32页",
+   "**Road fine 路丰**",
+   "Faw Jiefang/sinotruk Automatic Adjusting Arm Series"
+  ]
+ },
+ {
+  "section": "### 一汽解放/重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001028",
+  "fit": "一汽海通车桥"
+ },
+ {
+  "section": "### 一汽解放/重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001029",
+  "fit": "一汽海通车桥"
+ },
+ {
+  "section": "### 一汽解放/重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001030",
+  "fit": "解放(比亚迪)"
+ },
+ {
+  "section": "### 一汽解放/重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001031",
+  "fit": "解放(比亚迪)"
+ },
+ {
+  "section": "### 一汽解放/重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001032",
+  "fit": "一汽解放、483后右"
+ },
+ {
+  "section": "### 一汽解放/重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001033",
+  "fit": "一汽解放"
+ },
+ {
+  "section": "### 一汽解放/重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001034",
+  "fit": "一汽解放"
+ },
+ {
+  "section": "### 一汽解放/重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001035",
+  "fit": "一汽解放"
+ },
+ {
+  "section": "### 一汽解放/重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001200",
+  "fit": "重汽STR加长左"
+ },
+ {
+  "section": "### 一汽解放/重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001201",
+  "fit": "重汽STR加长右"
+ },
+ {
+  "section": "### 一汽解放/重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001202",
+  "fit": "重汽STR前"
+ },
+ {
+  "section": "### 一汽解放/重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001203",
+  "fit": "重汽STR后"
+ },
+ {
+  "section": "### 一汽解放/重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001204",
+  "fit": "重汽豪沃"
+ },
+ {
+  "section": "### 一汽解放/重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001205",
+  "fit": "重汽豪沃",
+  "notes": [
+   "**32**",
+   "# 纯文本提取",
+   "---",
+   "## 第33页",
+   "**Road fine 路丰**",
+   "Heavy Duty Truck Automatic Adjusting Arm Series"
+  ]
+ },
+ {
+  "section": "### 重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001206",
+  "fit": "重汽德龙5.5"
+ },
+ {
+  "section": "### 重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001207",
+  "fit": "重汽德龙5.5"
+ },
+ {
+  "section": "### 重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001209",
+  "fit": "重汽豪沃T7"
+ },
+ {
+  "section": "### 重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001210",
+  "fit": "重汽陕汽"
+ },
+ {
+  "section": "### 重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001211",
+  "fit": "重汽陕汽汉德"
+ },
+ {
+  "section": "### 重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001212",
+  "fit": "重汽豪沃后左"
+ },
+ {
+  "section": "### 重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001213",
+  "fit": "重汽豪沃后右"
+ },
+ {
+  "section": "### 重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001214",
+  "fit": "重汽"
+ },
+ {
+  "section": "### 重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001215",
+  "fit": "重汽"
+ },
+ {
+  "section": "### 重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001216",
+  "fit": "重汽"
+ },
+ {
+  "section": "### 重汽自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001217",
+  "fit": "一汽解放悍威",
+  "notes": [
+   "**33**",
+   "---",
+   "## 第34页",
+   "**Road fine 路丰**",
+   "Dongfeng automatic adjusting arm series"
+  ]
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001300",
+  "fit": "东风140前左"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001301",
+  "fit": "东风140前右"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "车型：东风140后"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001303",
+  "fit": "东风二汽"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001304",
+  "fit": "东风二汽"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001306",
+  "fit": "东风二汽 通用格尔发"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001307",
+  "fit": "东风153前左"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001308",
+  "fit": "东风153前右"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001309",
+  "fit": "东风天锦"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001310",
+  "fit": "东风天锦",
+  "notes": [
+   "**34**",
+   "# 纯文本提取",
+   "---",
+   "## 第35页",
+   "**Road fine 路丰**",
+   "Dongfeng automatic adjusting arm series"
+  ]
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001313",
+  "fit": "东风大力神"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001314",
+  "fit": "东风大力神"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "2200东风140前"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001316",
+  "fit": "东风"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001317",
+  "fit": "东风"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001318",
+  "fit": "东风天龙后"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001319",
+  "fit": "东风"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001320",
+  "fit": "东风天龙 大力神中桥153后"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001321",
+  "fit": "东风 三一前桥14齿左"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001322",
+  "fit": "东风 三一前桥14齿右",
+  "notes": [
+   "**35**",
+   "---",
+   "## 第36页",
+   "**Road fine 路丰**"
+  ]
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001324",
+  "fit": "东风"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001325",
+  "fit": "东风153后"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001326",
+  "fit": "东风大力神前左"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001327",
+  "fit": "东风大力神前右"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001328",
+  "fit": "东风"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001329",
+  "fit": "东风"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001330",
+  "fit": "东风大力神后左"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001331",
+  "fit": "东风大力神后右"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001332",
+  "fit": "东风 广汽日野左"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001333",
+  "fit": "东风 广汽日野右"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001334",
+  "fit": "东风"
+ },
+ {
+  "section": "### 东风自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001335",
+  "fit": "东风",
+  "notes": [
+   "**36**",
+   "# 纯文本提取",
+   "---",
+   "## 第37页",
+   "**Road fine 路丰**",
+   "Beiqi Foton Automatic Adjusting Arm Series"
+  ]
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001400",
+  "fit": "福田奥铃"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001401",
+  "fit": "福田奥铃"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001402",
+  "fit": "福田奥铃"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001403",
+  "fit": "福田奥铃"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001404",
+  "fit": "福田奥铃"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001405",
+  "fit": "福田"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001406",
+  "fit": "德龙"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001407",
+  "fit": "德龙"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001408",
+  "fit": "欧曼ETX"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001409",
+  "fit": "欧曼ETX"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001410",
+  "fit": "福田欧曼"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001411",
+  "fit": "福田欧曼",
+  "notes": [
+   "**37**",
+   "---",
+   "## 第38页",
+   "**Road fine 路丰**"
+  ]
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001412",
+  "fit": "欧曼ETX 469桥"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001413",
+  "fit": "福田瑞沃"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001414",
+  "fit": "福田瑞沃"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001415",
+  "fit": "福田"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001416",
+  "fit": "福田"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001417",
+  "fit": "福田"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001418",
+  "fit": "青特"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001419",
+  "fit": "青特"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001420",
+  "fit": "安凯福田"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001421",
+  "fit": "安凯福田"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001422",
+  "fit": "福田"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001423",
+  "fit": "福田",
+  "notes": [
+   "**38**",
+   "# 纯文本提取",
+   "---",
+   "## 第39页",
+   "**Road fine 路丰**",
+   "Beiqi Foton Automatic Adjusting Arm Series"
+  ]
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001424",
+  "fit": "福田"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001425",
+  "fit": "福田"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001426",
+  "fit": "福田"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001427",
+  "fit": "福田"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001428",
+  "fit": "福田"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001429",
+  "fit": "福田"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001430",
+  "fit": "福田"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001432",
+  "fit": "福田"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001433",
+  "fit": "福田"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001434",
+  "fit": "福田"
+ },
+ {
+  "section": "### 北汽福田自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001435",
+  "fit": "福田",
+  "notes": [
+   "**39**",
+   "---",
+   "## 第40页",
+   "**Road fine 路丰**",
+   "Qingte Automatic Adjusting Arm Series"
+  ]
+ },
+ {
+  "section": "### 青特自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001500",
+  "fit": "青特"
+ },
+ {
+  "section": "### 青特自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001501",
+  "fit": "青特"
+ },
+ {
+  "section": "### 青特自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001502",
+  "fit": "青特"
+ },
+ {
+  "section": "### 青特自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "车型：青特"
+ },
+ {
+  "section": "### 青特自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001504",
+  "fit": "青特"
+ },
+ {
+  "section": "### 青特自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001505",
+  "fit": "青特"
+ },
+ {
+  "section": "### 青特自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001506",
+  "fit": "青特"
+ },
+ {
+  "section": "### 青特自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001507",
+  "fit": "青特"
+ },
+ {
+  "section": "### 青特自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001508",
+  "fit": "青特"
+ },
+ {
+  "section": "### 青特自动调整臂系列",
+  "name": "自动22001509",
+  "fit": "青特"
+ },
+ {
+  "section": "### 青特自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001510",
+  "fit": "青特"
+ },
+ {
+  "section": "### 青特自动调整臂系列",
+  "name": "自动调整臂",
+  "code": "22001511",
+  "fit": "青特",
+  "notes": [
+   "**40**",
+   "## Qingte Automatic Adjusting Arm Series",
+   "| 产品名称 | 产品编号 | 适用车型 |",
+   "|---------|---------|---------|",
+   "| 自动调整臂 | 22001512 | 青特 |",
+   "| 自动调整臂 | 22001513 | 青特 |",
+   "| 自动调整臂 | 22001514 | 青特 |",
+   "22001515 | 青特 |",
+   "| 自动调整臂 | 22001516 | 青特 |",
+   "| 自动调整臂 | 22001517 | 青特 |",
+   "| 自动调整臂 | 22001518 | 青特 |",
+   "| 自动调整臂 | 22001519 | 青特 |",
+   "| 自动调整臂 | 22001520 | 青特 |",
+   "| 自动调整臂 | 22001521 | 青特 |",
+   "| 自动调整臂 | 22001522 | 青特 |",
+   "| 自动调整臂 | 22001523 | 青特 |",
+   "## Liuqi Auto Adjusting Arm Series",
+   "| 产品名称 | 产品编号 | 适用车型 |",
+   "|---------|---------|---------|",
+   "| 自动调整臂 | 22001600 | 柳汽/ |",
+   "| 自动调整臂 | 22001601 | 柳汽/方盛车桥 |",
+   "| 自动调整臂 | 22001602 | 柳汽 |",
+   "| 自动调整臂 | 22001603 | 柳汽 |",
+   "| 自动调整臂 | 22001604 | 柳汽 |",
+   "| 自动调整臂 | 22001605 | 柳汽 |",
+   "| 自动调整臂 | 22001606 | 柳汽福田/欧曼/EST |",
+   "| 自动调整臂 | 22001607 | 柳汽福田/欧曼/EST |",
+   "| 自动调整臂 | 22001608 | 柳汽H7左 |",
+   "| 自动调整臂 | 22001609 | 柳汽H7右 |",
+   "| 自动调整臂 | 22001610 | 柳汽H7左 |",
+   "| 自动调整臂 | 22001611 | 柳汽H7右 |",
+   "---",
+   "品牌：Road fine 路丰",
+   "页码：41 / 42"
+  ]
+ }
+]
