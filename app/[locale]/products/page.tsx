@@ -89,8 +89,30 @@ export default async function ProductsPage({
     // 关键词清洗:去掉会破坏 PostgREST or= 语法的字符
     const needle = q.replace(/[%,()]/g, ' ').trim()
 
-    const orExpr = needle
-      ? `name_en.ilike.%${needle}%,name_zh.ilike.%${needle}%,name_ru.ilike.%${needle}%,oem_number.ilike.%${needle}%,brand.ilike.%${needle}%,truck_model.ilike.%${needle}%,sku.ilike.%${needle}%`
+    // 同义词扩展:精确词条双向查一次(search_synonyms 小表,RLS 可读)
+    let expanded: string[] = []
+    if (supabase && needle) {
+      const { data: synRows } = await supabase!
+        .from('search_synonyms')
+        .select('term,synonym')
+        .or(`term.eq.${needle},synonym.eq.${needle}`)
+        .limit(8)
+      expanded = Array.from(
+        new Set((synRows || []).flatMap((r: { term: string; synonym: string }) => [r.term, r.synonym])),
+      )
+        .map((t) => t.replace(/[%,()]/g, ' ').trim())
+        .filter((t) => t && t !== needle)
+        .slice(0, 7)
+    }
+    const allTerms = [needle, ...expanded].filter(Boolean)
+
+    const orExpr = allTerms.length
+      ? allTerms
+          .map(
+            (t) =>
+              `name_en.ilike.%${t}%,name_zh.ilike.%${t}%,name_ru.ilike.%${t}%,oem_number.ilike.%${t}%,brand.ilike.%${t}%,truck_model.ilike.%${t}%,sku.ilike.%${t}%`,
+          )
+          .join(',')
       : ''
 
     const { count } = await (() => {
