@@ -115,19 +115,16 @@ export async function POST(req: NextRequest) {
       })
     }
     mem.set(cacheKey, { at: Date.now(), data })
-    // 写回永久缓存(失败不影响返回)
+    // 写回永久缓存(supabase-js 错误以返回值形式处理,不抛异常)
     if (supabase) {
-      try {
-        await supabase.from('macc_cache').upsert({
-          cache_key: cacheKey,
-          action: String(action),
-          payload: data,
-          frequency: frequency ?? null,
-          updated_at: new Date().toISOString(),
-        })
-      } catch {
-        /* 静默 */
-      }
+      const { error: upErr } = await supabase.from('macc_cache').upsert({
+        cache_key: cacheKey,
+        action: String(action),
+        payload: data,
+        frequency: frequency ?? null,
+        updated_at: new Date().toISOString(),
+      })
+      if (upErr) console.error('[macc-cache] upsert fail:', cacheKey, JSON.stringify(upErr))
     }
     return NextResponse.json({ ok: true, frequency, data })
   } catch (e) {
