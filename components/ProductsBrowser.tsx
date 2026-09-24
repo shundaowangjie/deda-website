@@ -14,6 +14,7 @@ export interface CatalogProduct {
   sku: string
   name_en: string
   name_zh: string | null
+  name_ru: string | null
   brand: string | null
   category: string
   oem_number: string | null
@@ -184,13 +185,15 @@ export default function ProductsBrowser({
                     <Link href={`/products/${product.slug}`} className="flex-1">
                       <div className="flex justify-between items-start gap-2 mb-2">
                         <h3 className="font-medium text-gray-900 group-hover:text-blue-700 truncate">
-                          {product.name_zh || product.name_en}
+                          {locale === 'ru'
+                            ? product.name_ru || product.name_zh || product.name_en
+                            : product.name_zh || product.name_en}
                         </h3>
                         <span className="shrink-0 text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded">
                           {catLabel(product.category)}
                         </span>
                       </div>
-                      {product.name_zh && product.name_en && (
+                      {(locale === 'ru' ? product.name_ru && product.name_en : product.name_zh && product.name_en) && (
                         <p className="text-sm text-gray-500 mb-2 truncate">{product.name_en}</p>
                       )}
                       <div className="flex items-center gap-2 text-sm flex-wrap">

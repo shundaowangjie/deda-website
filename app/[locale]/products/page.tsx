@@ -90,7 +90,7 @@ export default async function ProductsPage({
     const needle = q.replace(/[%,()]/g, ' ').trim()
 
     const orExpr = needle
-      ? `name_en.ilike.%${needle}%,name_zh.ilike.%${needle}%,oem_number.ilike.%${needle}%,brand.ilike.%${needle}%,truck_model.ilike.%${needle}%,sku.ilike.%${needle}%`
+      ? `name_en.ilike.%${needle}%,name_zh.ilike.%${needle}%,name_ru.ilike.%${needle}%,oem_number.ilike.%${needle}%,brand.ilike.%${needle}%,truck_model.ilike.%${needle}%,sku.ilike.%${needle}%`
       : ''
 
     const { count } = await (() => {
@@ -108,7 +108,7 @@ export default async function ProductsPage({
     const { data } = await (() => {
       let query = supabase!
         .from('products')
-        .select('slug, sku, name_en, name_zh, brand, category, oem_number, truck_model, status')
+        .select('slug, sku, name_en, name_zh, name_ru, brand, category, oem_number, truck_model, status')
         .in('status', ['published', 'active'])
       if (category) query = query.eq('category', category)
       if (model) query = query.eq('truck_model', model)

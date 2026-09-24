@@ -59,6 +59,7 @@ export default async function ProductPage({ params }: Props) {
   const {
     name_en,
     name_zh,
+    name_ru,
     brand,
     truck_model,
     oem_number,
@@ -110,7 +111,11 @@ export default async function ProductPage({ params }: Props) {
         <header className="mb-8 flex items-start justify-between gap-4">
           <div className="min-w-0">
             <h1 className="text-3xl font-bold text-gray-900">{name_en}</h1>
-            {name_zh && <p className="mt-1 text-lg text-gray-500">{name_zh}</p>}
+            {(locale === 'ru' ? name_ru || name_zh : name_zh) && (
+              <p className="mt-1 text-lg text-gray-500">
+                {locale === 'ru' ? name_ru || name_zh : name_zh}
+              </p>
+            )}
           </div>
           <div className="shrink-0 mt-2">
             <InquiryButton

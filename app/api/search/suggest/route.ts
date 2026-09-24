@@ -31,15 +31,15 @@ export async function GET(req: NextRequest) {
     const pattern = `%${q.replace(/%/g, '\\%').replace(/_/g, '\\_')}%`
     const { data: fb } = await supabase
       .from('products')
-      .select('slug, name_en, name_zh, oem_number')
+      .select('slug, name_en, name_zh, name_ru, oem_number')
       .or(
-        `name_en.ilike.${pattern},name_zh.ilike.${pattern},oem_number.ilike.${pattern},sku.ilike.${pattern}`,
+        `name_en.ilike.${pattern},name_zh.ilike.${pattern},name_ru.ilike.${pattern},oem_number.ilike.${pattern},sku.ilike.${pattern}`,
       )
       .in('status', ['published', 'active'])
       .limit(8)
     const suggestions = (fb || []).map((p: Record<string, string>) => ({
       slug: p.slug,
-      label: `${p.name_zh || p.name_en} ${p.name_en}`.trim(),
+      label: `${p.name_ru || p.name_zh || p.name_en} ${p.name_en}`.trim(),
       oem: p.oem_number || '',
       kind: 'product',
     }))
