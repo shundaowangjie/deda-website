@@ -1,12 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { tryGetSupabase } from '@/lib/supabase'
 
 /**
  * 51macc 商用车数据接口代理(内部 VIN 查件工具专用)。
- * 密钥只在服务端读取(MACC_USERID);30 分钟内存缓存省额度;见 docs/macc-api.md
+ * 密钥只在服务端读取(MACC_USERID);双层缓存省额度:
+ *   L1 内存 30 分钟;L2 Supabase macc_cache 永久(表未建/写失败静默降级)。
+ * serial/groups/bom 缓存 90 天,price 缓存 14 天。见 docs/macc-api.md
  */
 const BASE = 'https://www.51macc.com/api/Mattrio/CvApi'
-const TTL = 30 * 60 * 1000
-const cache = new Map<string, { at: number; data: unknown }>()
+const TTL_MEM = 30 * 60 * 1000
+const TTL_DB: Record<string, number> = {
+  serial: 90 * 24 * 3600 * 1000,
+  groups: 90 * 24 * 3600 * 1000,
+  bom: 90 * 24 * 3600 * 1000,
+  price: 14 * 24 * 3600 * 1000,
+}
+const mem = new Map<string, { at: number; data: unknown }>()
 
 const METHOD_MAP: Record<string, string> = {
   serial: 'GetSerial',
@@ -41,10 +50,39 @@ export async function POST(req: NextRequest) {
     if (v !== undefined && v !== null && String(v) !== '') form.set(k, String(v))
   }
 
-  const cacheKey = `${method}?${form.toString()}`
-  const hit = cache.get(cacheKey)
-  if (hit && Date.now() - hit.at < TTL) {
+  const cacheKey = `${method}?${new URLSearchParams(
+    Object.entries(params).filter(([, v]) => v !== undefined && v !== null && String(v) !== ''),
+  )
+    .entries()
+    .toArray()
+    .map(([k, v]) => `${k}=${String(v)}`)
+    .sort()
+    .join('&')}`
+
+  // L1 内存缓存
+  const hit = mem.get(cacheKey)
+  if (hit && Date.now() - hit.at < TTL_MEM) {
     return NextResponse.json({ ok: true, cached: true, data: hit.data })
+  }
+
+  // L2 永久缓存(macc_cache 表;未建表/查询失败静默跳过)
+  const supabase = tryGetSupabase()
+  const ttlDb = TTL_DB[action as string] ?? TTL_DB.bom
+  if (supabase) {
+    try {
+      const { data: row } = await supabase
+        .from('macc_cache')
+        .select('payload')
+        .eq('cache_key', cacheKey)
+        .gt('updated_at', new Date(Date.now() - ttlDb).toISOString())
+        .maybeSingle()
+      if (row?.payload) {
+        mem.set(cacheKey, { at: Date.now(), data: row.payload })
+        return NextResponse.json({ ok: true, cached: true, data: row.payload })
+      }
+    } catch {
+      /* 表未建等情况,降级直查 */
+    }
   }
 
   try {
@@ -79,7 +117,21 @@ export async function POST(req: NextRequest) {
         error: hint[recode] || msg || `上游错误(${recode})`,
       })
     }
-    cache.set(cacheKey, { at: Date.now(), data })
+    mem.set(cacheKey, { at: Date.now(), data })
+    // 写回永久缓存(失败不影响返回)
+    if (supabase) {
+      try {
+        await supabase.from('macc_cache').upsert({
+          cache_key: cacheKey,
+          action: String(action),
+          payload: data,
+          frequency: frequency ?? null,
+          updated_at: new Date().toISOString(),
+        })
+      } catch {
+        /* 静默 */
+      }
+    }
     return NextResponse.json({ ok: true, frequency, data })
   } catch (e) {
     const hint = process.env.VERCEL
