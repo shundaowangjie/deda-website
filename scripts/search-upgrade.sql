@@ -169,6 +169,20 @@ INSERT INTO search_synonyms (term, synonym) VALUES
   ('R134a', 'R-134a'), ('R-134a', 'R134a')
 ON CONFLICT (term, synonym) DO NOTHING;
 
+-- 3.2) 死胡同对修正(2026-09-24 审计:双句零命中的同义对补桥到目录真实用词)
+INSERT INTO search_synonyms (term, synonym) VALUES
+  -- 牙包/主减速器 目录无此词 → 桥到 差速器(46款)/后桥(12款)
+  ('牙包', '差速器'), ('差速器', '牙包'),
+  ('牙包', '后桥'), ('后桥', '牙包'),
+  ('主减速器', '差速器'), ('差速器', '主减速器'),
+  -- 目录制动片词条正名是 刹车片(322款),制动片/摩擦片 直接桥过去
+  ('制动片', '刹车片'), ('刹车片', '制动片'),
+  ('摩擦片', '刹车片'), ('刹车片', '摩擦片'),
+  -- 拉杆类目录用 拉杆(6)/球头(12)
+  ('横拉杆', '拉杆'), ('拉杆', '横拉杆'),
+  ('直拉杆', '拉杆'), ('拉杆', '直拉杆')
+ON CONFLICT (term, synonym) DO NOTHING;
+
 -- 4) 互换号表（一款产品对应多个等效 OEM 号；表已存在时自动跳过）
 --    喂数据用 scripts/cross-refs-import-template.sql
 CREATE TABLE IF NOT EXISTS product_cross_references (
