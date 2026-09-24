@@ -50,11 +50,8 @@ export async function POST(req: NextRequest) {
     if (v !== undefined && v !== null && String(v) !== '') form.set(k, String(v))
   }
 
-  const cacheKey = `${method}?${new URLSearchParams(
-    Object.entries(params).filter(([, v]) => v !== undefined && v !== null && String(v) !== ''),
-  )
-    .entries()
-    .toArray()
+  const cacheKey = `${method}?${Object.entries(params)
+    .filter(([, v]) => v !== undefined && v !== null && String(v) !== '')
     .map(([k, v]) => `${k}=${String(v)}`)
     .sort()
     .join('&')}`
