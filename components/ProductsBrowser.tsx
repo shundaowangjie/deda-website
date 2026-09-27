@@ -18,6 +18,7 @@ export interface CatalogProduct {
   brand: string | null
   category: string
   oem_number: string | null
+  price: number | null
   truck_model: string | null
   status: string
 }
@@ -214,7 +215,15 @@ export default function ProductsBrowser({
                       )}
                       <div className="mt-2 text-xs text-gray-400">SKU: {product.sku}</div>
                     </Link>
-                    <div className="mt-3 pt-3 border-t border-gray-100 flex justify-end">
+                    <div className="mt-3 pt-3 border-t border-gray-100 flex justify-between items-center">
+                      {product.price != null ? (
+                        <div className="flex items-baseline gap-1.5 min-w-0">
+                          <span className="text-lg font-bold text-orange-600">¥{product.price}</span>
+                          <span className="text-xs text-gray-400 truncate">{locale === 'zh' ? '批量优惠询价' : locale === 'ru' ? 'Опт по запросу' : 'Bulk inquiry'}</span>
+                        </div>
+                      ) : (
+                        <span className="text-xs text-gray-400">{locale === 'zh' ? '询价' : locale === 'ru' ? 'По запросу' : 'Inquiry'}</span>
+                      )}
                       <InquiryButton
                         compact
                         item={{

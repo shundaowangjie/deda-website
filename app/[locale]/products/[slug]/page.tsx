@@ -60,6 +60,7 @@ export default async function ProductPage({ params }: Props) {
     name_en,
     name_zh,
     name_ru,
+    price,
     brand,
     truck_model,
     oem_number,
@@ -75,7 +76,7 @@ export default async function ProductPage({ params }: Props) {
       ? Object.entries(specs).map(([k, v]) => [k, String(v)])
       : []
 
-  // schema.org/Product 结构化数据(Google 富结果;询价模式无公开价格,不声明 offers)
+  // schema.org/Product 结构化数据(Google 富结果;有参考价时声明 offers,无价不声明)
   const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://products.dedaautoparts.com'
   const productLd = {
     '@context': 'https://schema.org',
@@ -91,6 +92,17 @@ export default async function ProductPage({ params }: Props) {
       description_zh ||
       `${brand ? brand + ' ' : ''}${name_en}${truck_model ? ` for ${truck_model}` : ''} — heavy truck spare parts, OEM ${oem_number ?? 'N/A'}`,
     url: `${SITE}/products/${slug}`,
+    ...(price != null
+      ? {
+          offers: {
+            '@type': 'Offer',
+            price: String(price),
+            priceCurrency: 'CNY',
+            availability: 'https://schema.org/InStock',
+            url: `${SITE}/products/${slug}`,
+          },
+        }
+      : {}),
     ...(truck_model
       ? {
           additionalProperty: [
@@ -115,6 +127,18 @@ export default async function ProductPage({ params }: Props) {
               <p className="mt-1 text-lg text-gray-500">
                 {locale === 'ru' ? name_ru || name_zh : name_zh}
               </p>
+            )}
+            {price != null && (
+              <div className="mt-3 flex items-baseline gap-2 flex-wrap">
+                <span className="text-3xl font-bold text-orange-600">¥{price}</span>
+                <span className="text-sm text-gray-400">
+                  {locale === 'zh'
+                    ? '参考价(不含税运),批量优惠询价'
+                    : locale === 'ru'
+                      ? 'Ориентировочная цена, опт по запросу'
+                      : 'Reference price, bulk inquiry'}
+                </span>
+              </div>
             )}
           </div>
           <div className="shrink-0 mt-2">
