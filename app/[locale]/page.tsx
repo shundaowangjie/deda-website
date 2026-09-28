@@ -2,6 +2,7 @@ import { tryGetSupabase } from '@/lib/supabase'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import OemSearchBox from '@/components/OemSearchBox'
+import PhotoInquiryButton from '@/components/PhotoInquiryButton'
 import { Link } from '@/i18n/navigation'
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
@@ -60,6 +61,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <h1 className="text-4xl font-bold text-gray-900 mb-3">DEDA Auto Parts</h1>
           <p className="text-lg text-gray-600 mb-8">{t('heroSubtitle')}</p>
           <OemSearchBox />
+          <div className="mt-3 flex justify-center">
+            <PhotoInquiryButton />
+          </div>
         </div>
       </section>
 

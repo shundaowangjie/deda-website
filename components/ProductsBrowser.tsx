@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import { Link, useRouter } from '@/i18n/navigation'
 import InquiryButton from '@/components/InquiryButton'
 import OemSearchBox from '@/components/OemSearchBox'
+import PhotoInquiryButton from '@/components/PhotoInquiryButton'
 import FilterBar from '@/components/FilterBar'
 import { categoryLabelFor, categorySortIndex } from '@/lib/categories'
 
@@ -134,6 +135,9 @@ export default function ProductsBrowser({
                   )
                 }
               />
+              <div className="mt-2 flex justify-end">
+                <PhotoInquiryButton />
+              </div>
             </div>
           </div>
         </div>
