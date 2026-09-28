@@ -8,6 +8,7 @@ interface FeaturedProduct {
   slug: string
   name_en: string
   name_zh: string
+  price: number | null
   oem_number: string
   brand: string
   category: string
@@ -34,8 +35,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const { data: products, error } = supabase
     ? await supabase
         .from('products')
-        .select('slug, name_en, name_zh, oem_number, brand, category')
+        .select('slug, name_en, name_zh, price, oem_number, brand, category')
         .in('status', ['published', 'active'])
+        .not('price', 'is', null)
         .order('created_at', { ascending: false })
         .limit(5)
     : { data: null, error: null }
@@ -91,6 +93,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   <span className="text-gray-300">|</span>
                   <span className="font-mono text-blue-700 font-semibold">{p.oem_number}</span>
                 </div>
+                {p.price != null && (
+                  <div className="mt-3 pt-3 border-t border-gray-100 flex items-baseline gap-2">
+                    <span className="text-xl font-bold text-orange-600">¥{p.price}</span>
+                    <span className="text-xs text-gray-400">
+                      {locale === 'zh' ? '批量优惠询价' : locale === 'ru' ? 'Опт по запросу' : 'Bulk inquiry'}
+                    </span>
+                  </div>
+                )}
               </Link>
             ))}
           </div>
