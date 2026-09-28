@@ -32,10 +32,11 @@ export default function PhotoInquiryButton() {
     setBusy(true)
     setErr('')
     try {
+      const payload = await compressImage(file)
       const supabase = getSupabase()
-      const ext = (file.name.split('.').pop() || 'jpg').toLowerCase()
+      const ext = (payload.name.split('.').pop() || 'jpg').toLowerCase()
       const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`
-      const { error: upErr } = await supabase.storage.from('inquiry-images').upload(path, file, { contentType: file.type || 'image/jpeg' })
+      const { error: upErr } = await supabase.storage.from('inquiry-images').upload(path, payload, { contentType: payload.type || 'image/jpeg' })
       if (upErr) throw new Error('图片上传失败(' + upErr.message + ')')
       const { data } = supabase.storage.from('inquiry-images').getPublicUrl(path)
       const { error: insErr } = await supabase
@@ -47,6 +48,23 @@ export default function PhotoInquiryButton() {
       setErr(e instanceof Error ? e.message : String(e))
     } finally {
       setBusy(false)
+    }
+  }
+
+  async function compressImage(source: File): Promise<File> {
+    try {
+      if (!source.type.startsWith('image/') || source.size < 300 * 1024) return source
+      const bitmap = await createImageBitmap(source)
+      const scale = Math.min(1, 1600 / bitmap.width)
+      const canvas = document.createElement('canvas')
+      canvas.width = Math.round(bitmap.width * scale)
+      canvas.height = Math.round(bitmap.height * scale)
+      canvas.getContext('2d')?.drawImage(bitmap, 0, 0, canvas.width, canvas.height)
+      const blob = await new Promise<Blob | null>((res) => canvas.toBlob(res, 'image/jpeg', 0.85))
+      if (!blob || blob.size >= source.size) return source
+      return new File([blob], source.name.replace(/\.\w+$/, '') + '.jpg', { type: 'image/jpeg' })
+    } catch {
+      return source
     }
   }
 
