@@ -1,4 +1,6 @@
 import { tryGetSupabase } from '@/lib/supabase'
+import { existsSync } from 'node:fs'
+import { join } from 'node:path'
 import OemSearchBox from '@/components/OemSearchBox'
 import { Link } from '@/i18n/navigation'
 import type { Metadata } from 'next'
@@ -9,6 +11,7 @@ interface FeaturedProduct {
   name_en: string
   name_zh: string
   price: number | null
+  img_file: string | null
   oem_number: string
   brand: string
   category: string
@@ -42,6 +45,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         .limit(5)
     : { data: null, error: null }
 
+  const featured = ((products as FeaturedProduct[]) || []).map((p: FeaturedProduct) => {
+    const ext = ['.webp', '.jpg', '.png'].find((e) =>
+      existsSync(join(process.cwd(), 'public', 'products', `${p.slug}${e}`)),
+    )
+    return { ...p, img_file: ext ? `${p.slug}${ext}` : null }
+  })
+
   return (
     <main className="min-h-screen bg-gray-50">
       {/* 品牌区 */}
@@ -67,7 +77,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           </div>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2">
-            {products.map((p: FeaturedProduct) => (
+            {featured.map((p: FeaturedProduct) => (
               <Link
                 key={p.slug}
                 href={`/products/${p.slug}`}
@@ -75,6 +85,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                            hover:shadow-lg hover:border-blue-300 transition
                            group"
               >
+                {p.img_file && (
+                  <img
+                    src={`/products/${p.img_file}`}
+                    alt={p.name_en}
+                    loading="lazy"
+                    className="w-full h-40 object-contain rounded-lg mb-3 bg-gray-50"
+                  />
+                )}
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <h3 className="font-semibold text-gray-900 group-hover:text-blue-700 transition truncate">
