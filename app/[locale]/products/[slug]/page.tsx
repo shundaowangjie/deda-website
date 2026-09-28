@@ -5,6 +5,8 @@ import { tryGetSupabase } from '@/lib/supabase'
 import { Link } from '@/i18n/navigation'
 import InquiryButton from '@/components/InquiryButton'
 import { categoryLabelFor } from '@/lib/categories'
+import { existsSync } from 'node:fs'
+import { join } from 'node:path'
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>
@@ -76,6 +78,11 @@ export default async function ProductPage({ params }: Props) {
       ? Object.entries(specs).map(([k, v]) => [k, String(v)])
       : []
 
+  // 产品图(静态文件 public/products/{slug}.{webp,jpg,png},存在才展示)
+  const imgExt = ['.webp', '.jpg', '.png'].find((e) =>
+    existsSync(join(process.cwd(), 'public', 'products', `${slug}${e}`)),
+  )
+
   // schema.org/Product 结构化数据(Google 富结果;有参考价时声明 offers,无价不声明)
   const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://products.dedaautoparts.com'
   const productLd = {
@@ -120,6 +127,15 @@ export default async function ProductPage({ params }: Props) {
       />
       <div className="max-w-3xl mx-auto">
         {/* 标题区 */}
+        {imgExt && (
+          <div className="mb-6 rounded-xl overflow-hidden bg-white border border-gray-200">
+            <img
+              src={`/products/${slug}${imgExt}`}
+              alt={name_en}
+              className="w-full max-h-96 object-contain"
+            />
+          </div>
+        )}
         <header className="mb-8 flex items-start justify-between gap-4">
           <div className="min-w-0">
             <h1 className="text-3xl font-bold text-gray-900">{name_en}</h1>

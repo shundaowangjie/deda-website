@@ -19,6 +19,7 @@ export interface CatalogProduct {
   category: string
   oem_number: string | null
   price: number | null
+  img_file: string | null
   truck_model: string | null
   status: string
 }
@@ -184,6 +185,14 @@ export default function ProductsBrowser({
                                group flex flex-col"
                   >
                     <Link href={`/products/${product.slug}`} className="flex-1">
+                      {product.img_file && (
+                        <img
+                          src={`/products/${product.img_file}`}
+                          alt={product.name_en}
+                          loading="lazy"
+                          className="w-full h-36 object-contain bg-white rounded-lg mb-3 border border-gray-100"
+                        />
+                      )}
                       <div className="flex justify-between items-start gap-2 mb-2">
                         <h3 className="font-medium text-gray-900 group-hover:text-blue-700 truncate">
                           {locale === 'ru'

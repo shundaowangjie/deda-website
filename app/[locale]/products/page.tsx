@@ -4,6 +4,8 @@ import { Suspense } from 'react'
 import { unstable_cache } from 'next/cache'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import ProductsBrowser, { type CatalogProduct } from '@/components/ProductsBrowser'
+import { existsSync } from 'node:fs'
+import { join } from 'node:path'
 
 const PAGE_SIZE = 24
 
@@ -140,7 +142,12 @@ export default async function ProductsPage({
       .order('category', { ascending: true })
       .order('name_en', { ascending: true })
       .range((pageNum - 1) * PAGE_SIZE, pageNum * PAGE_SIZE - 1)
-    products = (data as CatalogProduct[]) || []
+    products = ((data as CatalogProduct[]) || []).map((p: CatalogProduct) => {
+      const ext = ['.webp', '.jpg', '.png'].find((e) =>
+        existsSync(join(process.cwd(), 'public', 'products', `${p.slug}${e}`)),
+      )
+      return { ...p, img_file: ext ? `${p.slug}${ext}` : null }
+    })
   }
 
   const facets = await getFacets()
