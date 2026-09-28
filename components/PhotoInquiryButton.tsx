@@ -35,13 +35,13 @@ export default function PhotoInquiryButton() {
       const supabase = getSupabase()
       const ext = (file.name.split('.').pop() || 'jpg').toLowerCase()
       const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`
-      const { error: upErr } = await supabase.storage.from('inquiry-images').upload(path, file)
-      if (upErr) throw new Error(upErr.message)
+      const { error: upErr } = await supabase.storage.from('inquiry-images').upload(path, file, { contentType: file.type || 'image/jpeg' })
+      if (upErr) throw new Error('图片上传失败(' + upErr.message + ')')
       const { data } = supabase.storage.from('inquiry-images').getPublicUrl(path)
       const { error: insErr } = await supabase
         .from('inquiries')
         .insert({ image_url: data.publicUrl, note: note.trim(), contact: contact.trim() })
-      if (insErr) throw new Error(insErr.message)
+      if (insErr) throw new Error('询价提交失败(' + insErr.message + ')')
       setDone(true)
     } catch (e) {
       setErr(e instanceof Error ? e.message : String(e))
