@@ -19,6 +19,9 @@ const T = {
     contactPh: '手机号 / 微信 / WhatsApp / Telegram',
     privacy: '仅用于本次报价联系，不会公开',
     steps: ['拍照/截图上传', '留下联系方式', '客服查价回复'],
+    promise: '工作时间约 30 分钟内，具体报价发到您留的 WhatsApp / 微信 / 手机',
+    tooFast: '提交太频繁，请几分钟后再试',
+    tooLarge: '图片太大(超过 20MB)，请换一张',
     submit: '提交询价',
     submitting: '提交中…',
     stageImg: '正在处理图片…',
@@ -45,6 +48,9 @@ const T = {
     contactPh: 'Phone / WeChat / WhatsApp / Telegram',
     privacy: 'Used for this quote only, never shared',
     steps: ['Upload a photo/screenshot', 'Leave your contact', 'We quote & reply'],
+    promise: 'Get your quote within ~30 min (business hours) via WhatsApp / WeChat / phone',
+    tooFast: 'Too many requests — please retry in a few minutes',
+    tooLarge: 'Image too large (>20MB), please choose another',
     submit: 'Send Inquiry',
     submitting: 'Sending…',
     stageImg: 'Processing image…',
@@ -71,6 +77,9 @@ const T = {
     contactPh: 'Телефон / WeChat / WhatsApp / Telegram',
     privacy: 'Только для ответа по запросу, не публикуется',
     steps: ['Фото или скриншот', 'Оставьте контакт', 'Расчёт и ответ'],
+    promise: 'Расчёт — в течение ~30 минут в рабочее время на ваш WhatsApp / WeChat / телефон',
+    tooFast: 'Слишком часто — попробуйте через несколько минут',
+    tooLarge: 'Фото слишком большое (>20МБ), выберите другое',
     submit: 'Отправить запрос',
     submitting: 'Отправка…',
     stageImg: 'Обработка фото…',
@@ -93,6 +102,7 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
   const [preview, setPreview] = useState('')
   const [note, setNote] = useState('')
   const [contact, setContact] = useState('')
+  const [company, setCompany] = useState('')
   const [busy, setBusy] = useState(false)
   const [stage, setStage] = useState('')
   const [done, setDone] = useState(false)
@@ -122,6 +132,21 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
 
   async function submit() {
     if (!file || busy) return
+    if (company.trim()) {
+      setDone(true)
+      return
+    }
+    if (!file.type.startsWith('image/') || file.size > 20 * 1024 * 1024) {
+      setErr(t.tooLarge)
+      return
+    }
+    try {
+      const last = Number(localStorage.getItem('pi_last_submit') || 0)
+      if (Date.now() - last < 3 * 60 * 1000) {
+        setErr(t.tooFast)
+        return
+      }
+    } catch {}
     setBusy(true)
     setErr('')
     setStage(t.stageImg)
@@ -141,6 +166,9 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
         .from('inquiries')
         .insert({ image_url: data.publicUrl, note: note.trim(), contact: contact.trim() })
       if (insErr) throw new Error('询价提交失败(' + insErr.message + ')')
+      try {
+        localStorage.setItem('pi_last_submit', String(Date.now()))
+      } catch {}
       setDone(true)
     } catch (e) {
       setErr(e instanceof Error ? e.message : String(e))
@@ -228,6 +256,7 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
                   <span className="text-blue-300 font-bold">→</span>
                   <span className="inline-flex items-center gap-1"><span className="w-4 h-4 rounded-full bg-blue-600 text-white text-[10px] flex items-center justify-center font-bold shrink-0">3</span>{t.steps[2]}</span>
                 </div>
+                <p className="text-xs text-blue-700 bg-blue-50 rounded-lg px-3 py-2 mb-4 font-medium flex items-center gap-1.5"><span>📩</span>{t.promise}</p>
 
                 <input
                   ref={fileRef}
@@ -274,6 +303,14 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
                 )}
 
                 <div className="space-y-2.5">
+                  <input
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="absolute opacity-0 pointer-events-none h-0 w-0"
+                  />
                   <div>
                     <label className="text-xs font-medium text-gray-600">{t.noteLabel}</label>
                     <textarea
@@ -281,7 +318,8 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
                       onChange={(e) => setNote(e.target.value)}
                       placeholder={t.notePh}
                       rows={2}
-                      className="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 mt-1 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+                      maxLength={200}
+                      className="w-full text-sm text-gray-900 font-medium bg-white border border-gray-300 shadow-sm rounded-xl px-3 py-2 mt-1 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
                     />
                   </div>
                   <div>
@@ -290,7 +328,8 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
                       value={contact}
                       onChange={(e) => setContact(e.target.value)}
                       placeholder={t.contactPh}
-                      className="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 mt-1 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+                      maxLength={60}
+                      className="w-full text-[15px] font-medium text-gray-900 bg-white border border-gray-300 shadow-sm rounded-xl px-3 py-2.5 mt-1 placeholder:text-gray-400 placeholder:font-normal focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
                     />
                     <p className="text-xs text-gray-500 mt-1.5 flex items-center gap-1"><span>🔒</span>{t.privacy}</p>
                   </div>
