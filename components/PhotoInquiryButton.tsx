@@ -423,7 +423,7 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
                   {busy ? stage || t.submitting : t.submit}
                 </button>
 
-                {(CONTACT.whatsapp || CONTACT.telegram || CONTACT.email || CONTACT.wechat) && (
+                {(CONTACT.whatsapp || CONTACT.telegram || CONTACT.email || (CONTACT.wechat && locale === 'zh')) && (
                   <div className="mt-4 pt-3 border-t border-gray-100">
                     <p className="text-xs text-gray-400 text-center mb-2">{t.contactUs}</p>
                     <div className="flex items-center justify-center gap-2 text-xs">
