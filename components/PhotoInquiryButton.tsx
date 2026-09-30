@@ -5,6 +5,15 @@ import { getSupabase } from '@/lib/supabase'
 
 type Locale = 'zh' | 'en' | 'ru'
 
+const isHoliday = (() => {
+  try {
+    const now = new Date()
+    return now >= new Date('2026-10-01T00:00:00+08:00') && now < new Date('2026-10-04T00:00:00+08:00')
+  } catch {
+    return false
+  }
+})()
+
 const CONTACT = {
   wechat: '德达汽配',
   whatsapp: '8617661969056',
@@ -46,6 +55,7 @@ const T = {
     okContact: '联系',
     okNote: '内容',
     okReply: '工作时间约 30 分钟内回复您',
+    holiday: '🎉 国庆节 10月1-3日放假，期间询价将于 10月4日 起陆续报价',
     okBtn: '好的',
     contactUs: '直接联系我们',
   },
@@ -82,6 +92,7 @@ const T = {
     okContact: 'Contact',
     okNote: 'Items',
     okReply: 'We reply within ~30 min on business hours',
+    holiday: '🎉 National Day holiday Oct 1-3 — inquiries will be quoted from Oct 4',
     okBtn: 'OK',
     contactUs: 'Contact us directly',
   },
@@ -118,6 +129,7 @@ const T = {
     okContact: 'Контакт',
     okNote: 'Позиции',
     okReply: 'Отвечаем ~30 минут в рабочее время',
+    holiday: '🎉 Праздник 1-3 октября — расчёты отправим начиная с 4 октября',
     okBtn: 'Готово',
     contactUs: 'Свяжитесь с нами напрямую',
   },
@@ -273,7 +285,7 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
                     </p>
                   )}
                 </div>
-                <p className="text-xs text-gray-500 mt-4">{t.okReply}</p>
+                <p className="text-xs text-gray-500 mt-4">{isHoliday ? t.holiday : t.okReply}</p>
                 <button
                   onClick={close}
                   className="mt-5 w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium transition"
@@ -314,7 +326,11 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
                   <span className="text-blue-300 font-bold">→</span>
                   <span className="inline-flex items-center gap-1"><span className="w-4 h-4 rounded-full bg-blue-600 text-white text-[10px] flex items-center justify-center font-bold shrink-0">3</span>{stepsNow[2]}</span>
                 </div>
-                <p className="text-xs text-blue-700 bg-blue-50 rounded-lg px-3 py-2 mb-4 font-medium flex items-center gap-1.5"><span>📩</span>{t.promise}</p>
+                {isHoliday ? (
+                  <p className="text-xs text-orange-700 bg-orange-50 rounded-lg px-3 py-2 mb-4 font-medium flex items-center gap-1.5"><span>🏮</span>{t.holiday}</p>
+                ) : (
+                  <p className="text-xs text-blue-700 bg-blue-50 rounded-lg px-3 py-2 mb-4 font-medium flex items-center gap-1.5"><span>📩</span>{t.promise}</p>
+                )}
 
                 <input
                   ref={fileRef}
