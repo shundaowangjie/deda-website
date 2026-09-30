@@ -17,7 +17,8 @@ const T = {
     notePh: '品名 / OE号 / 数量,如:豪沃T7H 驾驶室减震器 ×2',
     contactLabel: '联系方式(选填)',
     contactPh: '手机号 / 微信 / WhatsApp / Telegram',
-    privacy: '仅用于本次报价联系,不会公开',
+    privacy: '仅用于本次报价联系，不会公开',
+    steps: ['拍照/截图上传', '留下联系方式', '客服查价回复'],
     submit: '提交询价',
     submitting: '提交中…',
     stageImg: '正在处理图片…',
@@ -43,6 +44,7 @@ const T = {
     contactLabel: 'Contact (optional)',
     contactPh: 'Phone / WeChat / WhatsApp / Telegram',
     privacy: 'Used for this quote only, never shared',
+    steps: ['Upload a photo/screenshot', 'Leave your contact', 'We quote & reply'],
     submit: 'Send Inquiry',
     submitting: 'Sending…',
     stageImg: 'Processing image…',
@@ -68,6 +70,7 @@ const T = {
     contactLabel: 'Контакт (необяз.)',
     contactPh: 'Телефон / WeChat / WhatsApp / Telegram',
     privacy: 'Только для ответа по запросу, не публикуется',
+    steps: ['Фото или скриншот', 'Оставьте контакт', 'Расчёт и ответ'],
     submit: 'Отправить запрос',
     submitting: 'Отправка…',
     stageImg: 'Обработка фото…',
@@ -197,7 +200,7 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
                     </p>
                   )}
                 </div>
-                <p className="text-xs text-gray-400 mt-4">{t.okReply}</p>
+                <p className="text-xs text-gray-500 mt-4">{t.okReply}</p>
                 <button
                   onClick={close}
                   className="mt-5 w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium transition"
@@ -217,7 +220,14 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
                     ×
                   </button>
                 </div>
-                <p className="text-xs text-gray-400 mb-4">{t.subtitle}</p>
+                <p className="text-xs text-gray-500 mb-3">{t.subtitle}</p>
+                <div className="flex items-center justify-center gap-1.5 mb-4 text-[11px] sm:text-xs text-gray-600 bg-blue-50/60 rounded-xl py-2 px-2">
+                  <span className="inline-flex items-center gap-1"><span className="w-4 h-4 rounded-full bg-blue-600 text-white text-[10px] flex items-center justify-center font-bold shrink-0">1</span>{t.steps[0]}</span>
+                  <span className="text-blue-300 font-bold">→</span>
+                  <span className="inline-flex items-center gap-1"><span className="w-4 h-4 rounded-full bg-blue-600 text-white text-[10px] flex items-center justify-center font-bold shrink-0">2</span>{t.steps[1]}</span>
+                  <span className="text-blue-300 font-bold">→</span>
+                  <span className="inline-flex items-center gap-1"><span className="w-4 h-4 rounded-full bg-blue-600 text-white text-[10px] flex items-center justify-center font-bold shrink-0">3</span>{t.steps[2]}</span>
+                </div>
 
                 <input
                   ref={fileRef}
@@ -259,13 +269,13 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
                   >
                     <span className="text-3xl">📸</span>
                     <span className="text-sm text-gray-600 font-medium">{t.pick}</span>
-                    <span className="text-xs text-gray-400">{t.pickHint}</span>
+                    <span className="text-xs text-gray-500">{t.pickHint}</span>
                   </button>
                 )}
 
                 <div className="space-y-2.5">
                   <div>
-                    <label className="text-xs font-medium text-gray-500">{t.noteLabel}</label>
+                    <label className="text-xs font-medium text-gray-600">{t.noteLabel}</label>
                     <textarea
                       value={note}
                       onChange={(e) => setNote(e.target.value)}
@@ -275,14 +285,14 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-gray-500">{t.contactLabel}</label>
+                    <label className="text-xs font-medium text-gray-600">{t.contactLabel}</label>
                     <input
                       value={contact}
                       onChange={(e) => setContact(e.target.value)}
                       placeholder={t.contactPh}
                       className="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 mt-1 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
                     />
-                    <p className="text-[11px] text-gray-300 mt-1">{t.privacy}</p>
+                    <p className="text-xs text-gray-500 mt-1.5 flex items-center gap-1"><span>🔒</span>{t.privacy}</p>
                   </div>
                 </div>
 
