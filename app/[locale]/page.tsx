@@ -62,7 +62,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <p className="text-lg text-gray-600 mb-8">{t('heroSubtitle')}</p>
           <OemSearchBox />
           <div className="mt-3 flex justify-center">
-            <PhotoInquiryButton />
+            <PhotoInquiryButton locale={locale} />
           </div>
         </div>
       </section>

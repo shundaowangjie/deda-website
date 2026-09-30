@@ -136,7 +136,7 @@ export default function ProductsBrowser({
                 }
               />
               <div className="mt-2 flex justify-end">
-                <PhotoInquiryButton />
+                <PhotoInquiryButton locale={locale} />
               </div>
             </div>
           </div>
