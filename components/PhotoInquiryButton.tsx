@@ -7,8 +7,8 @@ type Locale = 'zh' | 'en' | 'ru'
 
 const CONTACT = {
   wechat: '德达汽配',
-  whatsapp: '',
-  telegram: '',
+  whatsapp: '8617661969056',
+  telegram: '8617661969056',
   email: '',
 }
 
@@ -439,7 +439,7 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
                       )}
                       {CONTACT.telegram && (
                         <a
-                          href={`https://t.me/${CONTACT.telegram}`}
+                          href={`tg://resolve?phone=${CONTACT.telegram}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1 text-sky-600 hover:text-sky-700 bg-sky-50 hover:bg-sky-100 px-3 py-1.5 rounded-lg transition"
