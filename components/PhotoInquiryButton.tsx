@@ -218,13 +218,18 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
       const wb = XLSX.read(await f.arrayBuffer(), { type: 'array' })
       const ws = wb.Sheets[wb.SheetNames[0]]
       const rows = XLSX.utils.sheet_to_json<unknown[]>(ws, { header: 1, defval: '', raw: false })
-      const lines: string[] = []
+      const parsed: string[][] = []
       for (const r of rows) {
         const cells = (r || []).map((c) => String(c ?? '').trim()).filter(Boolean)
-        if (!cells.length) continue
-        lines.push(cells.map((c) => (cells.length > 1 && /^\d+(\.\d+)?$/.test(c) ? '×' + c : c)).join(' '))
-        if (lines.length >= 300) break
+        if (cells.length) parsed.push(cells)
       }
+      const firstDigit = parsed.findIndex((cells) => cells.some((c) => /\d/.test(c)))
+      const src = firstDigit > 0 ? parsed.slice(firstDigit) : parsed
+      const lines = src.slice(0, 300).map((cells) =>
+        cells
+          .map((c, i) => (i > 0 && /^\d+(\.\d+)?$/.test(c) && Number(c) <= 9999 ? '×' + c : c))
+          .join(' ')
+      )
       if (!lines.length) {
         setErr(t.xlEmpty)
         return
