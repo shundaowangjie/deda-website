@@ -48,6 +48,13 @@ const T = {
     needPhoto: '请先选择一张配件照片',
     needText: '请先填写 OE 号或型号清单',
     needContact: '请留下联系方式，方便客服回复报价',
+    xlDrop: '拖入 Excel/CSV 文件(≤5MB),或点击选择,自动按行填入',
+    xlParsing: '正在解析文件…',
+    xlBadType: '仅支持 .xlsx / .xls / .csv 文件',
+    xlTooLarge: '文件太大(超过 5MB)',
+    xlEmpty: '文件里没有识别到内容',
+    xlParseFail: '文件解析失败,请另存为 .xlsx 后重试',
+    xlImported: '已从文件导入 {n} 行 ✓',
     tooFast: '提交太频繁,请几分钟后再试',
     tooLarge: '图片太大(超过 20MB),请换一张',
     errSuffix: '。也可直接联系客服。',
@@ -86,6 +93,13 @@ const T = {
     needPhoto: 'Please choose a part photo first',
     needText: 'Please enter your OE list first',
     needContact: 'Please leave your contact so we can send the quote',
+    xlDrop: 'Drop an Excel/CSV file (≤5MB) or click to choose — rows auto-fill',
+    xlParsing: 'Parsing file…',
+    xlBadType: 'Only .xlsx / .xls / .csv files are supported',
+    xlTooLarge: 'File too large (over 5MB)',
+    xlEmpty: 'No content found in the file',
+    xlParseFail: 'Could not parse the file — save it as .xlsx and retry',
+    xlImported: 'Imported {n} rows from file ✓',
     tooFast: 'Too many requests — please retry in a few minutes',
     tooLarge: 'Image too large (>20MB), please choose another',
     errSuffix: '. Or contact us directly.',
@@ -124,6 +138,13 @@ const T = {
     needPhoto: 'Сначала выберите фото детали',
     needText: 'Сначала введите список OE-номеров',
     needContact: 'Оставьте контакт, чтобы мы отправили предложение',
+    xlDrop: 'Перетащите Excel/CSV (≤5 МБ) или выберите файл — строки заполнятся сами',
+    xlParsing: 'Чтение файла…',
+    xlBadType: 'Поддерживаются только .xlsx / .xls / .csv',
+    xlTooLarge: 'Файл больше 5 МБ',
+    xlEmpty: 'В файле нет данных',
+    xlParseFail: 'Не удалось прочитать файл — сохраните как .xlsx и повторите',
+    xlImported: 'Импортировано строк: {n} ✓',
     tooFast: 'Слишком часто — попробуйте через несколько минут',
     tooLarge: 'Фото слишком большое (>20МБ), выберите другое',
     errSuffix: '. Или свяжитесь с нами напрямую.',
@@ -154,6 +175,10 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
   const [err, setErr] = useState('')
   const [dragOver, setDragOver] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
+  const [xlBusy, setXlBusy] = useState(false)
+  const [xlDrag, setXlDrag] = useState(false)
+  const [xlInfo, setXlInfo] = useState('')
+  const xlRef = useRef<HTMLInputElement>(null)
 
   function pick(f: File | null) {
     setErr('')
@@ -173,6 +198,46 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
   function onPaste(e: ClipboardEvent) {
     const f = Array.from(e.clipboardData.files).find((x) => x.type.startsWith('image/'))
     if (f) pick(f)
+  }
+
+  async function importSpreadsheet(f: File | null) {
+    if (!f) return
+    setErr('')
+    setXlInfo('')
+    if (!/\.(xlsx|xls|csv)$/i.test(f.name)) {
+      setErr(t.xlBadType)
+      return
+    }
+    if (f.size > 5 * 1024 * 1024) {
+      setErr(t.xlTooLarge)
+      return
+    }
+    setXlBusy(true)
+    try {
+      const XLSX = await import('xlsx')
+      const wb = XLSX.read(await f.arrayBuffer(), { type: 'array' })
+      const ws = wb.Sheets[wb.SheetNames[0]]
+      const rows = XLSX.utils.sheet_to_json<unknown[]>(ws, { header: 1, defval: '', raw: false })
+      const lines: string[] = []
+      for (const r of rows) {
+        const cells = (r || []).map((c) => String(c ?? '').trim()).filter(Boolean)
+        if (!cells.length) continue
+        lines.push(cells.map((c) => (cells.length > 1 && /^\d+(\.\d+)?$/.test(c) ? '×' + c : c)).join(' '))
+        if (lines.length >= 300) break
+      }
+      if (!lines.length) {
+        setErr(t.xlEmpty)
+        return
+      }
+      let merged = (oeText.trim() ? oeText.trim() + '\n' : '') + lines.join('\n')
+      if (merged.length > 2000) merged = merged.slice(0, 2000).replace(/\n[^\n]*$/, '')
+      setOeText(merged)
+      setXlInfo(t.xlImported.replace('{n}', String(lines.length)))
+    } catch {
+      setErr(t.xlParseFail)
+    } finally {
+      setXlBusy(false)
+    }
   }
 
   async function submit() {
@@ -384,14 +449,57 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
                     </button>
                   )
                 ) : (
-                  <textarea
-                    value={oeText}
-                    onChange={(e) => setOeText(e.target.value)}
-                    placeholder={t.textPh}
-                    rows={5}
-                    maxLength={2000}
-                    className="w-full text-sm text-gray-900 font-medium bg-white border border-gray-300 shadow-sm rounded-xl px-3 py-2 mb-4 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition placeholder:font-normal placeholder:text-gray-400"
-                  />
+                  <div
+                    onDragOver={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      setXlDrag(true)
+                    }}
+                    onDragLeave={() => setXlDrag(false)}
+                    onDrop={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      setXlDrag(false)
+                      importSpreadsheet(e.dataTransfer.files?.[0] ?? null)
+                    }}
+                    className={`mb-4 rounded-xl transition ${xlDrag ? 'ring-2 ring-blue-400 bg-blue-50' : ''}`}
+                  >
+                    <input
+                      ref={xlRef}
+                      type="file"
+                      accept=".xlsx,.xls,.csv"
+                      className="hidden"
+                      onChange={(e) => {
+                        importSpreadsheet(e.target.files?.[0] ?? null)
+                        e.target.value = ''
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => xlRef.current?.click()}
+                      disabled={xlBusy}
+                      className={`w-full h-10 mb-1.5 rounded-lg border border-dashed text-xs flex items-center justify-center gap-1.5 transition disabled:opacity-60 ${
+                        xlDrag
+                          ? 'border-blue-500 text-blue-700 bg-blue-50'
+                          : 'border-gray-300 text-gray-500 hover:border-blue-400 hover:text-blue-600'
+                      }`}
+                    >
+                      <span>📊</span>
+                      {xlBusy ? t.xlParsing : t.xlDrop}
+                    </button>
+                    {xlInfo && <p className="text-xs text-green-600 font-medium px-1 pb-1">{xlInfo}</p>}
+                    <textarea
+                      value={oeText}
+                      onChange={(e) => {
+                        setOeText(e.target.value)
+                        setXlInfo('')
+                      }}
+                      placeholder={t.textPh}
+                      rows={5}
+                      maxLength={2000}
+                      className="w-full text-sm text-gray-900 font-medium bg-white border border-gray-300 shadow-sm rounded-xl px-3 py-2 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition placeholder:font-normal placeholder:text-gray-400"
+                    />
+                  </div>
                 )}
 
                 <div className="space-y-2.5">
