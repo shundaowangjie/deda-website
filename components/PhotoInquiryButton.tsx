@@ -36,7 +36,7 @@ const T = {
     stepsText: ['粘贴 OE 号清单', '留下联系方式', '客服查价回复'],
     noteLabel: '备注(选填)',
     notePh: '品名 / OE号 / 数量',
-    contactLabel: '联系方式(选填)',
+    contactLabel: '联系方式(必填)',
     contactPh: '手机号 / 微信 / WhatsApp / Telegram',
     privacy: '仅用于本次报价联系,不会公开',
     promise: '工作时间约 30 分钟内,具体报价发到您留的 WhatsApp / 微信 / 手机',
@@ -47,6 +47,7 @@ const T = {
     stageIns: '正在提交…',
     needPhoto: '请先选择一张配件照片',
     needText: '请先填写 OE 号或型号清单',
+    needContact: '请留下联系方式，方便客服回复报价',
     tooFast: '提交太频繁,请几分钟后再试',
     tooLarge: '图片太大(超过 20MB),请换一张',
     errSuffix: '。也可直接联系客服。',
@@ -73,7 +74,7 @@ const T = {
     stepsText: ['Paste your OE list', 'Leave your contact', 'We quote & reply'],
     noteLabel: 'Note (optional)',
     notePh: 'Part name / OE number / quantity',
-    contactLabel: 'Contact (optional)',
+    contactLabel: 'Contact (required)',
     contactPh: 'Phone / WeChat / WhatsApp / Telegram',
     privacy: 'Used for this quote only, never shared',
     promise: 'Get your quote within ~30 min (business hours) via WhatsApp / WeChat / phone',
@@ -84,6 +85,7 @@ const T = {
     stageIns: 'Sending…',
     needPhoto: 'Please choose a part photo first',
     needText: 'Please enter your OE list first',
+    needContact: 'Please leave your contact so we can send the quote',
     tooFast: 'Too many requests — please retry in a few minutes',
     tooLarge: 'Image too large (>20MB), please choose another',
     errSuffix: '. Or contact us directly.',
@@ -110,7 +112,7 @@ const T = {
     stepsText: ['Вставьте OE-список', 'Оставьте контакт', 'Расчёт и ответ'],
     noteLabel: 'Примечание (необяз.)',
     notePh: 'Название / OE-номер / количество',
-    contactLabel: 'Контакт (необяз.)',
+    contactLabel: 'Контакт (обязат.)',
     contactPh: 'Телефон / WeChat / WhatsApp / Telegram',
     privacy: 'Только для ответа по запросу, не публикуется',
     promise: 'Расчёт — в течение ~30 минут в рабочее время на ваш WhatsApp / WeChat / телефон',
@@ -121,6 +123,7 @@ const T = {
     stageIns: 'Отправка…',
     needPhoto: 'Сначала выберите фото детали',
     needText: 'Сначала введите список OE-номеров',
+    needContact: 'Оставьте контакт, чтобы мы отправили предложение',
     tooFast: 'Слишком часто — попробуйте через несколько минут',
     tooLarge: 'Фото слишком большое (>20МБ), выберите другое',
     errSuffix: '. Или свяжитесь с нами напрямую.',
@@ -180,6 +183,10 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
     }
     if (mode === 'text' && !oeText.trim()) {
       setErr(t.needText)
+      return
+    }
+    if (!contact.trim()) {
+      setErr(t.needContact)
       return
     }
     if (company.trim()) {
