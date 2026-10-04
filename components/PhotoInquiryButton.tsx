@@ -293,11 +293,23 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
       }
       setStage(t.stageIns)
       const fullNote = mode === 'text' ? oeText.trim() + (note.trim() ? '\n' + note.trim() : '') : note.trim()
-      const supabase = getSupabase()
-      const { error: insErr } = await supabase
-        .from('inquiries')
-        .insert({ image_url: imageUrl || '', note: fullNote, contact: contact.trim() })
-      if (insErr) throw new Error('询价提交失败(' + insErr.message + ')')
+      
+      // 改为调用 API 通知客服
+      const res = await fetch('/api/photo-inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          image_url: imageUrl || '',
+          oe_text: mode === 'text' ? oeText.trim() : '',
+          note: mode === 'text' ? '' : fullNote,
+          contact: contact.trim(),
+          kind: mode
+        })
+      })
+      const data = await res.json()
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || '提交失败')
+      }
       try {
         localStorage.setItem('pi_last_submit', String(Date.now()))
       } catch {}

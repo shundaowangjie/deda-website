@@ -131,30 +131,32 @@ export interface PhotoInquiryNotice {
   imageUrl: string
   note?: string
   contact: string
+  kind?: 'photo' | 'text' // 新增：区分拍照和文本模式
 }
 
 /** 拍照询价（多为国内客户）：企微为主 + 邮件同步 */
 export async function notifyPhotoInquiry(n: PhotoInquiryNotice): Promise<void> {
+  const isText = n.kind === 'text'
+  const title = isText ? '📋 新OE清单询价' : '📷 新拍照询价'
   const md = [
-    `### 📷 新拍照询价`,
+    `### ${title}`,
     `> 联系: **${n.contact}**`,
-    n.note ? `> 备注: ${n.note.slice(0, 300)}` : '',
-    `> [查看照片](${n.imageUrl})`,
+    isText ? `> OE清单: ${n.note?.slice(0, 300) || ''}` : n.note ? `> 备注: ${n.note.slice(0, 300)}` : '',
+    !isText && n.imageUrl ? `> [查看照片](${n.imageUrl})` : '',
   ]
     .filter(Boolean)
     .join('\n')
   const html = [
-    `<h2>📷 新拍照询价</h2>`,
+    `<h2>${title}</h2>`,
     `<p><b>联系:</b> ${esc(n.contact)}<br/>`,
-    n.note ? `<b>备注:</b> ${esc(n.note).replace(/\n/g, '<br/>')}<br/>` : '',
-    `</p><p><a href="${esc(n.imageUrl)}">查看照片</a></p>`,
-    n.imageUrl.startsWith('http')
-      ? `<p><img src="${esc(n.imageUrl)}" style="max-width:480px"/></p>`
-      : '',
+    isText ? `<b>OE清单:</b> ${esc(n.note || '').replace(/\n/g, '<br/>')}<br/>` : n.note ? `<b>备注:</b> ${esc(n.note).replace(/\n/g, '<br/>')}<br/>` : '',
+    `</p>`,
+    !isText && n.imageUrl ? `<p><a href="${esc(n.imageUrl)}">查看照片</a></p>` : '',
+    !isText && n.imageUrl?.startsWith('http') ? `<p><img src="${esc(n.imageUrl)}" style="max-width:480px"/></p>` : '',
     `<p style="color:#888">后台: https://products.dedaautoparts.com/admin</p>`,
   ].join('')
   await Promise.all([
     notifyQywx(md),
-    notifyEmail(`📷 新拍照询价 ${n.contact}`, html),
+    notifyEmail(`${title} ${n.contact}`, html),
   ])
 }

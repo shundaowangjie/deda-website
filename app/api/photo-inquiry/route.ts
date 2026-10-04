@@ -27,11 +27,20 @@ export async function POST(req: NextRequest) {
   }
 
   const imageUrl = typeof body.image_url === 'string' ? body.image_url.trim() : ''
+  const oeText = typeof body.oe_text === 'string' ? body.oe_text.trim().slice(0, 3000) : ''
   const note = typeof body.note === 'string' ? body.note.trim().slice(0, 500) : ''
   const contact = typeof body.contact === 'string' ? body.contact.trim().slice(0, 120) : ''
+  const kind = typeof body.kind === 'string' && (body.kind === 'photo' || body.kind === 'text') ? body.kind : 'photo' // 'photo' | 'text'
 
-  if (!imageUrl || !/^https?:\/\//.test(imageUrl)) {
-    return NextResponse.json({ ok: false, error: '图片地址无效，请重新上传' }, { status: 400 })
+  // 验证：photo 模式需 image_url，text 模式需 oe_text，两者都需 contact
+  if (kind === 'photo') {
+    if (!imageUrl || !/^https?:\/\//.test(imageUrl)) {
+      return NextResponse.json({ ok: false, error: '图片地址无效，请重新上传' }, { status: 400 })
+    }
+  } else {
+    if (!oeText) {
+      return NextResponse.json({ ok: false, error: '请输入 OE 号或型号' }, { status: 400 })
+    }
   }
   if (!contact) {
     return NextResponse.json({ ok: false, error: '请留下微信或手机号，方便客服回复报价' }, { status: 400 })
@@ -41,7 +50,12 @@ export async function POST(req: NextRequest) {
     const supabase = getSupabase()
     const { error: insErr } = await supabase
       .from('inquiries')
-      .insert({ image_url: imageUrl, note: note || null, contact, status: 'new' })
+      .insert({ 
+        image_url: kind === 'photo' ? imageUrl : '', 
+        note: kind === 'text' ? oeText : (note || null), 
+        contact, 
+        status: 'new' 
+      })
     if (insErr) {
       return NextResponse.json({ ok: false, error: '提交失败，请稍后重试' }, { status: 500 })
     }
@@ -50,7 +64,12 @@ export async function POST(req: NextRequest) {
   }
 
   // 通知客服（失败不影响已提交的结果）
-  await notifyPhotoInquiry({ imageUrl, note, contact }).catch(() => {})
+  await notifyPhotoInquiry({ 
+    imageUrl: kind === 'photo' ? imageUrl : '', 
+    note: kind === 'text' ? 'OE清单询价' : note, 
+    contact,
+    kind
+  }).catch(() => {})
 
   return NextResponse.json({ ok: true })
 }
