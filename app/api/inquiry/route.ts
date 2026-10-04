@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { createHash } from 'crypto'
+import { notifyFormInquiry } from '@/lib/notify'
 
 export const dynamic = 'force-dynamic'
 
@@ -110,6 +111,19 @@ export async function POST(req: NextRequest) {
         { status: 500 },
       )
     }
+
+    // 通知销售（邮件为主+企微同步，失败不影响已提交的结果）
+    await notifyFormInquiry({
+      name,
+      email,
+      phone,
+      company,
+      country,
+      quantity,
+      message,
+      count: rows.length,
+      slugs,
+    }).catch(() => {})
 
     return NextResponse.json({ ok: true, count: rows.length })
   } catch (e) {
