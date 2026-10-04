@@ -219,7 +219,7 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
       const supabase = getSupabase()
       const { error: insErr } = await supabase
         .from('inquiries')
-        .insert({ image_url: imageUrl, note: fullNote, contact: contact.trim() })
+        .insert({ image_url: imageUrl || '', note: fullNote, contact: contact.trim() })
       if (insErr) throw new Error('询价提交失败(' + insErr.message + ')')
       try {
         localStorage.setItem('pi_last_submit', String(Date.now()))
