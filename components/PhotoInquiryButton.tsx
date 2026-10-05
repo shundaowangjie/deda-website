@@ -55,7 +55,7 @@ const T = {
     xlEmpty: '文件里没有识别到内容',
     xlParseFail: '文件解析失败,请另存为 .xlsx 后重试',
     xlImported: '已从文件导入 {n} 行 ✓',
-    tooFast: '提交太频繁,请几分钟后再试',
+    tooFast: '提交太频繁,请于 {time} 后再试',
     tooLarge: '图片太大(超过 20MB),请换一张',
     errSuffix: '。也可直接联系客服。',
     okTitle: '已收到您的询价',
@@ -100,7 +100,7 @@ const T = {
     xlEmpty: 'No content found in the file',
     xlParseFail: 'Could not parse the file — save it as .xlsx and retry',
     xlImported: 'Imported {n} rows from file ✓',
-    tooFast: 'Too many requests — please retry in a few minutes',
+    tooFast: 'Too many requests — please retry after {time}',
     tooLarge: 'Image too large (>20MB), please choose another',
     errSuffix: '. Or contact us directly.',
     okTitle: 'Inquiry received',
@@ -145,7 +145,7 @@ const T = {
     xlEmpty: 'В файле нет данных',
     xlParseFail: 'Не удалось прочитать файл — сохраните как .xlsx и повторите',
     xlImported: 'Импортировано строк: {n} ✓',
-    tooFast: 'Слишком часто — попробуйте через несколько минут',
+    tooFast: 'Слишком часто — повторите после {time}',
     tooLarge: 'Фото слишком большое (>20МБ), выберите другое',
     errSuffix: '. Или свяжитесь с нами напрямую.',
     okTitle: 'Запрос получен',
@@ -269,8 +269,12 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
     }
     try {
       const last = Number(localStorage.getItem('pi_last_submit') || 0)
-      if (Date.now() - last < 3 * 60 * 1000) {
-        setErr(t.tooFast)
+      const waitMs = 3 * 60 * 1000 - (Date.now() - last)
+      if (last && waitMs > 0) {
+        const retryAt = new Date(Date.now() + waitMs)
+        const hh = String(retryAt.getHours()).padStart(2, '0')
+        const mm = String(retryAt.getMinutes()).padStart(2, '0')
+        setErr(t.tooFast.replace('{time}', `${hh}:${mm}`))
         return
       }
     } catch {}
