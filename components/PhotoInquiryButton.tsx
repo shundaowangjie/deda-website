@@ -15,7 +15,7 @@ const isHoliday = (() => {
 })()
 
 const CONTACT = {
-  wechat: '德达汽配',
+  wechat: '15169121111',
   whatsapp: '8617661969056',
   telegram: 'deda_parts',
   email: '',
@@ -178,6 +178,7 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
   const [xlBusy, setXlBusy] = useState(false)
   const [xlDrag, setXlDrag] = useState(false)
   const [xlInfo, setXlInfo] = useState('')
+  const [wxCopied, setWxCopied] = useState(false)
   const xlRef = useRef<HTMLInputElement>(null)
 
   function pick(f: File | null) {
@@ -608,9 +609,22 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
                         </a>
                       )}
                       {CONTACT.wechat && locale === 'zh' && (
-                        <span className="inline-flex items-center gap-1 text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            navigator.clipboard
+                              ?.writeText(CONTACT.wechat)
+                              .then(() => {
+                                setWxCopied(true)
+                                setTimeout(() => setWxCopied(false), 1500)
+                              })
+                              .catch(() => {})
+                          }}
+                          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition active:scale-95"
+                        >
                           💚 微信:{CONTACT.wechat}
-                        </span>
+                          {wxCopied ? ' ✓ 已复制' : ''}
+                        </button>
                       )}
                     </div>
                   </div>
