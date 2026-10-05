@@ -27,25 +27,64 @@ async function fetchAllProductSlugs(): Promise<
 > {
   const supabase = tryGetSupabase()
   if (!supabase) return []
-  const all: { slug: string; updated_at: string | null }[] = []
-  // id 是唯一主键——按 id 键集分页，彻底避免非唯一排序（updated_at 大量并列）
-  // 导致的跨页重复/丢行（2026-10-05 实测旧写法丢 1713 款）
-  let lastId = 0
-  for (;;) {
-    const { data } = await supabase
+
+  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
+
+  // 预期总数（同时兼作完整性基准）
+  let expected = 0
+  for (let i = 0; i < 3; i++) {
+    const { count, error } = await supabase
       .from('products')
-      .select('id, slug, updated_at')
+      .select('id', { count: 'exact', head: true })
       .in('status', ['published', 'active'])
-      .gt('id', lastId)
-      .order('id', { ascending: true })
-      .limit(PAGE_SIZE)
-    const rows =
-      (data as { id: number; slug: string; updated_at: string | null }[]) || []
-    for (const r of rows) all.push({ slug: r.slug, updated_at: r.updated_at })
-    if (rows.length < PAGE_SIZE) break
-    lastId = rows[rows.length - 1].id
+    if (!error && count != null) {
+      expected = count
+      break
+    }
+    await sleep(1000)
   }
-  return all
+
+  // id 是唯一主键——按 id 键集分页，彻底避免非唯一排序（updated_at 大量并列）
+  // 导致的跨页重复/丢行（2026-10-05 实测旧写法丢 1713 款）；
+  // 逐页与整体均带重试：构建期 Supabase 瞬态失败曾导致空表上线（同日实测）
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const all: { slug: string; updated_at: string | null }[] = []
+    let lastId = 0
+    let failed = false
+    for (;;) {
+      let rows: { id: number; slug: string; updated_at: string | null }[] | null =
+        null
+      for (let i = 0; i < 3; i++) {
+        const { data, error } = await supabase
+          .from('products')
+          .select('id, slug, updated_at')
+          .in('status', ['published', 'active'])
+          .gt('id', lastId)
+          .order('id', { ascending: true })
+          .limit(PAGE_SIZE)
+        if (!error && data) {
+          rows =
+            (data as { id: number; slug: string; updated_at: string | null }[]) ||
+            []
+          break
+        }
+        await sleep(1000)
+      }
+      if (rows === null) {
+        failed = true
+        break
+      }
+      for (const r of rows) all.push({ slug: r.slug, updated_at: r.updated_at })
+      if (rows.length < PAGE_SIZE) break
+      lastId = rows[rows.length - 1].id
+    }
+    if (!failed && (expected === 0 || all.length >= expected)) return all
+    console.warn(
+      `[sitemap] 产品拉取不完整（第 ${attempt + 1} 次）：得 ${all.length} / 预期 ${expected}${failed ? '，存在失败页' : ''}，重试`,
+    )
+    await sleep(1500)
+  }
+  return []
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
