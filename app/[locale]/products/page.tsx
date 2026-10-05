@@ -36,9 +36,15 @@ const getFacets = unstable_cache(
     const catCounts = new Map<string, number>()
     const modelCounts = new Map<string, number>()
     if (supabase) {
-      // 12 个分页并行拉取(总行约 1.2 万,冷启动从串行~14s 降到 ~2s)
-      const offsets = Array.from({ length: 12 }, (_, i) => i * 1000)
-      const pages = await Promise.all(
+      // 先取精确总数，再按总数并行拉取（旧写法硬编码 12 页×1000=12000 上限，
+      // 2026-10-05 库内 published+active 已 12168，导致 facets 少算 168）
+      const { count } = await supabase
+        .from('products')
+        .select('id', { count: 'exact', head: true })
+        .in('status', ['published', 'active'])
+      const pages = Math.ceil((count || 0) / 1000)
+      const offsets = Array.from({ length: pages }, (_, i) => i * 1000)
+      const chunks = await Promise.all(
         offsets.map((from) =>
           supabase
             .from('products')
@@ -49,7 +55,7 @@ const getFacets = unstable_cache(
             .then(({ data }) => (data as { category: string; truck_model: string | null }[]) || []),
         ),
       )
-      for (const rows of pages) {
+      for (const rows of chunks) {
         for (const r of rows) {
           catCounts.set(r.category, (catCounts.get(r.category) || 0) + 1)
           const m = r.truck_model?.trim()
@@ -64,7 +70,7 @@ const getFacets = unstable_cache(
       .map(([name, count]) => ({ name, count }))
     return { categories, models }
   },
-  ['catalog-facets-v1'],
+  ['catalog-facets-v2'],
   { revalidate: 300 },
 )
 
@@ -141,6 +147,9 @@ export default async function ProductsPage({
     })()
       .order('category', { ascending: true })
       .order('name_en', { ascending: true })
+      // id 唯一决胜键：category+name_en 大量并列，非确定性排序导致
+      // 偏移分页跨页重复/丢行（2026-10-05 实测丢 148 款）
+      .order('id', { ascending: true })
       .range((pageNum - 1) * PAGE_SIZE, pageNum * PAGE_SIZE - 1)
     products = ((data as CatalogProduct[]) || []).map((p: CatalogProduct) => {
       const ext = ['.webp', '.jpg', '.png'].find((e) =>

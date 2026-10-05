@@ -28,16 +28,22 @@ async function fetchAllProductSlugs(): Promise<
   const supabase = tryGetSupabase()
   if (!supabase) return []
   const all: { slug: string; updated_at: string | null }[] = []
-  for (let from = 0; ; from += PAGE_SIZE) {
+  // id 是唯一主键——按 id 键集分页，彻底避免非唯一排序（updated_at 大量并列）
+  // 导致的跨页重复/丢行（2026-10-05 实测旧写法丢 1713 款）
+  let lastId = 0
+  for (;;) {
     const { data } = await supabase
       .from('products')
-      .select('slug, updated_at')
+      .select('id, slug, updated_at')
       .in('status', ['published', 'active'])
-      .order('updated_at', { ascending: false })
-      .range(from, from + PAGE_SIZE - 1)
-    const rows = (data as { slug: string; updated_at: string | null }[]) || []
-    all.push(...rows)
+      .gt('id', lastId)
+      .order('id', { ascending: true })
+      .limit(PAGE_SIZE)
+    const rows =
+      (data as { id: number; slug: string; updated_at: string | null }[]) || []
+    for (const r of rows) all.push({ slug: r.slug, updated_at: r.updated_at })
     if (rows.length < PAGE_SIZE) break
+    lastId = rows[rows.length - 1].id
   }
   return all
 }
