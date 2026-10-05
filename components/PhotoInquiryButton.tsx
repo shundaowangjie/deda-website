@@ -619,11 +619,16 @@ export default function PhotoInquiryButton({ locale = 'zh' }: { locale?: string 
                                 setTimeout(() => setWxCopied(false), 1500)
                               })
                               .catch(() => {})
+                            setTimeout(() => {
+                              try {
+                                window.location.href = 'weixin://'
+                              } catch {}
+                            }, 350)
                           }}
                           className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition active:scale-95"
                         >
                           💚 微信:{CONTACT.wechat}
-                          {wxCopied ? ' ✓ 已复制' : ''}
+                          {wxCopied ? ' ✓ 已复制,正在打开微信…' : ''}
                         </button>
                       )}
                     </div>
