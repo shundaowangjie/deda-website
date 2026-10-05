@@ -35,7 +35,7 @@ async function fetchAllProductSlugs(): Promise<
   for (let i = 0; i < 3; i++) {
     const { count, error } = await supabase
       .from('products')
-      .select('id', { count: 'exact', head: true })
+      .select('slug', { count: 'exact', head: true })
       .in('status', ['published', 'active'])
     if (!error && count != null) {
       expected = count
@@ -44,28 +44,27 @@ async function fetchAllProductSlugs(): Promise<
     await sleep(1000)
   }
 
-  // id 是唯一主键——按 id 键集分页，彻底避免非唯一排序（updated_at 大量并列）
-  // 导致的跨页重复/丢行（2026-10-05 实测旧写法丢 1713 款）；
-  // 逐页与整体均带重试：构建期 Supabase 瞬态失败曾导致空表上线（同日实测）
+  // id 是 UUID 不能做数值比较（gt(id,0) 直接报错，曾致空表上线）；
+  // slug 唯一——按 slug 键集分页，彻底避免非唯一排序（updated_at 大量并列）
+  // 导致的跨页重复/丢行（旧 offset 写法实测丢 1713 款）；
+  // 逐页与整体均带重试防构建期瞬态失败
   for (let attempt = 0; attempt < 3; attempt++) {
     const all: { slug: string; updated_at: string | null }[] = []
-    let lastId = 0
+    let lastSlug = ''
     let failed = false
     for (;;) {
-      let rows: { id: number; slug: string; updated_at: string | null }[] | null =
-        null
+      let rows: { slug: string; updated_at: string | null }[] | null = null
       for (let i = 0; i < 3; i++) {
         const { data, error } = await supabase
           .from('products')
-          .select('id, slug, updated_at')
+          .select('slug, updated_at')
           .in('status', ['published', 'active'])
-          .gt('id', lastId)
-          .order('id', { ascending: true })
+          .gt('slug', lastSlug)
+          .order('slug', { ascending: true })
           .limit(PAGE_SIZE)
         if (!error && data) {
           rows =
-            (data as { id: number; slug: string; updated_at: string | null }[]) ||
-            []
+            (data as { slug: string; updated_at: string | null }[]) || []
           break
         }
         await sleep(1000)
@@ -76,7 +75,7 @@ async function fetchAllProductSlugs(): Promise<
       }
       for (const r of rows) all.push({ slug: r.slug, updated_at: r.updated_at })
       if (rows.length < PAGE_SIZE) break
-      lastId = rows[rows.length - 1].id
+      lastSlug = rows[rows.length - 1].slug
     }
     if (!failed && (expected === 0 || all.length >= expected)) return all
     console.warn(
