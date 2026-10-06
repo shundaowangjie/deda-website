@@ -7,3 +7,5 @@ node_modules
 dist
 dist-ssr
 *.tsbuildinfo
+.env.wecom.generated
+.env.*.generated
