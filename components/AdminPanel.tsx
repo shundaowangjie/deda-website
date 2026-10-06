@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 
-type ItemType = 'photo' | 'form'
+type View = 'dashboard' | 'photo' | 'form'
 
 interface PhotoItem {
   id: string
@@ -56,22 +56,28 @@ function readSavedKey(): string {
   return sessionStorage.getItem('deda-admin-key') ?? ''
 }
 
+const NAV: { view: View; icon: string; label: string }[] = [
+  { view: 'dashboard', icon: '📊', label: '数据看板' },
+  { view: 'photo', icon: '📷', label: '拍照询价' },
+  { view: 'form', icon: '🛒', label: '表单询价' },
+]
+
 export default function AdminPanel() {
   const [key, setKey] = useState(readSavedKey)
   const [authed, setAuthed] = useState(() => readSavedKey() !== '')
   const [pwdInput, setPwdInput] = useState('')
   const [authErr, setAuthErr] = useState('')
-  const [type, setType] = useState<ItemType>('photo')
+  const [view, setView] = useState<View>('dashboard')
   const [statusFilter, setStatusFilter] = useState('')
   const [items, setItems] = useState<(PhotoItem | FormItem)[]>([])
+  const [photoAll, setPhotoAll] = useState<PhotoItem[]>([])
+  const [formAll, setFormAll] = useState<FormItem[]>([])
   const [limited, setLimited] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [err, setErr] = useState('')
 
   const load = useCallback(
-    async (k: string, t: ItemType, s: string) => {
+    async (k: string, t: 'photo' | 'form', s: string) => {
       setLoading(true)
-      setErr('')
       try {
         const res = await fetch(
           `/api/admin/inquiries?type=${t}${s ? `&status=${s}` : ''}`,
@@ -83,8 +89,6 @@ export default function AdminPanel() {
             setAuthed(false)
             sessionStorage.removeItem('deda-admin-key')
             setAuthErr('口令错误，请重新输入')
-          } else {
-            setErr(data.error || '加载失败')
           }
           setItems([])
           return
@@ -92,7 +96,6 @@ export default function AdminPanel() {
         setItems(data.items || [])
         setLimited(!!data.limited)
       } catch {
-        setErr('网络错误')
         setItems([])
       } finally {
         setLoading(false)
@@ -101,12 +104,28 @@ export default function AdminPanel() {
     [],
   )
 
-  // 已登录时拉取列表：tab/筛选变化由下面的处理器显式触发，这里只处理挂载与登录态变化
-  useEffect(() => {
-    if (authed && key) {
-      void Promise.resolve().then(() => load(key, type, statusFilter))
+  const loadDash = useCallback(async (k: string) => {
+    setLoading(true)
+    try {
+      const h = { 'x-admin-key': k }
+      const [p, f] = await Promise.all([
+        fetch('/api/admin/inquiries?type=photo', { headers: h }).then((r) => r.json()),
+        fetch('/api/admin/inquiries?type=form', { headers: h }).then((r) => r.json()),
+      ])
+      if (p && p.ok) setPhotoAll(p.items || [])
+      if (f && f.ok) setFormAll(f.items || [])
+    } catch {
+      /* keep previous data */
+    } finally {
+      setLoading(false)
     }
-  }, [authed, key, type, statusFilter, load])
+  }, [])
+
+  useEffect(() => {
+    if (!authed || !key) return
+    if (view === 'dashboard') void loadDash(key)
+    else void load(key, view, statusFilter)
+  }, [authed, key, view, statusFilter, load, loadDash])
 
   function login() {
     setAuthErr('')
@@ -119,12 +138,20 @@ export default function AdminPanel() {
     setAuthed(true)
   }
 
+  function logout() {
+    sessionStorage.removeItem('deda-admin-key')
+    setAuthed(false)
+    setKey('')
+    setPwdInput('')
+  }
+
   async function setStatus(id: string, status: string) {
+    if (view === 'dashboard') return
     try {
       const res = await fetch('/api/admin/inquiries', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', 'x-admin-key': key },
-        body: JSON.stringify({ type, id, status }),
+        body: JSON.stringify({ type: view, id, status }),
       })
       const data = await res.json()
       if (!res.ok || !data.ok) {
@@ -170,87 +197,247 @@ export default function AdminPanel() {
     )
   }
 
-  const pendingCount = items.filter((i) => i.status === 'new').length
+  const allItems = [...photoAll, ...formAll]
+  const pendingCount = allItems.filter((i) => i.status === 'new').length
+  const isList = view !== 'dashboard'
 
   return (
-    <main className="min-h-screen bg-slate-100">
-      <header className="bg-slate-900 sticky top-0 z-10 shadow-lg shadow-slate-900/10">
-        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center gap-3 flex-wrap">
-          <div className="mr-2 leading-tight">
-            <p className="text-white font-bold text-base">询价后台</p>
-            <p className="text-[9px] tracking-[0.28em] text-sky-300/80 font-medium">INQUIRY CONSOLE</p>
-          </div>
-          <div className="flex gap-1.5 p-1 bg-white/5 rounded-full">
-            <button
-              onClick={() => setType('photo')}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium transition ${type === 'photo' ? 'bg-white text-slate-900 shadow' : 'text-slate-300 hover:text-white hover:bg-white/10'}`}
-            >
-              📷 拍照询价
-            </button>
-            <button
-              onClick={() => setType('form')}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium transition ${type === 'form' ? 'bg-white text-slate-900 shadow' : 'text-slate-300 hover:text-white hover:bg-white/10'}`}
-            >
-              🛒 表单询价
-            </button>
-          </div>
-          <div className="ml-auto flex items-center gap-2">
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="text-sm bg-slate-800 border border-slate-700 text-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-sky-500"
-            >
-              <option value="">全部状态</option>
-              <option value="new">待处理</option>
-              <option value="contacted">已联系</option>
-              <option value="quoted">已报价</option>
-              <option value="closed">已关闭</option>
-              <option value="spam">垃圾</option>
-            </select>
-            <button
-              onClick={() => load(key, type, statusFilter)}
-              className="text-sm text-sky-300 hover:text-white border border-slate-700 hover:border-sky-500 rounded-lg px-3 py-1.5 transition"
-            >
-              刷新
-            </button>
+    <div className="lg:flex min-h-screen bg-slate-100">
+      {/* 桌面左侧导航 */}
+      <aside className="hidden lg:flex lg:flex-col w-56 bg-slate-900 shrink-0 sticky top-0 h-screen p-4">
+        <div className="flex items-center gap-2.5 mb-7 px-1">
+          <div className="w-9 h-9 rounded-lg bg-sky-600/20 flex items-center justify-center text-xl">🚛</div>
+          <div>
+            <p className="text-white font-bold text-sm leading-tight">德达汽配</p>
+            <p className="text-[9px] tracking-[0.22em] text-sky-300/80 font-medium">INQUIRY CONSOLE</p>
           </div>
         </div>
-      </header>
-
-      <div className="max-w-5xl mx-auto px-4 py-5">
-        <div className="flex items-center gap-2.5 mb-4 flex-wrap">
-          <span className="inline-flex items-center gap-1.5 bg-white border border-slate-200 shadow-sm rounded-full px-3.5 py-1.5 text-sm text-slate-600 font-medium">
-            共 {items.length} 条
-          </span>
-          {pendingCount > 0 && (
-            <span className="inline-flex items-center gap-1.5 bg-red-50 border border-red-100 shadow-sm rounded-full px-3.5 py-1.5 text-sm text-red-600 font-semibold">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-              {pendingCount} 条待处理
-            </span>
-          )}
-          {loading && <span className="text-sm text-slate-400">加载中…</span>}
+        <nav className="space-y-1">
+          {NAV.map((n) => (
+            <button
+              key={n.view}
+              onClick={() => setView(n.view)}
+              className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium transition ${
+                view === n.view ? 'bg-white/10 text-white shadow-inner' : 'text-slate-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <span className="text-base">{n.icon}</span>
+              {n.label}
+              {n.view !== 'dashboard' && n.label === '拍照询价' && pendingCount > 0 && (
+                <span className="ml-auto bg-red-500 text-white text-[10px] font-bold rounded-full px-1.5 py-0.5">{pendingCount}</span>
+              )}
+            </button>
+          ))}
+        </nav>
+        <div className="mt-auto space-y-2">
+          <button onClick={logout} className="w-full text-left px-3 py-2 rounded-lg text-xs text-slate-500 hover:text-slate-300 hover:bg-white/5 transition">
+            退出登录
+          </button>
+          <p className="text-[10px] text-slate-600 px-3">DEDA Auto Parts © 2026</p>
         </div>
+      </aside>
 
-        {limited && (
-          <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mb-3">
-            ⚠️ 未配置 SUPABASE_SERVICE_ROLE_KEY，当前为受限读取（表单询价可能看不到）。请在 Vercel 环境变量中配置后重新部署。
-          </p>
+      <div className="flex-1 min-w-0">
+        {/* 移动端顶部导航 */}
+        <header className="lg:hidden bg-slate-900 sticky top-0 z-10 shadow-lg shadow-slate-900/10">
+          <div className="flex items-center gap-3 px-4 pt-3">
+            <div className="w-8 h-8 rounded-lg bg-sky-600/20 flex items-center justify-center text-lg">🚛</div>
+            <div className="leading-tight mr-auto">
+              <p className="text-white font-bold text-sm">德达汽配 · 询价后台</p>
+              <p className="text-[8px] tracking-[0.22em] text-sky-300/80">INQUIRY CONSOLE</p>
+            </div>
+            <button onClick={logout} className="text-[11px] text-slate-400 hover:text-white px-2 py-1">退出</button>
+          </div>
+          <div className="flex gap-1.5 p-2 px-4 pb-2.5 overflow-x-auto">
+            {NAV.map((n) => (
+              <button
+                key={n.view}
+                onClick={() => setView(n.view)}
+                className={`px-3.5 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition ${
+                  view === n.view ? 'bg-white text-slate-900 shadow' : 'text-slate-300 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                {n.icon} {n.label}
+              </button>
+            ))}
+          </div>
+        </header>
+
+        {/* 列表视图工具栏 */}
+        {isList && (
+          <div className="bg-white border-b border-slate-200 sticky top-[88px] lg:top-0 z-[9]">
+            <div className="max-w-5xl mx-auto px-4 py-2.5 flex items-center gap-2">
+              <h2 className="text-sm font-bold text-slate-800">{view === 'photo' ? '📷 拍照询价' : '🛒 表单询价'}</h2>
+              <span className="text-xs text-slate-400">共 {items.length} 条</span>
+              <div className="ml-auto flex items-center gap-2">
+                <select
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                  className="text-sm bg-white border border-slate-200 text-slate-600 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-sky-500"
+                >
+                  <option value="">全部状态</option>
+                  <option value="new">待处理</option>
+                  <option value="contacted">已联系</option>
+                  <option value="quoted">已报价</option>
+                  <option value="closed">已关闭</option>
+                  <option value="spam">垃圾</option>
+                </select>
+                <button
+                  onClick={() => load(key, view, statusFilter)}
+                  className="text-sm text-sky-600 hover:text-sky-800 border border-slate-200 hover:border-sky-400 rounded-lg px-3 py-1.5 transition"
+                >
+                  刷新
+                </button>
+              </div>
+            </div>
+          </div>
         )}
-        {err && <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2 mb-3">{err}</p>}
-        <ul className="space-y-3">
-          {items.map((item) =>
-            type === 'photo' ? (
-              <PhotoRow key={item.id} item={item as PhotoItem} onStatus={setStatus} />
-            ) : (
-              <FormRow key={item.id} item={item as FormItem} onStatus={setStatus} />
-            ),
+
+        <main className="max-w-5xl mx-auto px-4 py-5">
+          {view === 'dashboard' ? (
+            <Dashboard photoAll={photoAll} formAll={formAll} loading={loading} onRefresh={() => loadDash(key)} onGoto={setView} />
+          ) : (
+            <>
+              {limited && (
+                <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mb-3">
+                  ⚠️ 未配置 SUPABASE_SERVICE_ROLE_KEY，当前为受限读取（表单询价可能看不到）。
+                </p>
+              )}
+              {loading && <p className="text-sm text-slate-400 mb-3">加载中…</p>}
+              <ul className="space-y-3">
+                {items.map((item) =>
+                  view === 'photo' ? (
+                    <PhotoRow key={item.id} item={item as PhotoItem} onStatus={setStatus} />
+                  ) : (
+                    <FormRow key={item.id} item={item as FormItem} onStatus={setStatus} />
+                  ),
+                )}
+              </ul>
+              {!loading && items.length === 0 && (
+                <p className="text-center text-slate-400 text-sm py-14">暂无数据</p>
+              )}
+            </>
           )}
-        </ul>
-        {!loading && items.length === 0 && !err && (
-          <p className="text-center text-slate-400 text-sm py-14">暂无数据</p>
+        </main>
+      </div>
+    </div>
+  )
+}
+
+function StatCard({ icon, label, value, tone }: { icon: string; label: string; value: number | string; tone: string }) {
+  return (
+    <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 flex items-center gap-3">
+      <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-lg shrink-0 ${tone}`}>{icon}</div>
+      <div className="min-w-0">
+        <p className="text-xs text-slate-400 whitespace-nowrap">{label}</p>
+        <p className="text-xl font-bold text-slate-900 leading-tight">{value}</p>
+      </div>
+    </div>
+  )
+}
+
+function Dashboard({
+  photoAll,
+  formAll,
+  loading,
+  onRefresh,
+  onGoto,
+}: {
+  photoAll: PhotoItem[]
+  formAll: FormItem[]
+  loading: boolean
+  onRefresh: () => void
+  onGoto: (v: View) => void
+}) {
+  const all = [...photoAll, ...formAll]
+  const todayKey = new Date().toDateString()
+  const todayCount = all.filter((i) => new Date(i.created_at).toDateString() === todayKey).length
+  const pending = all.filter((i) => i.status === 'new').length
+  const contacted = all.filter((i) => i.status === 'contacted').length
+  const quoted = all.filter((i) => i.status === 'quoted').length
+
+  const days = Array.from({ length: 7 }, (_, idx) => {
+    const d = new Date()
+    d.setDate(d.getDate() - (6 - idx))
+    const key = d.toDateString()
+    const count = all.filter((i) => new Date(i.created_at).toDateString() === key).length
+    return { label: `${d.getMonth() + 1}/${d.getDate()}`, count }
+  })
+  const maxCount = Math.max(1, ...days.map((d) => d.count))
+
+  const recent = [...all].sort((a, b) => b.created_at.localeCompare(a.created_at)).slice(0, 5)
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center gap-2 flex-wrap">
+        <h2 className="text-base font-bold text-slate-800">📊 数据看板</h2>
+        {pending > 0 && (
+          <span className="inline-flex items-center gap-1.5 bg-red-50 border border-red-100 rounded-full px-3 py-1 text-xs text-red-600 font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+            {pending} 条待处理
+          </span>
+        )}
+        <button
+          onClick={onRefresh}
+          disabled={loading}
+          className="ml-auto text-sm text-sky-600 hover:text-sky-800 border border-slate-200 hover:border-sky-400 bg-white rounded-lg px-3 py-1.5 transition disabled:opacity-50"
+        >
+          {loading ? '加载中…' : '刷新'}
+        </button>
+      </div>
+
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <StatCard icon="🆕" label="今日新增" value={todayCount} tone="bg-sky-50 text-sky-600" />
+        <StatCard icon="⏳" label="待处理" value={pending} tone="bg-red-50 text-red-500" />
+        <StatCard icon="📞" label="已联系" value={contacted} tone="bg-amber-50 text-amber-500" />
+        <StatCard icon="✅" label="已报价" value={quoted} tone="bg-green-50 text-green-500" />
+      </div>
+
+      <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+        <p className="text-sm font-semibold text-slate-800 mb-3">近 7 日询价趋势</p>
+        <div className="flex items-end gap-2 h-32">
+          {days.map((d) => (
+            <div key={d.label} className="flex-1 flex flex-col items-center justify-end gap-1 h-full">
+              <span className="text-[10px] text-slate-400">{d.count || ''}</span>
+              <div
+                className="w-full max-w-9 rounded-t-md bg-gradient-to-t from-sky-600 to-sky-400 transition-all"
+                style={{ height: `${Math.max(4, (d.count / maxCount) * 100)}%` }}
+              />
+              <span className="text-[10px] text-slate-400 whitespace-nowrap">{d.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-sm font-semibold text-slate-800">最新询价</p>
+          <button onClick={() => onGoto('photo')} className="text-xs text-sky-600 hover:text-sky-800 font-medium">
+            查看全部 →
+          </button>
+        </div>
+        {recent.length === 0 ? (
+          <p className="text-sm text-slate-400 py-6 text-center">暂无询价数据</p>
+        ) : (
+          <ul className="divide-y divide-slate-100">
+            {recent.map((r) => (
+              <li key={r.id} className="py-2.5 flex items-center gap-2 text-sm">
+                <span className="text-slate-900 font-medium truncate">
+                  📞 {'contact' in r ? r.contact || '（未留联系方式）' : r.name}
+                </span>
+                <span className="text-slate-400 text-xs truncate hidden sm:inline">
+                  {('note' in r ? r.note : r.message) || ''}
+                </span>
+                <span className="ml-auto shrink-0">
+                  <StatusBadge status={r.status} />
+                </span>
+                <span className="text-[11px] text-slate-400 whitespace-nowrap shrink-0">{fmtTime(r.created_at).slice(5, 16)}</span>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
-    </main>
+    </div>
   )
 }
 
