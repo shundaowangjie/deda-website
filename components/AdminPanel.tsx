@@ -241,13 +241,20 @@ function StatusBadge({ status }: { status: string }) {
 
 function StatusButtons({ id, status, onStatus }: { id: string; status: string; onStatus: (id: string, s: string) => void }) {
   const next = status === 'new' ? ['contacted', 'quoted', 'spam'] : status === 'contacted' ? ['quoted', 'closed', 'spam'] : status === 'quoted' ? ['closed'] : ['new']
+  const BTN_STYLE: Record<string, string> = {
+    new: 'bg-red-500 text-white',
+    contacted: 'bg-amber-400 text-amber-950',
+    quoted: 'bg-green-500 text-white',
+    closed: 'bg-gray-500 text-white',
+    spam: 'bg-gray-200 text-gray-600',
+  }
   return (
-    <span className="flex gap-1 flex-wrap">
+    <span className="flex gap-2 flex-wrap">
       {next.map((s) => (
         <button
           key={s}
           onClick={() => onStatus(id, s)}
-          className="text-sm border border-gray-300 bg-gray-50 hover:border-blue-500 hover:text-blue-700 hover:bg-blue-50 rounded-lg px-3 py-1.5 transition"
+          className={`text-sm font-medium rounded-lg px-3.5 py-2 transition active:scale-95 ${BTN_STYLE[s] || 'bg-gray-100 text-gray-700'}`}
         >
           标为{STATUS_LABEL[s]}
         </button>
@@ -259,10 +266,17 @@ function StatusButtons({ id, status, onStatus }: { id: string; status: string; o
 function PhotoRow({ item, onStatus }: { item: PhotoItem; onStatus: (id: string, s: string) => void }) {
   return (
     <li className="bg-white rounded-xl border border-gray-200 p-4 flex gap-4">
-      <a href={item.image_url} target="_blank" rel="noopener noreferrer" className="shrink-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={item.image_url} alt="询价照片" className="w-24 h-24 object-cover rounded-lg border bg-gray-50" />
-      </a>
+      {item.image_url ? (
+        <a href={item.image_url} target="_blank" rel="noopener noreferrer" className="shrink-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={item.image_url} alt="询价照片" className="w-24 h-24 object-cover rounded-lg border bg-gray-50" />
+        </a>
+      ) : (
+        <div className="shrink-0 w-24 h-24 rounded-lg border bg-blue-50 flex flex-col items-center justify-center gap-1">
+          <span className="text-3xl">📝</span>
+          <span className="text-[11px] text-blue-500">文字询价</span>
+        </div>
+      )}
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2 mb-1 flex-wrap">
           <span className="font-semibold text-gray-900">📞 {item.contact || '（未留联系方式）'}</span>
