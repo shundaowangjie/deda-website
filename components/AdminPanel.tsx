@@ -39,8 +39,8 @@ const STATUS_COLOR: Record<string, string> = {
   new: 'bg-red-100 text-red-700',
   contacted: 'bg-yellow-100 text-yellow-800',
   quoted: 'bg-green-100 text-green-700',
-  closed: 'bg-gray-100 text-gray-500',
-  spam: 'bg-gray-200 text-gray-400',
+  closed: 'bg-gray-200 text-gray-700',
+  spam: 'bg-gray-300 text-gray-700',
 }
 
 function fmtTime(iso: string): string {
@@ -233,7 +233,7 @@ export default function AdminPanel() {
 
 function StatusBadge({ status }: { status: string }) {
   return (
-    <span className={`text-xs px-2 py-0.5 rounded-full ${STATUS_COLOR[status] || 'bg-gray-100 text-gray-500'}`}>
+    <span className={`text-sm font-medium px-2.5 py-1 rounded-full ${STATUS_COLOR[status] || 'bg-gray-100 text-gray-600'}`}>
       {STATUS_LABEL[status] || status}
     </span>
   )
@@ -247,7 +247,7 @@ function StatusButtons({ id, status, onStatus }: { id: string; status: string; o
         <button
           key={s}
           onClick={() => onStatus(id, s)}
-          className="text-xs border border-gray-300 hover:border-blue-500 hover:text-blue-700 rounded px-2 py-1"
+          className="text-sm border border-gray-300 bg-gray-50 hover:border-blue-500 hover:text-blue-700 hover:bg-blue-50 rounded-lg px-3 py-1.5 transition"
         >
           标为{STATUS_LABEL[s]}
         </button>
