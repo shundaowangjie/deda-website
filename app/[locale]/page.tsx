@@ -4,6 +4,7 @@ import { join } from 'node:path'
 import OemSearchBox from '@/components/OemSearchBox'
 import PhotoInquiryButton from '@/components/PhotoInquiryButton'
 import { Link } from '@/i18n/navigation'
+const LOGO_SRC = '/deda-logo.png'
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
@@ -58,7 +59,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* 品牌区 */}
       <section className="bg-white border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-3">DEDA Auto Parts</h1>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={LOGO_SRC} alt="DEDA Auto Parts logo" className="h-12 w-auto rounded-md shadow-sm" />
+            <h1 className="text-4xl font-bold text-gray-900">DEDA Auto Parts</h1>
+          </div>
           <p className="text-lg text-gray-600 mb-8">{t('heroSubtitle')}</p>
           <OemSearchBox />
           <div className="mt-3 flex justify-center">

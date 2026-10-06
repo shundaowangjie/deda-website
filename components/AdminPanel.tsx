@@ -1,6 +1,9 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
+import Image from 'next/image'
+
+const LOGO_SRC = '/deda-logo.png'
 
 type View = 'dashboard' | 'photo' | 'form'
 
@@ -169,7 +172,7 @@ export default function AdminPanel() {
       <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-sky-950 flex items-center justify-center px-4">
         <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-11 h-11 rounded-lg bg-sky-600/20 flex items-center justify-center text-xl font-bold text-sky-700">DEDA</div>
+            <Image src={LOGO_SRC} alt="德达汽配 logo" width={44} height={44} className="rounded-lg shadow-sm" />
             <div>
               <p className="text-white font-bold text-sm leading-tight">德达汽配</p>
               <p className="text-[10px] tracking-[0.28em] text-slate-400 font-medium">INQUIRY CONSOLE</p>
@@ -206,7 +209,7 @@ export default function AdminPanel() {
       {/* 桌面左侧导航 */}
       <aside className="hidden lg:flex lg:flex-col w-56 bg-slate-900 shrink-0 sticky top-0 h-screen p-4">
         <div className="flex items-center gap-2.5 mb-7 px-1">
-          <div className="w-9 h-9 rounded-lg bg-sky-600/20 flex items-center justify-center text-lg font-bold text-sky-700">DEDA</div>
+          <Image src={LOGO_SRC} alt="德达汽配 logo" width={36} height={36} className="rounded-lg shadow-sm" />
           <div>
             <p className="text-white font-bold text-sm leading-tight">德达汽配</p>
             <p className="text-[9px] tracking-[0.22em] text-sky-300/80 font-medium">INQUIRY CONSOLE</p>
@@ -241,7 +244,7 @@ export default function AdminPanel() {
         {/* 移动端顶部导航 */}
         <header className="lg:hidden bg-slate-900 sticky top-0 z-10 shadow-lg shadow-slate-900/10">
           <div className="flex items-center gap-3 px-4 pt-3">
-            <div className="w-8 h-8 rounded-lg bg-sky-600/20 flex items-center justify-center text-lg font-bold text-sky-700">DEDA</div>
+            <Image src={LOGO_SRC} alt="德达汽配 logo" width={32} height={32} className="rounded-lg shadow-sm" />
             <div className="leading-tight mr-auto">
               <p className="text-white font-bold text-sm">德达汽配 · 询价后台</p>
               <p className="text-[8px] tracking-[0.22em] text-sky-300/80">INQUIRY CONSOLE</p>

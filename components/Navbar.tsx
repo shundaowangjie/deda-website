@@ -5,6 +5,7 @@ import { Link, usePathname, useRouter } from '@/i18n/navigation'
 import AuthButton from './AuthButton'
 
 const MAIN_SITE = 'https://dedaautoparts.com'
+const LOGO_SRC = '/deda-logo.png'
 
 const LOCALE_OPTIONS = [
   { code: 'zh', label: '中文' },
@@ -27,8 +28,10 @@ export default function Navbar() {
   return (
     <nav data-chrome className="bg-white border-b border-gray-200 sticky top-0 z-40">
       <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between gap-2">
-        <Link href="/" className="text-lg font-bold text-gray-900 hover:text-blue-700 transition shrink-0">
-          DEDA Auto Parts
+        <Link href="/" className="flex items-center gap-2.5 shrink-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={LOGO_SRC} alt="DEDA Auto Parts logo" className="h-8 w-auto rounded-md shadow-sm" />
+          <span className="hidden md:block text-base font-bold text-gray-900">DEDA Auto Parts</span>
         </Link>
         <div className="flex items-center gap-1 text-sm">
           <a
