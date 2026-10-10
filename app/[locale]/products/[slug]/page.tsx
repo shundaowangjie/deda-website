@@ -12,8 +12,19 @@ interface Props {
   params: Promise<{ locale: string; slug: string }>
 }
 
+/** 动态段 CJK 可能以 %XX 编码传入(Next 16 实测不解码),查询/文件匹配前统一解码 */
+function normalizeSlug(raw: string): string {
+  try {
+    const d = decodeURIComponent(raw)
+    return d !== raw ? d : raw
+  } catch {
+    return raw
+  }
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale, slug } = await params
+  const { locale, slug: rawSlug } = await params
+  const slug = normalizeSlug(rawSlug)
   const [supabase, t] = await Promise.all([
     Promise.resolve(tryGetSupabase()),
     getTranslations({ locale, namespace: 'product' }),
@@ -39,7 +50,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProductPage({ params }: Props) {
-  const { locale, slug } = await params
+  const { locale, slug: rawSlug } = await params
+  const slug = normalizeSlug(rawSlug)
   setRequestLocale(locale)
   const t = await getTranslations('product')
   const catLabel = (s: string) => categoryLabelFor(s, locale)

@@ -9,3 +9,4 @@ dist-ssr
 *.tsbuildinfo
 .env.wecom.generated
 .env.*.generated
+.env.local*
