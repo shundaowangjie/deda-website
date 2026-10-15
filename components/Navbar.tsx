@@ -48,6 +48,12 @@ export default function Navbar() {
             {t('catalog')}
           </Link>
           <Link
+            href="/u-joints"
+            className="text-gray-600 hover:text-blue-700 transition px-3 py-1.5 rounded-lg hover:bg-gray-50"
+          >
+            {t('uJoints')}
+          </Link>
+          <Link
             href="/inquiry"
             className="text-blue-700 font-medium hover:text-blue-800 transition px-3 py-1.5 rounded-lg hover:bg-blue-50"
           >
