@@ -118,23 +118,22 @@ def build_sql(rows):
                 spec_items.append(f"{q(k)}: {q(v)}")
         specs_literal = '{' + ', '.join(spec_items) + '}'
 
-        # 描述文本
+        # 描述文本（products 表无 description_ru 列，只写 description_en/zh）
         dim = f'Φ{r["d"]}xL{r["l"]}'
         flange = f'flange {r["a"]}mm' if r['a'] else ''
         bolt = f', {r["o"]} bolt holes' if r['o'] else ''
         height = f', H={r["h"]}mm' if r['h'] else ''
         de = f'Universal Joint {name_en} by ZHANWANG. Bore {dim}, {flange}{bolt}{height}. Customization available.'
         dz = f'万向节叉 {serie}（瞻程生产）。轴孔径{dim}，法兰{r["a"] if r["a"] else "-"}mm，总高{r["h"] if r["h"] else "-"}mm。可定制。'
-        dr = f'Шарнирная {name_ru_base} от ZHANWANG. Сверловка {dim}, фланец {r["a"] if r["a"] else "-"}мм. Возможность кастомизации.'
 
         # INSERT 语句
         stmt = (
             f"INSERT INTO products "
             f"(sku, slug, name_en, name_zh, name_ru, brand, category, "
-            f"description_en, description_zh, description_ru, specs, status, created_at, updated_at)\n"
+            f"description_en, description_zh, specs, status, created_at, updated_at)\n"
             f"SELECT {q(sku)}, {q(slug)}, {q(name_en)}, {q(name_zh_base)}, {q(name_ru_base)}, "
             f"{q(BRAND)}, {q(CATEGORY)},\n"
-            f"  {q(de)}, {q(dz)}, {q(dr)}, {specs_literal}::jsonb, 'published', NOW(), NOW()\n"
+            f"  {q(de)}, {q(dz)}, {specs_literal}::jsonb, 'published', NOW(), NOW()\n"
             f"WHERE NOT EXISTS (SELECT 1 FROM products WHERE slug = {q(slug)});"
         )
         lines.append(f'-- #{sku_counter} {name_en} (slug={slug})')

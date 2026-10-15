@@ -1,8 +1,9 @@
 -- ================================================================
 -- U型接头产品线 A步：更新现有产品
 -- 日期：2026-10-15
--- 说明：补充 wan-xiang-jie-015 的三语描述 + 给十字轴/轴承产品补充图册参考
+-- 说明：补充 wan-xiang-jie-015 的描述 + 给十字轴/轴承产品补充图册参考
 -- 来源：U-joint_and_components_1.pdf（山东济宁瞻程传动 ZHANWANG）
+-- 注意：products 表无 description_ru 列（只有 description_en/zh），不写入
 -- ================================================================
 
 -- 1) 更新 wan-xiang-jie-015（万向节，缺描述）
@@ -13,7 +14,6 @@ SET
   name_ru = 'Шарнирный вал в сборе (Howo/Haohan)',
   description_zh = '万向节总成，适用于豪沃/豪瀚系列重卡。传动轴关键部件，济南德达供应，品质保证，欢迎询价。',
   description_en = 'Universal Joint Assembly for Howo/Haohan series heavy trucks. Key driveshaft component. Quality guaranteed, inquiry welcome from DEDA Auto Parts, Jinan.',
-  description_ru = 'Шарнирный вал в сборе для тяжелых грузовиков Howo/Haohan. Ключевой компонент карданного вала. Гарантия качества, приглашаем к расспросам от DEDA Auto Parts, Цзинань.',
   specs = '{"适用车型": "HOWO/豪瀚/豪沃", "品牌": "原厂/副厂", "说明": "万向节总成，传动轴关键部件", "图册参考": "U-joint_and_components_1.pdf"}'::jsonb
 WHERE slug = 'wan-xiang-jie-015';
 
