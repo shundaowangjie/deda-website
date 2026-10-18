@@ -5,6 +5,5 @@ import { routing } from './i18n/routing'
 export default createMiddleware(routing)
 
 export const config = {
-  // expo=展会落地页独立路由(不带locale前缀,QR直达)
-  matcher: '/((?!api|_next|_vercel|expo|robots\\.txt|sitemap\\.xml|.*\\..*).*)',
+  matcher: '/((?!api|_next|_vercel|robots\\.txt|sitemap\\.xml|.*\\..*).*)',
 }
