@@ -66,7 +66,7 @@ export default function ExpoLandingPage() {
   async function submit(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault()
     setSending(true); setErr('')
-    const f = new FormData(ev.target)
+    const f = new FormData(ev.currentTarget)
     try {
       const res = await fetch('/api/expo-lead', {
         method: 'POST',
