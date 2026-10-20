@@ -54,6 +54,12 @@ export default function Navbar() {
             {t('uJoints')}
           </Link>
           <Link
+            href="/bearings"
+            className="text-gray-600 hover:text-blue-700 transition px-3 py-1.5 rounded-lg hover:bg-gray-50"
+          >
+            {t('bearings')}
+          </Link>
+          <Link
             href="/inquiry"
             className="text-blue-700 font-medium hover:text-blue-800 transition px-3 py-1.5 rounded-lg hover:bg-blue-50"
           >
