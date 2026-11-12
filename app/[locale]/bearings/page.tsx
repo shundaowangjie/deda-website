@@ -103,7 +103,7 @@ const CONTENT: Record<'zh' | 'en' | 'ru', BearingContent> = {
     section3Title: '供应商品牌',
     section3Desc: '原厂品质，专业制造。',
     brands: [
-      { name: '大丰 / DAFENG', note: '专业轴瓦制造商 — 611 项产品数据来源' },
+      { name: '大丰 / DAFENG', note: '专业轴瓦制造商 — 1,091 项产品数据来源' },
       { name: '德达 / DEDA', note: '济南德达汽车配件 — 销售代理' },
     ],
     section4Title: 'OE 号对照',
