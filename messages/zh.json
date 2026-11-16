@@ -122,15 +122,15 @@
     "profileTitle": "企业简介 / Company Profile",
     "profile": [
       "济南德达汽车配件有限公司成立于2001年，坐落于山东省济南市天桥区蓝翔路15号时代总部基地一区20栋。自创立之初，公司便专注于重型卡车配件的专业供应，已发展成为济南地区重卡配件行业的知名企业。",
-      "公司主营中国重汽、一汽解放、陕汽、福田四大品牌重卡全车配件，库存品种超过30,000种，涵盖发动机、制动、传动、底盘、电气、滤清器等全系统配件，能够满足客户快速、准确的配件需求。",
+      "公司主营中国重汽、一汽解放、陕汽、福田四大品牌重卡全车配件，库存品种14,544种，涵盖发动机、制动、传动、底盘、电气、滤清器等全系统配件，能够满足客户快速、准确的配件需求。",
       "公司拥有员工83人，仓库面积6000平方米，配备ERP信息化管理系统，实现配件的精准库存管理和快速配送，支持全国范围内当天发货。",
       "多年来，德达始终坚持诚信经营、质量第一的经营理念，先后荣获济南市守合同重信用企业称号，并成为重汽亲人配件连锁店成员单位。"
     ],
-    "profileEn": "Founded in 2001 in Jinan, Shandong, Jinan Deda Auto Parts Co., Ltd. has grown from a local parts shop into a trusted regional supplier of heavy truck components. With over 30,000 SKUs covering Sinotruk, FAW Jiefang, Shaanxi Auto and Foton brands, we serve fleet operators, repair workshops, and logistics companies across China and overseas.",
+    "profileEn": "Founded in 2001 in Jinan, Shandong, Jinan Deda Auto Parts Co., Ltd. has grown from a local parts shop into a trusted regional supplier of heavy truck components. With 14,544 SKUs covering Sinotruk, FAW Jiefang, Shaanxi Auto and Foton brands, we serve fleet operators, repair workshops, and logistics companies across China and overseas.",
     "advTitle": "核心优势",
     "stats": [
       {
-        "num": "30000+",
+        "num": "14,544",
         "label": "产品库存",
         "note": "覆盖全系统配件"
       },
@@ -193,8 +193,8 @@
       },
       {
         "year": "2020",
-        "zh": "库存突破 30,000 种",
-        "en": "30,000+ SKUs in Stock"
+        "zh": "库存 14,544 种",
+        "en": "14,544 SKUs in Stock"
       },
       {
         "year": "2026",

@@ -122,15 +122,15 @@
     "profileTitle": "Company Profile",
     "profile": [
       "Founded in 2001, Jinan DEDA Auto Parts Co., Ltd. is located in Jinan, Shandong Province. Since day one we have specialized in the supply of heavy-duty truck parts and have grown into a well-known supplier in the Jinan heavy truck parts industry.",
-      "We stock a full range of parts for the four major Chinese truck brands — SINOTRUK (HOWO), FAW Jiefang, Shaanxi Auto and Foton — with over 30,000 SKUs covering engine, brake, drivetrain, chassis, electrical and filtration systems, ready for fast and accurate order fulfillment.",
+      "We stock a full range of parts for the four major Chinese truck brands — SINOTRUK (HOWO), FAW Jiefang, Shaanxi Auto and Foton — with 14,544 SKUs covering engine, brake, drivetrain, chassis, electrical and filtration systems, ready for fast and accurate order fulfillment.",
       "With a team of 83 employees and a 6,000 m² warehouse managed by an ERP system, we maintain precise inventory control and fast dispatch — same-day shipping across China.",
       "Guided by the principles of integrity and quality first, DEDA has been awarded the title of Contract-Honoring Enterprise in Jinan and is a member of the SINOTRUK Family Parts Chain."
     ],
-    "profileEn": "济南德达汽车配件有限公司成立于2001年，主营中国重汽、一汽解放、陕汽、福田四大品牌重卡全车配件，库存30000余种，服务全国及海外客户。",
+    "profileEn": "济南德达汽车配件有限公司成立于2001年，主营中国重汽、一汽解放、陕汽、福田四大品牌重卡全车配件，库存14,544种，服务全国及海外客户。",
     "advTitle": "Key Strengths",
     "stats": [
       {
-        "num": "30,000+",
+        "num": "14,544",
         "label": "SKUs in stock",
         "note": "Full-system coverage"
       },
@@ -193,8 +193,8 @@
       },
       {
         "year": "2020",
-        "zh": "30,000+ SKUs in stock",
-        "en": "库存突破 30,000 种"
+        "zh": "14,544 SKUs in stock",
+        "en": "库存 14,544 种"
       },
       {
         "year": "2026",

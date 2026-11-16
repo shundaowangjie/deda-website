@@ -23,7 +23,7 @@ export default function Footer() {
             </p>
             <p className="text-gray-600 mt-2 flex sm:justify-end gap-4">
               <a
-                href="https://wa.me/8615169121111"
+                href="https://wa.me/8617661969056"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-700 hover:text-blue-800"
@@ -31,7 +31,7 @@ export default function Footer() {
                 {t('whatsapp')}
               </a>
               <a
-                href="https://www.facebook.com/dedaautoparts"
+                href="https://www.facebook.com/profile.php?id=61595664025429"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-700 hover:text-blue-800"

@@ -119,7 +119,7 @@ export default async function ContactPage({ params }: Props) {
               </a>
 
               <a
-                href="https://wa.me/8615169121111"
+                href="https://wa.me/8617661969056"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full bg-green-600 text-white text-center py-3 px-6 rounded-lg hover:bg-green-700 transition"
@@ -128,7 +128,7 @@ export default async function ContactPage({ params }: Props) {
               </a>
 
               <a
-                href="https://www.facebook.com/dedaautoparts"
+                href="https://www.facebook.com/profile.php?id=61595664025429"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full bg-blue-50 text-blue-800 text-center py-3 px-6 rounded-lg hover:bg-blue-100 transition"
