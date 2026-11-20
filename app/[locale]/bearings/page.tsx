@@ -38,7 +38,7 @@ const getBearings = unstable_cache(
 
     const { count, data } = await supabase
       .from('products')
-      .select('slug, name_en, name_zh, brand, category, truck_model')
+      .select('slug, name_en, name_zh, brand, category, truck_model', { count: 'exact' })
       .in('status', ['published', 'active'])
       .eq('brand', '大丰')
       .order('category', { ascending: true })
