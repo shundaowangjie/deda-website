@@ -43,7 +43,24 @@ export default function Footer() {
         </div>
         <div className="mt-6 pt-4 border-t border-gray-100 text-xs text-gray-400 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p>© {new Date().getFullYear()} DEDA Auto Parts. All rights reserved.</p>
-          <p>{t('icp')}</p>
+          <p className="flex flex-wrap items-center justify-end gap-x-3 gap-y-1">
+            <a
+              href="https://beian.miit.gov.cn/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gray-600 underline underline-offset-2"
+            >
+              {t('icp')}
+            </a>
+            <a
+              href="https://beian.mps.gov.cn/#/query/webSearch?code=37010402441769"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gray-600 underline underline-offset-2"
+            >
+              鲁公网安备37010402441769号
+            </a>
+          </p>
         </div>
       </div>
     </footer>
