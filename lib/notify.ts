@@ -33,6 +33,8 @@ export async function notifyEmail(
 ): Promise<NotifyResult> {
   const { resendKey, notifyEmail: to, resendFrom } = cfg()
   if (!resendKey || !to) return { ok: false, skipped: true }
+    const recipients = to.split(',').map((s) => s.trim()).filter(Boolean)
+    if (recipients.length === 0) return { ok: false, skipped: true }
   try {
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -40,7 +42,7 @@ export async function notifyEmail(
         Authorization: `Bearer ${resendKey}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ from: resendFrom, to: [to], subject, html: htmlBody }),
+      body: JSON.stringify({ from: resendFrom, to: recipients, subject, html: htmlBody }),
     })
     if (!res.ok) {
       const t = await res.text().catch(() => '')
