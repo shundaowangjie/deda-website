@@ -1,10 +1,11 @@
 {
   "nav": {
     "home": "公司首页",
+    "brandSite": "公司形象",
     "catalog": "产品目录",
     "inquiry": "询价单",
     "oemSearch": "OEM 搜索",
-    "mainSite": "返回公司形象官网",
+    "mainSite": "返回公司首页",
     "uJoints": "U型接头",
     "bearings": "轴瓦衬套"
   },
