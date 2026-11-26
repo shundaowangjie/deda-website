@@ -24,6 +24,21 @@
     "loadFail": "加载失败，请稍后重试",
     "preparing": "商品目录整理中，敬请期待..."
   },
+  "brands": {
+    "title": "按车型找配件",
+    "subtitle": "先选品牌，再选车型",
+    "universal": "通用件",
+    "universalNote": "适用多款车型（含待归类）",
+    "noStock": "暂无现货，可询价",
+    "items": "{count} 款",
+    "models": "{count} 个车型",
+    "viewAll": "查看全部产品目录",
+    "backHome": "← 返回首页",
+    "engines": "发动机",
+    "includeUniversal": "含通用件",
+    "hideUniversal": "不含通用件",
+    "total": "共 {total} 款产品"
+  },
   "searchbox": {
     "placeholder": "输入 OEM 号 / 型号 / 名称，如 WG1560118229",
     "search": "查询",
@@ -75,7 +90,14 @@
     "specs": "规格参数",
     "back": "← 返回首页",
     "addInquiry": "+ 询价",
-    "added": "✓ 已加入 · 去提交"
+    "added": "✓ 已加入 · 去提交",
+    "vehicleModel": "适配车型",
+    "engineModel": "发动机",
+    "moq": "起订量",
+    "packaging": "包装",
+    "crossReference": "替换品牌编号",
+    "pendingVerify": "待核实",
+    "moqNote": "以询价确认为准"
   },
   "inquiry": {
     "title": "询价单",
