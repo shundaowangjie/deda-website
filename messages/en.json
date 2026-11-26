@@ -24,6 +24,21 @@
     "loadFail": "Failed to load, please try again later",
     "preparing": "Catalog is being prepared, stay tuned..."
   },
+  "brands": {
+    "title": "Find parts by truck model",
+    "subtitle": "Choose a brand, then a model",
+    "universal": "Universal parts",
+    "universalNote": "Fits multiple models (incl. unclassified)",
+    "noStock": "No stock yet — ask us",
+    "items": "{count} items",
+    "models": "{count} models",
+    "viewAll": "View full catalog",
+    "backHome": "← Back to home",
+    "engines": "Engines",
+    "includeUniversal": "Include universal parts",
+    "hideUniversal": "Hide universal parts",
+    "total": "{total} products"
+  },
   "searchbox": {
     "placeholder": "Enter OEM number / model / name, e.g. WG1560118229",
     "search": "Search",
@@ -75,7 +90,14 @@
     "specs": "Specifications",
     "back": "← Back to home",
     "addInquiry": "+ Inquiry",
-    "added": "✓ Added · Submit now"
+    "added": "✓ Added · Submit now",
+    "vehicleModel": "Vehicle model",
+    "engineModel": "Engine",
+    "moq": "MOQ",
+    "packaging": "Packaging",
+    "crossReference": "Cross-reference numbers",
+    "pendingVerify": "To be verified",
+    "moqNote": "Confirm by inquiry"
   },
   "inquiry": {
     "title": "Inquiry List",

@@ -1,4 +1,11 @@
 import { tryGetSupabase } from '@/lib/supabase'
+import {
+  BRANDS,
+  UNIVERSAL_ID,
+  brandCount,
+  universalCount,
+  getPricedVehicleModelCounts,
+} from '@/lib/brands'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import OemSearchBox from '@/components/OemSearchBox'
@@ -35,8 +42,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const { locale } = await params
   setRequestLocale(locale)
   const t = await getTranslations('home')
+  const bt = await getTranslations('brands')
 
   const supabase = tryGetSupabase()
+  const counts = await getPricedVehicleModelCounts()
   const { data: products, error } = supabase
     ? await supabase
         .from('products')
@@ -69,6 +78,50 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className="mt-3 flex justify-center">
             <PhotoInquiryButton locale={locale} />
           </div>
+        </div>
+      </section>
+
+      {/* 品牌墙：按车型找配件（第二阶段 2.1） */}
+      <section className="max-w-4xl mx-auto px-4 py-12">
+        <h2 className="text-xl font-semibold text-gray-800 mb-2">{bt('title')}</h2>
+        <p className="text-sm text-gray-500 mb-6">{bt('subtitle')}</p>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {BRANDS.map((b) => {
+            const n = brandCount(counts, b.id)
+            const display = locale === 'zh' ? b.name : b.nameEn
+            return (
+              <Link
+                key={b.id}
+                href={`/brands/${b.id}`}
+                className="block bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md hover:border-blue-300 transition"
+              >
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="font-semibold text-gray-900">{display}</span>
+                  <span className="text-sm font-bold text-blue-700">{bt('items', { count: n })}</span>
+                </div>
+                <div className="mt-1 text-xs text-gray-400">
+                  {n === 0 ? bt('noStock') : bt('models', { count: b.models.length })}
+                </div>
+              </Link>
+            )
+          })}
+        </div>
+        <Link
+          href={`/brands/${UNIVERSAL_ID}`}
+          className="mt-3 block bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md hover:border-blue-300 transition"
+        >
+          <div className="flex items-baseline justify-between gap-2">
+            <span className="font-semibold text-gray-900">{bt('universal')}</span>
+            <span className="text-sm font-bold text-blue-700">
+              {bt('items', { count: universalCount(counts) })}
+            </span>
+          </div>
+          <div className="mt-1 text-xs text-gray-400">{bt('universalNote')}</div>
+        </Link>
+        <div className="mt-4 text-right">
+          <Link href="/products" className="text-sm text-blue-600 hover:text-blue-800">
+            {bt('viewAll')}
+          </Link>
         </div>
       </section>
 
