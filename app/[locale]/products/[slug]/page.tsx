@@ -83,12 +83,38 @@ export default async function ProductPage({ params }: Props) {
     description_en,
     description_zh,
     specs,
+    vehicle_model,
+    engine_model,
+    moq,
+    packaging,
+    cross_reference,
   } = data
 
+  // specs 里与新列重复的键（发动机／适配车型）以列值为准，列有值时不再重复显示；列为空则保留 specs 原值
   const specRows =
     specs && typeof specs === 'object'
-      ? Object.entries(specs).map(([k, v]) => [k, String(v)])
+      ? Object.entries(specs)
+          .filter(([k]) => {
+            if (k === '发动机' && engine_model != null) return false
+            if (k === '适配车型' && vehicle_model != null) return false
+            return true
+          })
+          .map(([k, v]) => [k, String(v)])
       : []
+
+  // 替换品牌编号 cross_reference 为 JSONB：对象/数组/字符串均按文本展示
+  const crossRefText =
+    cross_reference == null
+      ? null
+      : typeof cross_reference === 'string'
+        ? cross_reference || null
+        : Array.isArray(cross_reference)
+          ? cross_reference.map((x) => String(x)).join('、') || null
+          : typeof cross_reference === 'object'
+            ? Object.entries(cross_reference)
+                .map(([k, v]) => `${k}: ${String(v)}`)
+                .join('；') || null
+            : String(cross_reference)
 
   // 产品图(静态文件 public/products/{slug}.{webp,jpg,png},存在才展示)
   const imgExt = ['.webp', '.jpg', '.png'].find((e) =>
@@ -209,6 +235,31 @@ export default async function ProductPage({ params }: Props) {
                 <dd className="text-sm text-gray-900">{truck_model}</dd>
               </div>
             )}
+            <div>
+              <dt className="text-xs uppercase tracking-wide text-gray-400 mb-1">{t('vehicleModel')}</dt>
+              <dd className="text-sm text-gray-900">{vehicle_model || t('pendingVerify')}</dd>
+            </div>
+            <div>
+              <dt className="text-xs uppercase tracking-wide text-gray-400 mb-1">{t('engineModel')}</dt>
+              <dd className="text-sm text-gray-900">{engine_model || t('pendingVerify')}</dd>
+            </div>
+            <div>
+              <dt className="text-xs uppercase tracking-wide text-gray-400 mb-1">{t('moq')}</dt>
+              <dd className="text-sm text-gray-900">
+                {moq != null ? moq : t('pendingVerify')}
+                {moq != null && (
+                  <span className="ml-2 text-xs text-gray-400">{t('moqNote')}</span>
+                )}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-xs uppercase tracking-wide text-gray-400 mb-1">{t('packaging')}</dt>
+              <dd className="text-sm text-gray-900">{packaging || t('pendingVerify')}</dd>
+            </div>
+            <div className="sm:col-span-2">
+              <dt className="text-xs uppercase tracking-wide text-gray-400 mb-1">{t('crossReference')}</dt>
+              <dd className="text-sm text-gray-900 break-words">{crossRefText || t('pendingVerify')}</dd>
+            </div>
           </dl>
         </section>
 
