@@ -55,9 +55,13 @@ export default function ProductResults({ products, loading, error, onSelect }: P
         >
           <div className="font-medium text-gray-900">{p.name_en}</div>
           <div className="text-sm text-gray-500 mt-1">
-            OEM:{' '}
-            <span className="font-mono text-blue-700">{p.oem_number}</span>
-            {' | '}
+            {p.oem_number ? (
+              <>
+                OEM:{' '}
+                <span className="font-mono text-blue-700">{p.oem_number}</span>
+                {' | '}
+              </>
+            ) : null}
             Brand: {p.brand}
             {p.category && ` | ${p.category}`}
           </div>

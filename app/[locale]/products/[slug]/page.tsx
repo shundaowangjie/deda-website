@@ -41,11 +41,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!data) return { title: `${t('notFound')} - DEDA Auto Parts` }
 
   const { name_en, name_zh, brand, oem_number } = data
-  const title = `${name_en} | OEM ${oem_number ?? '-'} - DEDA`
+  // 模板空值隐藏：OEM 为空时不渲染 "| OEM -" / "OEM号 -" / "OEM N/A" 占位
+  const oem = oem_number?.trim() || undefined
+  const title = oem ? `${name_en} | OEM ${oem} - DEDA` : `${name_en} - DEDA`
   const description =
     locale === 'zh'
-      ? `${brand} ${name_en}（${name_zh ?? ''}），OEM号 ${oem_number ?? '-'}，济南德达汽车配件`
-      : `${brand ?? ''} ${name_en}${name_zh ? ` (${name_zh})` : ''} — heavy truck spare part, OEM ${oem_number ?? 'N/A'} | Jinan DEDA Auto Parts`
+      ? `${brand} ${name_en}（${name_zh ?? ''}）${oem ? `，OEM号 ${oem}` : ''}，济南德达汽车配件`
+      : `${brand ?? ''} ${name_en}${name_zh ? ` (${name_zh})` : ''} — heavy truck spare part${oem ? `, OEM ${oem}` : ''} | Jinan DEDA Auto Parts`
   return { title, description, alternates: { canonical: `/${locale === 'zh' ? '' : locale + '/'}products/${slug}` } }
 }
 
@@ -90,11 +92,16 @@ export default async function ProductPage({ params }: Props) {
     cross_reference,
   } = data
 
+  // 模板空值隐藏：与 generateMetadata 共用同一口径，OEM 为空时隐藏相关行与占位
+  const oem = oem_number?.trim() || undefined
+
   // specs 里与新列重复的键（发动机／适配车型）以列值为准，列有值时不再重复显示；列为空则保留 specs 原值
+  // 模板空值隐藏：specs 值为空（null/空串）时整行不渲染，避免出现空值或 "null"
   const specRows =
     specs && typeof specs === 'object'
       ? Object.entries(specs)
-          .filter(([k]) => {
+          .filter(([k, v]) => {
+            if (v == null || String(v).trim() === '') return false
             if (k === '发动机' && engine_model != null) return false
             if (k === '适配车型' && vehicle_model != null) return false
             return true
@@ -135,7 +142,7 @@ export default async function ProductPage({ params }: Props) {
     description:
       description_en ||
       description_zh ||
-      `${brand ? brand + ' ' : ''}${name_en}${truck_model ? ` for ${truck_model}` : ''} — heavy truck spare parts, OEM ${oem_number ?? 'N/A'}`,
+      `${brand ? brand + ' ' : ''}${name_en}${truck_model ? ` for ${truck_model}` : ''} — heavy truck spare parts${oem ? `, OEM ${oem}` : ''}`,
     url: `${SITE}/products/${slug}`,
     ...(price != null
       ? {
@@ -219,10 +226,12 @@ export default async function ProductPage({ params }: Props) {
               <dt className="text-xs uppercase tracking-wide text-gray-400 mb-1">{t('brand')}</dt>
               <dd className="text-sm text-gray-900">{brand}</dd>
             </div>
-            <div className="sm:col-span-2">
-              <dt className="text-xs uppercase tracking-wide text-gray-400 mb-1">{t('oem')}</dt>
-              <dd className="font-mono text-lg text-blue-700 font-semibold">{oem_number}</dd>
-            </div>
+            {oem && (
+              <div className="sm:col-span-2">
+                <dt className="text-xs uppercase tracking-wide text-gray-400 mb-1">{t('oem')}</dt>
+                <dd className="font-mono text-lg text-blue-700 font-semibold">{oem}</dd>
+              </div>
+            )}
             {category && (
               <div>
                 <dt className="text-xs uppercase tracking-wide text-gray-400 mb-1">{t('category')}</dt>

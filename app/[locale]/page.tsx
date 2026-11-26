@@ -170,8 +170,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 </div>
                 <div className="mt-3 flex items-center gap-3 text-sm">
                   <span className="text-gray-500">{p.brand}</span>
-                  <span className="text-gray-300">|</span>
-                  <span className="font-mono text-blue-700 font-semibold">{p.oem_number}</span>
+                  {p.oem_number && (
+                    <>
+                      <span className="text-gray-300">|</span>
+                      <span className="font-mono text-blue-700 font-semibold">{p.oem_number}</span>
+                    </>
+                  )}
                 </div>
                 {p.price != null && (
                   <div className="mt-3 pt-3 border-t border-gray-100 flex items-baseline gap-2">
