@@ -5,6 +5,7 @@ import { Link, usePathname, useRouter } from '@/i18n/navigation'
 import AuthButton from './AuthButton'
 
 const MAIN_SITE = 'https://dedaautoparts.com'
+const BRAND_SITE = 'https://company.dedaautoparts.com'
 const LOGO_SRC = '/deda-logo.png'
 
 const LOCALE_OPTIONS = [
@@ -36,10 +37,21 @@ export default function Navbar() {
         <div className="flex items-center gap-1 text-sm">
           <a
             href={MAIN_SITE}
+            target="_blank"
+            rel="noopener noreferrer"
             title={t('mainSite')}
             className="hidden sm:inline text-gray-600 hover:text-blue-700 transition px-3 py-1.5 rounded-lg hover:bg-gray-50"
           >
             {t('home')}
+          </a>
+          <a
+            href={BRAND_SITE}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={t('brandSite')}
+            className="hidden sm:inline text-gray-600 hover:text-blue-700 transition px-3 py-1.5 rounded-lg hover:bg-gray-50"
+          >
+            {t('brandSite')}
           </a>
           <Link
             href="/products"
